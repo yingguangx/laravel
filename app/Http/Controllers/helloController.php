@@ -12,7 +12,4 @@ class helloController extends BaseController
     public function index(){
     	return view('hello');
     }
-    public function add(){
-    	echo 1;
-    }
 }
