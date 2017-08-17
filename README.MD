@@ -5,8 +5,11 @@
  - 熟悉vue.js 
  - 微信sdk使用easywechat 
  - 微信sdk使用方式参观文档<a href="https://easywechat.org/">easywechat</a>
- - example 微信授权:
-         ```php
+ ## Usage
+ 
+ 基本使用: example 微信授权:
+ 
+ ```php
          <?php
          $wechat = new \EasyWeChat\Foundation\Application(config('wechat'));
                   	    $oauth = $wechat->oauth;
@@ -15,7 +18,7 @@
                   		    return $oauth->redirect();
                   	    }
                   	    $user = $_SESSION['wechat_user'];
-         ```
+ ```
         
  
  
