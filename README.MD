@@ -9,13 +9,13 @@
         <p>
                 $wechat = new \EasyWeChat\Foundation\Application(config('wechat'));
          	    $oauth = $wechat->oauth;
-         	    
          	    if (empty($_SESSION['wechat_user'])) {
          		    $_SESSION['target_url'] = 'user/profile';
          		    return $oauth->redirect();
          	    }
          	    $user = $_SESSION['wechat_user'];
-        </p>
+         </p>
+        
  
  
 
