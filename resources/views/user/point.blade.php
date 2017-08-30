@@ -23,9 +23,7 @@
         border: 1px solid #F0DB4F;
         height:100%;
        }
-       .center_box1{
-            
-       }
+     
     </style>
     <div class="big_frame row">
         <div class="small_frame">
@@ -69,7 +67,6 @@
         <script>
         $(document).ready(function(){
             var big_width = parseInt($('.big_frame').css('width'));
-            console.log(big_width);
             $('.big_frame').css('height',big_width/32*13+'px');
             $('.big_frame').css('padding',big_width/11+'px');
             $('.small_frame').css('padding',big_width/20+'px');
