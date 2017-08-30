@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 Route::get('/hello', 'helloController@index');
 Route::get('/points', 'pointsController@index');
+Route::get('/wheel', 'pointsController@wheel');
