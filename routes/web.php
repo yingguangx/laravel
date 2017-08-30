@@ -16,3 +16,9 @@ Route::get('/', function () {
 });
 Route::get('/hello', 'helloController@index');
 Route::get('/points', 'pointsController@index');
+Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
+    $action = empty($action)?'index':$action;
+    if(method_exists($controller,$action)){
+        return $controller->$action();
+    }
+});
