@@ -9,7 +9,9 @@
         <header>
             <div class="rt-bk">
                 <i class="bk"></i>
-                <p>返回</p>
+                <a href="/">
+                    <p>返回</p>
+                </a>
             </div>
             <div class="top-name"><p>个人中心</p></div>
         </header>
@@ -42,9 +44,24 @@
         </div>
         <section class="mt-3">
             <div class="ps-lt">
-                <div class="lt-dsb">
+                <div class="lt-dsb lt-order">
                     <p>我的订单</p>
                     <i class="arr-right"></i>
+                </div>
+            </div>
+            <div class="ps-lt ps-xl" style="display: none;">
+                <div class="lt-dsb" style="border-bottom: 0;">
+                    <p>订单1：2312312312</p>
+                </div>
+            </div>
+            <div class="ps-lt ps-xl" style="display: none;">
+                <div class="lt-dsb" style="border-bottom: 0;">
+                    <p>订单2：321312312</p>
+                </div>
+            </div>
+            <div class="ps-lt ps-xl" style="display: none;">
+                <div class="lt-dsb" style="border-bottom: 0;">
+                    <p>订单3:12312312</p>
                 </div>
             </div>
             <div class="ps-lt">
@@ -107,6 +124,9 @@
     <script type="text/javascript">
         $('.check-on').click(function(){
             $(this).toggleClass('check-off');
+        })
+        $('.lt-order').on('click',function () {
+            $('.ps-xl').slideToggle();
         })
     </script>
 @endpush
