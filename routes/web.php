@@ -14,4 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('/hello', 'helloController@index');
+});
 Route::get('/hello', 'helloController@index');
+Route::get('/points', 'pointsController@index');
+
