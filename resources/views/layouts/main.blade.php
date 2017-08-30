@@ -11,11 +11,11 @@
     <meta name="keywords" content="bootstrap,css,html">
     <meta name="description" content="fish">
     <title>fish</title>
-    <link rel="stylesheet" href="{{url(elixir("css/theme.src.css"))}}" type="text/css"/>
-    <link rel="stylesheet" href="{{url(elixir("css/app.src.css"))}}" type="text/css"/>
-    <link rel="stylesheet" href="{{asset('fonts/icofont/iconfont.css')}}">
-    <link rel="stylesheet" href="{{asset('fonts/icofont/iconfont.css')}}">
-    <link rel="stylesheet" href="{{asset(("web/css/swiper-3.4.0.min.css"))}}">
+    {{--<link rel="stylesheet" href="{{url(elixir("css/theme.src.css"))}}" type="text/css"/>--}}
+{{--    <link rel="stylesheet" href="{{url(elixir("css/app.src.css"))}}" type="text/css"/>--}}
+    {{--<link rel="stylesheet" href="{{asset('fonts/icofont/iconfont.css')}}">--}}
+    {{--<link rel="stylesheet" href="{{asset('fonts/icofont/iconfont.css')}}">--}}
+    {{--<link rel="stylesheet" href="{{asset(("web/css/swiper-3.4.0.min.css"))}}">--}}
 
     {{--<link rel="stylesheet" href="{{asset('web/css/index.css') }}">--}}
     {{--    <link rel="stylesheet" href="{{asset('web/css/house_reg.css')}}">--}}
@@ -35,18 +35,18 @@
 @yield('content')
 @yield('footer')
 
-<script src="{{ url('vendors/bower_components/jquery/dist/jquery.min.js') }}"></script>
-<script src="{{ url('web/js/swiper-3.4.0.jquery.min.js') }}"></script>
-<script src="{{url('web/js/bootstrap.min.js')}}"></script>
-<script src="{{url('web/js/index.js')}}"></script>
-<script src="{{url('web/js/current_location.js')}}"></script>
-<script src="{{url('web/js/article_list.js')}}"></script>
-<script src="{{url('web/js/article.js')}}"></script>
-<script src="{{url('web/js/building_detail.js')}}"></script>
-<script src="{{url('web/js/request.js')}}"></script>
-<script src="{{url('web/js/submit.js')}}"></script>
-<script src="{{url('web/js/filter_find.js')}}"></script>
-<script src="{{url('web/js/about_us.js')}}"></script>
+{{--<script src="{{ url('vendors/bower_components/jquery/dist/jquery.min.js') }}"></script>--}}
+{{--<script src="{{ url('web/js/swiper-3.4.0.jquery.min.js') }}"></script>--}}
+<script src="{{url('js/jquery-1.8.2.min.js')}}"></script>
+{{--<script src="{{url('web/js/index.js')}}"></script>--}}
+{{--<script src="{{url('web/js/current_location.js')}}"></script>--}}
+{{--<script src="{{url('web/js/article_list.js')}}"></script>--}}
+{{--<script src="{{url('web/js/article.js')}}"></script>--}}
+{{--<script src="{{url('web/js/building_detail.js')}}"></script>--}}
+{{--<script src="{{url('web/js/request.js')}}"></script>--}}
+{{--<script src="{{url('web/js/submit.js')}}"></script>--}}
+{{--<script src="{{url('web/js/filter_find.js')}}"></script>--}}
+{{--<script src="{{url('web/js/about_us.js')}}"></script>--}}
 {{--<script src="{{url(elixir('js/app.src.js'))}}"></script>--}}
 
 @stack('js')

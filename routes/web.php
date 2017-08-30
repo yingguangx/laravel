@@ -24,4 +24,5 @@ Route::get('/reChange', 'ReChangeController@reChange');
 //下分兑换
 Route::get('/exChange', 'ExChangeController@exChange');
 Route::get('/points', 'pointsController@index');
+Route::get('/user', 'UserController@index');
 
