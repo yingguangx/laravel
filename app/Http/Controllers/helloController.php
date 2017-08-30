@@ -11,6 +11,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class helloController extends BaseController
 {
     public function index(){
+    	return view('user.user');
 	    $wechat = new \EasyWeChat\Foundation\Application(config('wechat'));
 	    $oauth = $wechat->oauth;
 	    
