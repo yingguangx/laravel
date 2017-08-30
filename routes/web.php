@@ -25,4 +25,4 @@ Route::get('/reChange', 'ReChangeController@reChange');
 Route::get('/exChange', 'ExChangeController@exChange');
 Route::get('/points', 'pointsController@index');
 Route::get('/user', 'UserController@index');
-
+Route::get('/wheel', 'pointsController@wheel');
