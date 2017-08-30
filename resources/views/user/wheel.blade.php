@@ -3,11 +3,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>红色大气转盘抽奖活动专题模板</title>
-<link rel="stylesheet" type="text/css" href="css/zp_style.css">
-<script type="text/javascript" src="js/jquery-1.8.0.min.js"></script>
-<script type="text/javascript" src="js/jQueryRotate.2.2.js"></script>
-<script type="text/javascript" src="js/jquery.easing.min.js"></script>
-<script type="text/javascript" src="js/zp.js"></script>
+<link href="{{URL::asset('css/zp_style.css')}}" rel="stylesheet" />
+<script type="text/javascript" src="{{URL::asset('js/jquery-1.8.0.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('js/jQueryRotate.2.2.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('js/jquery.easing.min.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('js/zp.js')}}"></script>
 
 <script type="text/javascript">
 $(function(){
@@ -185,7 +185,7 @@ $(function(){
 				 $(this).rotate({
 					 	duration:3000,
 					 	angle: 0, 
-            			animateTo:1440+60,
+            			animateTo:1440+120,
 						easing: $.easing.easeOutSine,
 						callback: function(){
 							alert(a.prize+a.message);
