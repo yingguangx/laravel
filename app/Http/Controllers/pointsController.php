@@ -13,4 +13,9 @@ class pointsController extends BaseController
     public function index(){
 	    return view('user.point');
     }
+
+    public function wheel()
+    {
+	    return view('user.wheel');
+    }
 }
