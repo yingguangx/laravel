@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function index(){
-	    if(getUserAgent() == 'weixin'){
+	    if(getUserAgent() == 'Weixin'){
 	    $user = session('wechat.oauth_user'); // 拿到授权用户资料
 	
 	    dd($user);
