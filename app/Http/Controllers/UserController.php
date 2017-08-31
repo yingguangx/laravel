@@ -12,10 +12,15 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function index(){
-//	    $user = session('wechat.oauth_user'); // 拿到授权用户资料
+	    if(getUserAgent() == 'weixin'){
+	    $user = session('wechat.oauth_user'); // 拿到授权用户资料
 	
-//	    dd($user);
+	    dd($user);
+	    
+	    }else{
+	    
 	    dd($this->getAuthUser());
+	    }
     	return view('user.user');
 //	    $wechat = new \EasyWeChat\Foundation\Application(config('wechat'));
 //	    $oauth = $wechat->oauth;
