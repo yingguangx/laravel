@@ -15,7 +15,6 @@
             </div>
             <div class="top-name"><p>个人中心</p></div>
         </header>
-
         <div class="head">
             <div class="head-img">
                 <img src="images/head-img.png">

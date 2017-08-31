@@ -10,9 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -25,10 +27,15 @@ Route::get('/reChange', 'ReChangeController@reChange');
 Route::get('/exChange', 'ExChangeController@exChange');
 Route::get('/points', 'pointsController@index');
 Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
-    $action = empty($action)?'index':$action;
-    if(method_exists($controller,$action)){
-        return $controller->$action();
-    }
+	$action = empty($action)?'index':$action;
+	if(method_exists($controller,$action)){
+		return $controller->$action();
+	}
 });
-Route::get('/user', 'UserController@index');
+//Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
+//	Route::get('/user', 'UserController@index');
+//});
+Route::group(['middleware' => ['auth']], function () {
+	Route::get('/user', 'UserController@index');
+});
 Route::get('/wheel', 'pointsController@wheel');

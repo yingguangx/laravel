@@ -29,7 +29,8 @@
             margin-right:5px;
         }
         .coupons-div li span{
-            padding: 5px;
+            padding: 0px;
+            padding-top: 3px;
         }
         .coupons-div li.active{
             color:#A2C468;
