@@ -9,13 +9,13 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 
-class UserController extends BaseController
+class UserController extends Controller
 {
     public function index(){
 //	    $user = session('wechat.oauth_user'); // 拿到授权用户资料
 	
 //	    dd($user);
-	    dd(Auth::user());
+	    dd($this->getAuthUser());
     	return view('user.user');
 //	    $wechat = new \EasyWeChat\Foundation\Application(config('wechat'));
 //	    $oauth = $wechat->oauth;

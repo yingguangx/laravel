@@ -12,7 +12,7 @@ namespace App\Http\Controllers;
  * Class CouponsController
  * @package App\Http\Controllers
  */
-class CouponsController
+class CouponsController extends Controller
 {
     public function index()
     {
