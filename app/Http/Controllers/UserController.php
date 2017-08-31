@@ -14,9 +14,7 @@ class UserController extends Controller
     public function index(){
 	    if(getUserAgent() == 'Weixin'){
 	    $user = session('wechat.oauth_user'); // 拿到授权用户资料
-	
-	    dd($user);
-	    
+          echo 1;die;
 	    }else{
 	    
 	    dd($this->getAuthUser());
