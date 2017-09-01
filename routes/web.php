@@ -12,30 +12,27 @@
 */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
 	return view('welcome');
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
+//Route::group(['middleware' => ['auth']], function () {
+	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/hello', 'helloController@index');
-});
-Route::get('/hello', 'helloController@index');
-//上分充值
-Route::get('/reChange', 'ReChangeController@reChange');
-//下分兑换
-Route::get('/exChange', 'ExChangeController@exChange');
-Route::get('/points', 'pointsController@index');
-Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
-	$action = empty($action)?'index':$action;
-	if(method_exists($controller,$action)){
-		return $controller->$action();
-	}
-});
-//Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
-//	Route::get('/user', 'UserController@index');
-//});
-Route::group(['middleware' => ['auth']], function () {
+	Route::get('/hello', 'helloController@index');
+	//上分充值
+	Route::get('/reChange', 'ReChangeController@reChange');
+	//下分兑换
+	Route::get('/exChange', 'ExChangeController@exChange');
+	Route::get('/points', 'pointsController@index');
+	Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
+		$action = empty($action)?'index':$action;
+		if(method_exists($controller,$action)){
+			return $controller->$action();
+		}
+	});
+	//	Route::get('/user', 'UserController@index');
 	Route::get('/user', 'UserController@index');
+	Route::get('/wheel', 'pointsController@wheel');
 });
-Route::get('/wheel', 'pointsController@wheel');
