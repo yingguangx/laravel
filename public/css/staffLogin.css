@@ -14,7 +14,6 @@ body,html{
     overflow:hidden;
 }
 body{
-    /*background:url(/images/web_login_bg.jpg) no-repeat center;*/
     background:url("../images/web_login_bg.jpg") no-repeat center;
 
     background-size: cover;
