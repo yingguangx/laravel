@@ -16,10 +16,16 @@ class UserController extends Controller
 	    $user = session('wechat.oauth_user'); // 拿到授权用户资料
           echo 1;die;
 	    }else{
-	    
-	    dd($this->getAuthUser());
+	      $user = Auth::user();
+//	      $user->status = 0;
+//	      $user->email = '2323@163.com';
+//	      $user->name = 1;
+//	      $user->save();
+//	      dd($user);
 	    }
-    	return view('user.user');
+    	return view('user.user',[
+    			'user'=>$user,
+	    ]);
 //	    $wechat = new \EasyWeChat\Foundation\Application(config('wechat'));
 //	    $oauth = $wechat->oauth;
 //

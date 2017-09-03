@@ -20,7 +20,7 @@
                 <img src="images/head-img.png">
             </div>
             <div class="head-dsb">
-                <p class="dsb-name">user</p>
+                <p class="dsb-name">{{ $user->name }}</p>
                 <p class="dsb-id">nickName</p>
             </div>
         </div>
@@ -29,15 +29,18 @@
             <ul>
                 <li>
                     <i class="idt"></i>
-                    <p>200</p>
+                    <p>余额</p>
+                    <span>200</span>
                 </li>
                 <li class="pt-line">
                     <i class="clt"></i>
-                    <p>3000</p>
+                    <p>积分</p>
+                    <span>3000</span>
                 </li>
                 <li>
                     <i class="rcm"></i>
                     <p>卡劵</p>
+                    <span>0</span>
                 </li>
             </ul>
         </div>
@@ -78,6 +81,12 @@
             <div class="ps-lt">
                 <div class="lt-dsb cl-bb">
                     <p>问题帮助</p>
+                    <i class="arr-right"></i>
+                </div>
+            </div>
+            <div class="ps-lt keyGen">
+                <div class="lt-dsb cl-bb">
+                    <p>我的密钥</p>
                     <i class="arr-right"></i>
                 </div>
             </div>
@@ -127,6 +136,16 @@
         $('.lt-order').on('click',function () {
             $('.ps-xl').slideToggle();
         })
+    </script>
+    <script type="text/javascript" src="{{asset('/js/layui/layui.js')}}"></script>
+    <script type="text/javascript">
+      layui.use('layer',function(){
+             window.layer = layui.layer;
+      });
+      $('.keyGen').on('click',function () {
+        alert(1);
+      })
+
     </script>
 @endpush
 @endsection
