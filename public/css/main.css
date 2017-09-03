@@ -1,0 +1,169 @@
+body {
+  font-family: "microsoft YaHei";
+}
+.login_body {
+  background: #fff;
+}
+.login_footer {
+  left: 0;
+}
+.login_footer ul {
+  list-style: none;
+  overflow: hidden;
+  border-bottom: 1px solid #DBE0E1;
+}
+.login_footer ul li {
+  float: left;
+  padding-left: 40px;
+  line-height: 32px;
+}
+@media screen and (max-width: 760px){
+  .login_footer ul li {
+    float: left;
+    padding-left: 0px;
+    line-height: 32px;
+  }
+}
+.login_footer h3,
+.login_footer span {
+  font-weight: bold;
+  margin: 0;
+}
+.copy p {
+  text-align: center;
+  padding-top: 10px;
+}
+.overflow_cu {
+  overflow: hidden;
+}
+.footer {
+  padding: 10px 30px;
+}
+.footer-top ul {
+  list-style: none;
+  overflow: hidden;
+  line-height: 30px;
+}
+.footer-top ul li {
+  float: left;
+  margin-right: 20px;
+}
+.footer-top ul li h3 {
+  line-height: 1;
+  margin: 0;
+}
+.hr {
+  height: 1px;
+  background: #000;
+}
+li.active a {
+  font-weight: bold;
+  color: #0088CC;
+}
+.main_tips {
+  height: 36px;
+}
+.clh {
+  line-height: 36px;
+}
+a.current {
+  background: #6E8CD7;
+  color: #fff;
+}
+a.active-bold {
+  font-weight: bold;
+}
+.chat {
+  height: 460px;
+  background: #FAFAFA;
+  border: 1px solid #666666;
+  border-radius: 5px;
+}
+.alert {
+  visibility: hidden;
+}
+.dispaly-none {
+  display: none;
+}
+.center-block {
+  float: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-group .icon-addon .form-control {
+  border-radius: 0;
+}
+
+.icon-addon {
+  position: relative;
+  color: #555;
+  display: block;
+}
+
+.icon-addon:after,
+.icon-addon:before {
+  display: table;
+  content: " ";
+}
+
+.icon-addon:after {
+  clear: both;
+}
+
+.icon-addon.addon-md .glyphicon,
+.icon-addon .glyphicon,
+.icon-addon.addon-md .fa,
+.icon-addon .fa {
+  position: absolute;
+  z-index: 2;
+  left: 10px;
+  font-size: 14px;
+  width: 20px;
+  margin-left: -2.5px;
+  text-align: center;
+  padding: 10px 0;
+  top: 1px
+}
+
+.icon-addon.addon-lg .form-control {
+  line-height: 1.33;
+  font-size: 18px;
+  padding: 10px 16px 10px 40px;
+}
+
+.icon-addon.addon-sm .form-control {
+  height: 30px;
+  padding: 5px 10px 5px 28px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.icon-addon.addon-lg .fa,
+.icon-addon.addon-lg .glyphicon {
+  font-size: 18px;
+  margin-left: 0;
+  left: 11px;
+}
+
+.icon-addon.addon-md .form-control,
+.icon-addon .form-control {
+  padding-left: 30px;
+  float: left;
+  font-weight: normal;
+}
+
+.icon-addon.addon-sm .fa,
+.icon-addon.addon-sm .glyphicon {
+  margin-left: 0;
+  font-size: 12px;
+  left: 5px;
+  top: -1px
+}
+
+.icon-addon .form-control:focus + .glyphicon,
+.icon-addon:hover .glyphicon,
+.icon-addon .form-control:focus + .fa,
+.icon-addon:hover .fa {
+  color: #2580db;
+}
