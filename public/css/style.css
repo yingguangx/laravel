@@ -12,3 +12,7 @@ a:hover{color:#c00; text-decoration:none;}
 .banner .turnplate{display:block;width:100%;position:relative;}
 .banner .turnplate canvas.item{width:100%;}
 .banner .turnplate img.pointer{position:absolute;width:31.5%;height:42.5%;left:34.6%;top:23%;}
+.wrapper-page{
+	padding:23vh 37vw 8vh 37vw;
+	background: #F1F4F5;
+}

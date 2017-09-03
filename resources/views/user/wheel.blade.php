@@ -64,26 +64,26 @@ $(function(){
           <div class="win_height">
             <div id="demo">
               <ul class="win_list mulitline">
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>VIP6会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt"><font>80元</font>运费抵扣券</span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt"><font>40元</font>运费抵扣券</span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>VIP6会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt"><font>80元</font>运费抵扣券</span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt"><font>40元</font>运费抵扣券</span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt"><font>10元</font>运费抵扣券</span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
-                <li><span class="txt">永久性<font>高级会员</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>10万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>100万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt"><font>80元</font>100万金币</span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>100万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>100万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>100万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt"><font>40元</font>100万金币</span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>100万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>20元rmb</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt"><font>80元</font>100元rmb</span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>3次连冲送10万</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>20万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>20万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt"><font>40元</font>20万金币</span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>20万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>20万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>20万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt"><font>10元</font>20万金币</span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>20万金币</font></span><strong class="num">182****9659</strong></li>
+                <li><span class="txt">永久性<font>20万金币</font></span><strong class="num">182****9659</strong></li>
               </ul>
             </div>
           </div>
@@ -178,12 +178,12 @@ $(function(){
 <div class="Activities">
   <h1><span class="fh_top2"> <a href="#top" target="_self" title="返回顶部"><img src="images/ic_top.png" /></a></span><img src="images/Activities_09.jpg" width="146" height="35" alt=""/></h1>
   <div class="ate_box">
-    <p>1. 该活动仅限被审核通过的会员参加（<a href="#">立即注册</a>）；</p>
-    <p>2. 每位会员有且仅有一次抽奖资格；</p>
+    <p>1.每位获奖会员请到个人中心奖券栏中查看</p>
+    <p>2. 每位会员每天有且仅有一次抽奖资格；</p>
     <p>3. 对未按照活动规则参与抽奖，或不符合抽奖资格的会员，活动主办方有权取消其抽奖资格，并收回其抽奖所获得奖品；</p>
     <p>4. 会员参加活动的否成功，以活动页面提示为准，如因网络系统异常问题，导致无法参与抽奖，将不给予补偿；</p>
-    <p>5. 本活动由XXX独家承办，XXX联合赞助；</p>
-    <p>6. XXX拥有此次活动的最终解释权。更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a></p>
+    <p>5. 本活动由XXX公司独家承办</p>
+    <p>6. XXX公司拥有此次活动的最终解释权</p>
   </div>
 </div>
 </body>
@@ -203,7 +203,7 @@ $(function(){
         //动态添加大转盘的奖品与奖品区域背景颜色
         // turnplate.restaraunts = ["50M免费流量包", "10闪币", "谢谢参与", "5闪币", "10M免费流量包", "20M免费流量包", "20闪币 ", "30M免费流量包", "100M免费流量包", "2闪币"];
         // turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF","#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF","#FFF4D6", "#FFFFFF"];
-        turnplate.restaraunts = ["50M免费流量包", "10闪币", "谢谢参与", "5闪币", "10M免费流量包"];
+        turnplate.restaraunts = ["送10万金币", "送20万金币", "送20元人民币", "送100万金币", "谢谢惠顾"];
         turnplate.colors = ["#FFF4D6", "#FFFFFF", "#FFF4D6", "#FFFFFF","#FFF4D6"];
 
         var rotateTimeOut = function (){
