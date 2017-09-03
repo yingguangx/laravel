@@ -14,7 +14,7 @@
     <div class="message">集结号微信后台登录</div>
     <div id="darkbannerwrap"></div>
 
-    <form method="post" action="/staff/dologin">
+    <form method="post" action="{{ URL::action('/staff/dologin') }}">
         {{ csrf_field() }}
         <input name="email" placeholder="用户名" required="" type="text">
         <hr class="hr15">
