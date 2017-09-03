@@ -1,4 +1,4 @@
-@extends('staffLayout')
+@extends('staffLayOut')
 
 @section('content')
     <span>Hello Dr.Chen!</span>
