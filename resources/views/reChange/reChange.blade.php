@@ -91,7 +91,9 @@
         </li>
         <div style="clear: both;"></div>
     </ul>
-    <div class="pic">金额：<input type="text" placeholder="金额必须为100以上" id="txt" /></div>
+    <div class="pic">
+        <span>小提示: 每上分200可获得20积分！！</span>
+    </div>
     <div class="botton">我要充值</div>
     <div class="agreement"><p>点击我要充值，即您已经表示同意<a>《充返活动协议》</a></p></div>
     <div class="f-overlay"></div>
@@ -116,6 +118,7 @@
     //隐藏自定义金额
     $('.selInput').click(function () {
         $('#user_defined').hide();
+        $('#inputDefined').val('');
     })
     //选择金额相关
     $(".person_wallet_recharge .ul li").click(function(e){
@@ -149,6 +152,7 @@
         } else {
             money = inputDefined;
         }
+
         $.ajax({
             type:'post',
             dataType:'json',
