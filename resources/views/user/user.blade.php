@@ -79,7 +79,7 @@
                 </div>
             </div>
             <div class="ps-lt">
-                <div class="lt-dsb cl-bb">
+                <div class="lt-dsb">
                     <p>问题帮助</p>
                     <i class="arr-right"></i>
                 </div>
@@ -143,7 +143,54 @@
              window.layer = layui.layer;
       });
       $('.keyGen').on('click',function () {
-        alert(1);
+        if('{{ $user->key }}' == ''){
+          layer.open({
+            title:'请输入您的密钥',
+            content: '<input type="password" id="keygen" name="key" required lay-verify="required" placeholder="请输入您的密钥" autocomplete="off" class="layui-input">'
+            ,btn: ['<p style="font-size: 14px;">确定</p>', '<p style="font-size: 14px;">取消</p>']
+            ,yes: function(index, layero){
+              if($('#keygen').val() == ''){
+                layer.msg('请输入密钥！');
+                return false;
+              }
+              //按钮【按钮一】的回调
+              $.ajax({
+                type:'post',
+                dataType:'json',
+                url:'/user/keygen',
+                data:{
+                  'userID':'{{ $user->id }}',
+                  'keygen':$('#keygen').val(),
+                  '_token':'{{csrf_token()}}'
+                },
+                success:function (result) {
+                  layer.msg(result.message);
+                },
+                error:function () {
+                  layer.msg('网络连接失败，请稍后再试！');
+                }
+              })
+            },
+            btn2: function(index, layero){
+              //按钮【按钮二】的回调
+              layer.msg('2');
+
+              //return false 开启该代码可禁止点击该按钮关闭
+            }
+            ,cancel: function(){
+              //右上角关闭回调
+
+              //return false 开启该代码可禁止点击该按钮关闭
+            }
+          })
+        }else{
+          layer.open({
+            title: '我的密钥'
+            ,content: '我的密钥：<span>{{ $user->key }}</span>',
+            btn:['<p style="font-size: 14px;">确定</p>']
+          })
+        }
+
       })
 
     </script>

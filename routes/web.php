@@ -50,5 +50,6 @@ Route::group(['middleware' => ['auth']], function () {
 	});
 	//	Route::get('/user', 'UserController@index');
 	Route::get('/user', 'UserController@index');
+	Route::post('/user/keygen', 'UserController@addKeyGen');
 	Route::get('/wheel', 'pointsController@wheel');
 });
