@@ -25,7 +25,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 				'city'=>$faker->city,
 				'money'=> rand(100,1000),
 				'points'=> rand(100,1000),
-				'key'=> str_random(16),
+				'key'=> '',
         'password' => $password ?: $password = bcrypt('secret'),
         'remember_token' => str_random(10),
     ];
