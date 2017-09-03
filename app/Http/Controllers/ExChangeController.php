@@ -11,4 +11,9 @@ class ExChangeController extends Controller
     {
         return view('exChange/exChange');
     }
+
+    public function exChange()
+    {
+    	
+    }
 }

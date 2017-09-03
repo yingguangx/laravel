@@ -39,3 +39,12 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/user', 'UserController@index');
 });
 Route::get('/wheel', 'pointsController@wheel');
+
+Route::group(['prefix' => 'staff','namespace' => 'Staff','middleware' => 'auth.beforeStaff:staff'],function ($router) {
+    $router->get('login', 'LoginController@showLoginForm')->name('staff.login');	
+    $router->get('dashboard', 'DashboardController@index');
+    $router->get('aa',function(){
+	  	// dd($_SERVER['SERVER_NAME']);
+	  dd(getenv('SITE_CUSTOMER'));
+	});	
+});
