@@ -15,8 +15,23 @@ Auth::routes();
 Route::get('/', function () {
 	return view('welcome');
 });
-
-
+Route::group(['middleware' => 'auth'], function () {
+	Route::get('/hello', 'helloController@index');
+});
+Route::get('/hello', 'helloController@index');
+//上分充值
+Route::get('/reChange', 'ReChangeController@reChange');
+Route::post('/getRate', 'ReChangeController@getRate');
+Route::post('/newOrder', 'ReChangeController@newOrder');
+//下分兑换
+Route::get('/exChange', 'ExChangeController@exChange');
+Route::get('/points', 'pointsController@index');
+Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
+	$action = empty($action)?'index':$action;
+	if(method_exists($controller,$action)){
+		return $controller->$action();
+	}
+});
 //Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
