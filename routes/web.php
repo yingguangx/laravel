@@ -12,17 +12,17 @@
 */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', function () {
 	return view('welcome');
 });
-
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/hello', 'helloController@index');
 });
 Route::get('/hello', 'helloController@index');
 //上分充值
 Route::get('/reChange', 'ReChangeController@reChange');
+Route::post('/getRate', 'ReChangeController@getRate');
+Route::post('/newOrder', 'ReChangeController@newOrder');
 //下分兑换
 Route::get('/exChange', 'ExChangeController@exChange');
 Route::get('/points', 'pointsController@index');
@@ -33,12 +33,26 @@ Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsControlle
 	}
 });
 //Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
-//	Route::get('/user', 'UserController@index');
-//});
 Route::group(['middleware' => ['auth']], function () {
+	Route::get('/home', 'HomeController@index')->name('home');
+	Route::get('/hello', 'helloController@index');
+	Route::get('/hello', 'helloController@index');
+	//上分充值
+	Route::get('/reChange', 'ReChangeController@reChange');
+	//下分兑换
+	Route::get('/exChange', 'ExChangeController@exChange');
+	Route::get('/points', 'pointsController@index');
+	Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
+		$action = empty($action)?'index':$action;
+		if(method_exists($controller,$action)){
+			return $controller->$action();
+		}
+	});
+	//	Route::get('/user', 'UserController@index');
 	Route::get('/user', 'UserController@index');
+	Route::post('/user/keygen', 'UserController@addKeyGen');
+	Route::get('/wheel', 'pointsController@wheel');
 });
-Route::get('/wheel', 'pointsController@wheel');
 
 Route::group(['prefix' => 'staff','namespace' => 'Staff','middleware' => 'auth.beforeStaff:staff'],function ($router) {
     $router->get('login', 'LoginController@showLoginForm')->name('staff.login');	
@@ -48,3 +62,4 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff','middleware' => 'auth.b
 	  dd(getenv('SITE_CUSTOMER'));
 	});	
 });
+

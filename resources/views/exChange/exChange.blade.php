@@ -20,7 +20,7 @@
 </header>
 <!--头部 end-->
 <div class="banner">
-    <img src="{{ asset('images/exchange.jpeg') }}" width="100%" height="80%"/>
+    <img src="{{ asset('images/exchange.png') }}" width="100%" height="80%"/>
 </div>
 
 <!--选择种类-->
