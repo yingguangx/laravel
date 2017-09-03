@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
 {
     $router->get('login', 'LoginController@login')->name('staff.login');
-    $router->post('dologin', 'LoginController@dologin');
+    $router->post('dologin', 'LoginController@dologin')->name('staff.dologin');
     $router->get('index', 'LoginController@staffIndex')->name('staff.index');
     $router->get('loginOut', 'LoginController@loginOut')->name('staff.loginOut');
 });
