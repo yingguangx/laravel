@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Integration;
+use App\Models\IntegrationRule;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,15 +35,34 @@ class ReChangeController extends Controller
         return response()->json($array);
     }
 
+    //上分新订单
     public function newOrder(Request $request)
     {
         $data = $request->all();
+        $money = $data['money'];
 
+        $rule = IntegrationRule::find(1);
+        if ($money >= $rule['limit_value']) {
+            $this::userAddIntegration($data['user_id'], $data['money'], $rule);
+        }
         $obj = new Order();
         foreach ($data as $k => $v) {
             $obj -> $k = $v;
         }
 
         return response()->json($obj->save());
+    }
+
+    //客户积分存储
+    public static function userAddIntegration($user_id, $money, $obj)
+    {
+        $multiple = (int)floor($money/$obj['limit_value']);
+        $integration = $multiple*$obj['integration'];
+
+        $newObj = new Integration();
+        $newObj -> user_id = $user_id;
+        $newObj -> integration = $integration;
+
+        $newObj -> save();
     }
 }
