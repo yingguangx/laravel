@@ -21,16 +21,15 @@ class ReChangeController extends Controller
     {
         $gameId = $request->input('game_id');
         $money = $request->input('money');
-        $obj = DB::table('exchange_rate as er')
-            ->leftjoin('game as g', 'g.id', '=', 'er.game_id')
-            ->where('er.game_id', $gameId)
-            ->where('er.status', 1)
-            ->select('er.rate', 'g.name')
+        $obj = DB::table('game')
+            ->where('id', $gameId)
+            ->where('status', 1)
+            ->select('up_rate', 'name')
             ->first();
         $array = array();
-        $array['rate'] = $obj->rate;
+        $array['rate'] = $obj->up_rate;
         $array['name'] = $obj->name;
-        $array['value'] = $money*$obj->rate;
+        $array['value'] = $money*$obj->up_rate;
 
         return response()->json($array);
     }

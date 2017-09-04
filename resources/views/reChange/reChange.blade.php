@@ -27,7 +27,7 @@
 </div>
 
 <!--选择种类-->
-<div class="sel_type">
+<div class="sel_type" style="margin-top: 30px">
     <div class="fl typeP">
         <p>选择游戏种类:</p>
     </div>
@@ -52,9 +52,9 @@
     <div class="clear"></div>
 </div>
 <!--自定义金额-->
-<div class="sel_type hide" id="user_defined">
+<div class="sel_type" id="user_defined">
     <div class="fl typeP">
-        <p>自定义充值:</p>
+        <p>输入充值金额:</p>
     </div>
     <div class="fl typeSel">
         <input  id="inputDefined" type="text" class="form-input" placeholder="请输入金额">
@@ -64,35 +64,8 @@
 
 <!--充值列表-->
 <div class="person_wallet_recharge">
-    <ul class="ul">
-        <li class="mark">
-            <h2 class="selInput">100</h2>
-            <div class="sel" style=""></div>
-        </li>
-        <li class="mark">
-            <h2 class="selInput">200</h2>
-            <div class="sel" style=""></div>
-        </li>
-        <li class="mark">
-            <h2 class="selInput">300</h2>
-            <div class="sel" style=""></div>
-        </li>
-        <li class="mark">
-            <h2 class="selInput">400</h2>
-            <div class="sel" style=""></div>
-        </li>
-        <li class="mark">
-            <h2 class="selInput">500</h2>
-            <div class="sel" style=""></div>
-        </li>
-        <li>
-            <h2 onclick="userDefined()">自定义</h2>
-            <div class="" style="" ></div>
-        </li>
-        <div style="clear: both;"></div>
-    </ul>
     <div class="pic">
-        <span>小提示: 每上分200可获得20积分！！</span>
+        <span>小提示: 每上分200元可获得20积分！！</span>
     </div>
     <div class="botton">我要充值</div>
     <div class="agreement"><p>点击我要充值，即您已经表示同意<a>《充返活动协议》</a></p></div>
@@ -115,17 +88,6 @@
         $('#user_defined').show();
         $('#user_defined').parent().removeClass("current");
     }
-    //隐藏自定义金额
-    $('.selInput').click(function () {
-        $('#user_defined').hide();
-        $('#inputDefined').val('');
-    })
-    //选择金额相关
-    $(".person_wallet_recharge .ul li").click(function(e){
-        $(this).addClass("current").siblings("li").removeClass("current");
-        $(this).children(".sel").show(0).parent().siblings().children(".sel").hide(0);
-    });
-
     //验证
     $('.botton').click(function () {
         var type = $('#selType').val();
