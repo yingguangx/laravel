@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 
 class pointsController extends Controller
 {
@@ -47,15 +48,25 @@ class pointsController extends Controller
     public function get_award()
     {
         $award_arr = $this->award_list();
-        $prize_detail = Prize_detail::find(Prize_detail::get_award());
+        if($setting = Wheel_setting::first()){
+           //判断次数是否超过了每人每天可玩的次数限制
+           dd($setting);
+        }
+        $prize_detail_id = Prize_detail::get_award();
+        $prize_detail = Prize_detail::find($prize_detail_id);
         $data = Prize_detail::format_award_arr(Prize_detail::award_list());
+        $userCoupon = '';
         if(!$prize_detail->name!='谢谢参与'){
             //向中奖的数据中插入数据
             $userCoupon = new user_coupon([
-//                'user_id' =>
+                'user_id'         => Auth::user()->id,
+                'prize_detail_id' => $prize_detail_id,
+                'create_time'     => time(),
+                'expire_time'     => time()+100000000,
             ]);
+           $userCoupon->save();
+           $userCoupon = $userCoupon::luck_list($userCoupon->id);
         }
-
-        return MyWoKer::jsonSuccess(array_search($prize_detail->name,$data['restaraunts'])+1);
+        return MyWoKer::jsonSuccess(['item'=>array_search($prize_detail->name,$data['restaraunts'])+1,'new_luck_list'=>$userCoupon?$userCoupon:'']);
     }
 }
