@@ -31,7 +31,7 @@ header{ position:relative; width: 7.5rem; height: 0.84rem;  border-bottom:1px so
 .head{ position:relative; width:7.5rem; height:5rem; margin-top:0.29rem; background:url(../images/user-back.jpg) no-repeat; background-size:7.5rem 5rem;}
 .head-img{ position:absolute; top:1.6rem; left:3rem; width:1.43rem; height:1.43rem; padding:0.04rem; border-radius:1rem; background-color:#fff;}
 .head-img img{ width:1.43rem; height:1.43rem;}
-.head-dsb{ position:absolute; top:3.4rem; left:35%;text-align: center}
+.head-dsb{ position:absolute; top:3.4rem; left:40%;text-align: center}
 .head-dsb p{ font-size:0.28rem; color:#fff;}
 .dsb-id{ margin-top:0.08rem;}
 .nav{ width:7.5rem; height:1.22rem; margin-top:0.26rem; background-color:#fff;}
