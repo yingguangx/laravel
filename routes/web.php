@@ -75,6 +75,9 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('addIntegration', 'IntegrationController@addIntegration');
     $router->post('editIntegration', 'IntegrationController@editIntegration');
     $router->get('xiafenOrderIndex', 'OrderController@xiafenOrderIndex');
+    $router->get('shafenOrderIndex', 'OrderController@shafenOrderIndex');
+    $router->get('jifenOrderIndex', 'OrderController@jifenOrderIndex');
+    $router->get('balanceIndex', 'OrderController@balanceIndex');
     $router->get('gameSetting', 'OrderController@gameSetting')->name('staff.gameSetting');
     $router->get('delGame/{id}', 'OrderController@delGame');
     $router->post('getmessage', 'OrderController@getmessage');

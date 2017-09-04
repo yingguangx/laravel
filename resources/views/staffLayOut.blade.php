@@ -53,9 +53,10 @@
         <li class="childUlLi">
             <a href="#"  target="menuFrame"> <i class="glyph-icon icon-reorder"></i>订单管理<span style="color:red;" class="ordernum"></span></a>
             <ul>
-                <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>上分订单</a></li>
+                <li><a href="{{ URL('staff/shafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>上分订单</a></li>
                 <li><a href="{{ URL('staff/xiafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>下分订单<span style="color:red;" class="xiafenorder"></span></a></li>
-                <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>积分订单</a></li>
+                <li><a href="{{ URL('staff/jifenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>积分订单</a></li>
+                <li><a href="{{ URL('staff/balanceIndex') }}"><i class="glyph-icon icon-chevron-right"></i>余额兑换</a></li>
             </ul>
         </li>
         <li class="childUlLi">
