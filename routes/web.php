@@ -23,6 +23,7 @@ Route::get('/hello', 'helloController@index');
 Route::get('/reChange', 'ReChangeController@reChange');
 Route::post('/getRate', 'ReChangeController@getRate');
 Route::post('/newOrder', 'ReChangeController@newOrder');
+
 //下分兑换
 Route::get('/exChange', 'ExChangeController@exChange');
 Route::get('/points', 'pointsController@index');
@@ -60,12 +61,12 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/test', 'ExChangeController@test');
 });
 
-Route::group(['prefix' => 'staff','namespace' => 'Staff','middleware' => 'auth.beforeStaff:staff'],function ($router) {
-    $router->get('login', 'LoginController@showLoginForm')->name('staff.login');	
-    $router->get('dashboard', 'DashboardController@index');
-    $router->get('aa',function(){
-	  	// dd($_SERVER['SERVER_NAME']);
-	  dd(getenv('SITE_CUSTOMER'));
-	});	
+//员工端
+Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
+{
+    $router->get('login', 'LoginController@login')->name('staff.login');
+    $router->post('dologin', 'LoginController@dologin')->name('staff.dologin');
+    $router->get('index', 'LoginController@staffIndex')->name('staff.index');
+    $router->get('loginOut', 'LoginController@loginOut')->name('staff.loginOut');
 });
 

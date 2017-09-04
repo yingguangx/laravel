@@ -28,6 +28,7 @@ class ExChangeController extends Controller
     	 return response()->json(['result1'=>$arr1]);
     }
 
+
     public function xiafensubmit(Request $request)
     {
     	$all = $request->all();
@@ -62,5 +63,4 @@ class ExChangeController extends Controller
     	// $mem->delete('xiafenkey',0);
     	dd($mem->get($mem->get('xiafenkey')));
     }
-
 }
