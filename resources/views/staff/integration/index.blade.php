@@ -94,7 +94,7 @@
                     },
                     success:function(data){
                         if (data) {
-                            layer.msg('添加成功！！');
+                            layer.msg('添加成功！！',{time:1500});
                             window.location.reload();
                         }
                     }
@@ -151,7 +151,7 @@
                     },
                     success:function(data){
                         if (data) {
-                            layer.msg('修改成功！！');
+                            layer.msg('修改成功！！', {time:1500});
                             window.location.reload();
                         }
                     }
