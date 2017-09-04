@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/user', 'UserController@index');
 	Route::post('/user/keygen', 'UserController@addKeyGen');
 	Route::get('/wheel', 'pointsController@wheel');
+    Route::get('/wheel/award_list', 'pointsController@award_list')->name('wheel.award');
+    Route::get('/wheel/award', 'pointsController@get_award')->name('wheel.award_random');
 });
 
 Route::group(['prefix' => 'staff','namespace' => 'Staff','middleware' => 'auth.beforeStaff:staff'],function ($router) {
