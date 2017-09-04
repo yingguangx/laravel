@@ -1,0 +1,49 @@
+@extends('staffLayOut')
+
+@section('content')
+    <table class="table-responsive table-hover table-striped table table-bordered">
+        <caption>
+            余额兑换
+        </caption>
+        <thead>
+        <tr>
+            <th>微信名称</th>
+            <th>游戏种类</th>
+            <th>兑换金额</th>
+            <th>收款类型</th>
+            <th>收款账号</th>
+            <th>收款人姓名</th>
+            <th>收款人收款码</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+        </tr>
+        <tr>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+            <td>测试</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <td colspan="7" class="text-center">分页</td>
+        </tfoot>
+    </table>
+@endsection
+
+@section('jquery')
+@endsection
