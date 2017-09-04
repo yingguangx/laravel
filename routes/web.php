@@ -63,4 +63,13 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->get('index', 'LoginController@staffIndex')->name('staff.index');
     $router->get('loginOut', 'LoginController@loginOut')->name('staff.loginOut');
 });
-
+if(getUserAgent() != 'Weixin'){
+    Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
+        Route::get('/user', 'UserController@index');
+    });
+}else{
+    Route::group(['middleware' => ['auth']], function () {
+        Route::get('/user', 'UserController@index');
+    });
+}
+Route::get('/wheel', 'pointsController@wheel');
