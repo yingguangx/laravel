@@ -11,6 +11,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/tendina.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/common.js') }}"></script>
+    <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
     @yield('style')
 </head>
 <body>
@@ -50,17 +51,17 @@
         @else
         @endif
         <li class="childUlLi">
-            <a href="#"  target="menuFrame"> <i class="glyph-icon icon-reorder"></i>订单管理</a>
+            <a href="#"  target="menuFrame"> <i class="glyph-icon icon-reorder"></i>订单管理<span style="color:red;" class="ordernum"></span></a>
             <ul>
                 <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>上分订单</a></li>
-                <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>下分订单</a></li>
+                <li><a href="{{ URL('staff/xiafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>下分订单<span style="color:red;" class="xiafenorder"></span></a></li>
                 <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>积分订单</a></li>
             </ul>
         </li>
         <li class="childUlLi">
             <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>系统设置</a>
             <ul>
-                <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>游戏类目设置</a></li>
+                <li><a href="{{ URL('staff/gameSetting') }}"><i class="glyph-icon icon-chevron-right"></i>游戏类目设置</a></li>
                 <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>优惠券设置</a></li>
                 <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>大转盘设置</a></li>
                 <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>积分设置</a></li>
@@ -84,3 +85,28 @@
 </body>
     @yield('jquery')
 </html>
+<script>
+    $(document).ready(function(){
+        function getmessage(){
+            $.ajax({
+                url: "/staff/getmessage",
+                type: "POST",
+                dataType: "json",
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                        if (data.xiafenorders.length != 0) {
+                             var num = 0;
+                             for (var item in data.xiafenorders) {
+                                 num++;
+                             }
+                            $('.ordernum').text('+'+num);
+                            $('.xiafenorder').text('+'+num);
+                        }
+                    }
+            }); 
+        }
+        setInterval(getmessage,2000);
+    })
+</script>

@@ -68,5 +68,9 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('dologin', 'LoginController@dologin')->name('staff.dologin');
     $router->get('index', 'LoginController@staffIndex')->name('staff.index');
     $router->get('loginOut', 'LoginController@loginOut')->name('staff.loginOut');
+    $router->get('xiafenOrderIndex', 'OrderController@xiafenOrderIndex');
+    $router->get('gameSetting', 'OrderController@gameSetting')->name('staff.gameSetting');
+    $router->post('getmessage', 'OrderController@getmessage');
+    $router->post('saveGame', 'OrderController@saveGame');
 });
 
