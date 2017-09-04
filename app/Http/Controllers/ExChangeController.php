@@ -59,8 +59,8 @@ class ExChangeController extends Controller
     	if (!$mem->connect('127.0.0.1',11211)){
     		die('连接失败');
     	}
-    	$mem->delete(6,0);
-    	$mem->delete('xiafenkey',0);
+    	// $mem->delete(6,0);
+    	// $mem->delete('xiafenkey',0);
     	dd($mem->get($mem->get('xiafenkey')));
     }
 }
