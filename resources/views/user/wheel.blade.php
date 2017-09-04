@@ -116,6 +116,7 @@ $(function(){
     };
 
     $(document).ready(function(){
+        var new_luck_list ;
         $.get("<?= Route('wheel.award')?>",{},function(data){
             turnplate.restaraunts = data.data.restaraunts;
             turnplate.colors = data.data.color;
@@ -148,7 +149,12 @@ $(function(){
                 animateTo:angles+1800,
                 duration:8000,
                 callback:function (){
-                    alert(txt);
+                    if(new_luck_list!=''){
+                        var list = new_luck_list;
+                        var html = '<li><span class="txt"><font>'+list.name+'</font></span><strong class="num">'+list.nickName+'</strong></li>';
+                        $('ul.mulitline').append(html);
+                        $('ul.mulitline').trigger('mouseleave');
+                    }
                     turnplate.bRotate = !turnplate.bRotate;
                 }
             });
@@ -163,7 +169,8 @@ $(function(){
                 url  : "<?= Route('wheel.award_random') ?>",
                 type : 'GET',
                 success:function(data){
-                    item = data.data;
+                    item = data.data.item;
+                    new_luck_list = data.data.new_luck_list;
                 }
             });
 
