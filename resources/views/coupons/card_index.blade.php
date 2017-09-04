@@ -21,16 +21,22 @@
         .coupons-div li{
             padding:10px 5px 10px 10px;
             width:33.33vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .coupons-div li img,.coupons-div li span{
             display:inline-block;
         }
         .coupons-div li img{
-            margin-right:5px;
+            width: 18px;
+            margin-right: 5px;
         }
         .coupons-div li span{
             padding: 0px;
             padding-top: 3px;
+            font-size: 12px;
+            margin-right: 3px;
         }
         .coupons-div li.active{
             color:#A2C468;
