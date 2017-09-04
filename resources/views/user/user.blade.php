@@ -90,6 +90,14 @@
                     <i class="arr-right"></i>
                 </div>
             </div>
+            <a href="/user/userInfo">
+                <div class="ps-lt">
+                    <div class="lt-dsb cl-bb">
+                        <p>我的收款码</p>
+                        <i class="arr-right"></i>
+                    </div>
+                </div>
+            </a>
         </section>
 
         <div class="jg"></div>

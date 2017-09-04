@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
 	//	Route::get('/user', 'UserController@index');
 	Route::get('/user', 'UserController@index');
 	Route::post('/user/keygen', 'UserController@addKeyGen');
+	Route::get('/user/userInfo', 'UserController@userInfo');
 	Route::get('/wheel', 'pointsController@wheel');
 	//获取游戏表id
 	Route::post('/getGamesinfo', 'ExChangeController@getGamesinfo');
@@ -75,13 +76,4 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('saveGame', 'OrderController@saveGame');
     $router->post('saveupGame', 'OrderController@saveupGame');
 });
-if(getUserAgent() != 'Weixin'){
-    Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
-        Route::get('/user', 'UserController@index');
-    });
-}else{
-    Route::group(['middleware' => ['auth']], function () {
-        Route::get('/user', 'UserController@index');
-    });
-}
 Route::get('/wheel', 'pointsController@wheel');
