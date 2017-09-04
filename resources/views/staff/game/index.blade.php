@@ -58,6 +58,44 @@
 		  </div>
 		</div>
 	<!-- modal-end -->
+	<!-- Modal -update-->
+		<div class="modal fade" id="upgamesort" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">添加游戏种类</h4>
+		      </div>
+		      <div class="modal-body">
+		        <form method="post" action="/staff/saveupGame">
+        			{{ csrf_field() }}
+        			<input type="hidden" name="gameid" value="">
+				  <div class="form-group">
+				    <label for="exampleInputEmail1">游戏名称</label>
+				    <input type="text" class="form-control" placeholder="游戏名称" name="game_name_up">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputPassword1">游戏上分比例（分数除以人民币）</label>
+				    <input type="text" class="form-control" placeholder="游戏比例" name="up_rate_up">
+				  </div>
+				   <div class="form-group">
+				    <label for="exampleInputPassword1">游戏下分比例（分数除以人民币）</label>
+				    <input type="text" class="form-control" placeholder="游戏比例" name="down_rate_up">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputFile">商家游戏ID</label>
+				    <input type="text" class="form-control" placeholder="商家游戏ID" name="business_id_up">
+				  </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+		        <button type="submit saveupgame" class="btn btn-primary">保存</button>
+		      </div>
+				</form>
+		    </div>
+		  </div>
+		</div>
+	<!-- modal-end -->
      				 <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -97,11 +135,12 @@
                                                 <?php foreach ($games as $key => $game) {
                                                 ?>
                                                 <tr role="row" class="odd">
-                                                    <td><?php echo $game->name ?></td>
-                                                    <td><?php echo $game->up_rate ?></td>
-                                                    <td><?php echo $game->hhwx_rate ?></td>
-                                                    <td><?php echo $game->business_id ?></td>
-                                                    <td><button class="btn btn-danger">删除</button><button class="btn btn-primary">修改</button></td>
+                                                <td class="hidden gameid"><?php echo $game->id ?></td>
+                                                    <td class="game_name"><?php echo $game->name ?></td>
+                                                    <td class="game_up_rate"><?php echo $game->up_rate ?></td>
+                                                    <td class="game_hhwx_rate"><?php echo $game->hhwx_rate ?></td>
+                                                    <td class="game_business_id"><?php echo $game->business_id ?></td>
+                                                    <td><a class="btn btn-danger" href='{{ URL("staff/delGame/$game->id") }}'>删除</a><button class="btn btn-primary upgamesort" data-toggle="modal" data-target="#upgamesort">修改</button></td>
                                                 </tr>
                                                 <?php } ?>
                                                 </tbody>
@@ -118,11 +157,26 @@
 
 @section('jquery')
 <script>
-$('.addgamesort').click(function(){
-	$('input[name="game_name"]').val('');
-	$('input[name="down_rate"]').val('');
-	$('input[name="business_id"]').val('');
-	$('input[name="up_rate"]').val('');
-});
+$(document).ready(function(){
+	$('.addgamesort').click(function(){
+		$('input[name="game_name"]').val('');
+		$('input[name="down_rate"]').val('');
+		$('input[name="business_id"]').val('');
+		$('input[name="up_rate"]').val('');
+	});
+
+	$('.upgamesort').click(function(){
+		var gameid = $(this).parent().parent().find('.gameid').text();
+		var game_name = $(this).parent().parent().find('.game_name').text();
+		var game_up_rate = $(this).parent().parent().find('.game_up_rate').text();
+		var game_hhwx_rate = $(this).parent().parent().find('.game_hhwx_rate').text();
+		var game_business_id = $(this).parent().parent().find('.game_business_id').text();
+		$('input[name="game_name_up"]').val(game_name);
+		$('input[name="down_rate_up"]').val(game_hhwx_rate);
+		$('input[name="business_id_up"]').val(game_business_id);
+		$('input[name="up_rate_up"]').val(game_up_rate);
+		$('input[name="gameid"]').val(gameid);
+	})
+})
 </script>
 @endsection
