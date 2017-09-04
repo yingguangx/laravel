@@ -20,8 +20,7 @@ class Prize_detail extends Model
      */
     public static function award_list()
     {
-        return self::join(Prize::tableName().' as pz','pz.prize_id','=',self::tableName().'.prize_id')
-            ->get()->toArray();
+        return self::join(Prize::tableName().' as pz','pz.prize_id','=',self::tableName().'.prize_id')->where('status','=','1')->get()->toArray();
     }
 
     /**取得中奖的prize_detail_id
