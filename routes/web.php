@@ -21,8 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get('/hello', 'helloController@index');
 //上分充值
 Route::get('/reChange', 'ReChangeController@reChange');
-Route::post('/getRate', 'ReChangeController@getRate');
-Route::post('/newOrder', 'ReChangeController@newOrder');
+
 
 //下分兑换
 Route::get('/exChange', 'ExChangeController@exChange');
@@ -40,6 +39,8 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/hello', 'helloController@index');
 	//上分充值
 	Route::get('/reChange', 'ReChangeController@reChange');
+    Route::post('/getRate', 'ReChangeController@getRate');
+    Route::post('/newOrder', 'ReChangeController@newOrder');
 	//下分兑换
 	Route::get('/exChange', 'ExChangeController@exChange');
 	Route::get('/points', 'pointsController@index');
@@ -66,8 +67,11 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
 {
     $router->get('login', 'LoginController@login')->name('staff.login');
     $router->post('dologin', 'LoginController@dologin')->name('staff.dologin');
-    $router->get('index', 'LoginController@staffIndex')->name('staff.index');
     $router->get('loginOut', 'LoginController@loginOut')->name('staff.loginOut');
+    $router->get('index', 'LoginController@staffIndex')->name('staff.index');
+    $router->get('integrationSetting', 'IntegrationController@integrationSetting');
+    $router->post('addIntegration', 'IntegrationController@addIntegration');
+    $router->post('editIntegration', 'IntegrationController@editIntegration');
     $router->get('xiafenOrderIndex', 'OrderController@xiafenOrderIndex');
     $router->get('gameSetting', 'OrderController@gameSetting')->name('staff.gameSetting');
     $router->get('delGame/{id}', 'OrderController@delGame');

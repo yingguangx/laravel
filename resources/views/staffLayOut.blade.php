@@ -64,7 +64,7 @@
                 <li><a href="{{ URL('staff/gameSetting') }}"><i class="glyph-icon icon-chevron-right"></i>游戏类目设置</a></li>
                 <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>优惠券设置</a></li>
                 <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>大转盘设置</a></li>
-                <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>积分设置</a></li>
+                <li><a href="{{ URL::asset('staff/integrationSetting') }}"><i class="glyph-icon icon-chevron-right"></i>积分设置</a></li>
             </ul>
         </li>
         <li class="childUlLi">
@@ -86,27 +86,27 @@
     @yield('jquery')
 </html>
 <script>
-    $(document).ready(function(){
-        function getmessage(){
-            $.ajax({
-                url: "/staff/getmessage",
-                type: "POST",
-                dataType: "json",
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (data) {
-                        if (data.xiafenorders.length != 0) {
-                             var num = 0;
-                             for (var item in data.xiafenorders) {
-                                 num++;
-                             }
-                            $('.ordernum').text('+'+num);
-                            $('.xiafenorder').text('+'+num);
-                        }
-                    }
-            }); 
-        }
-        setInterval(getmessage,2000);
-    })
+//    $(document).ready(function(){
+//        function getmessage(){
+//            $.ajax({
+//                url: "/staff/getmessage",
+//                type: "POST",
+//                dataType: "json",
+//                headers: {
+//                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//                },
+//                success: function (data) {
+//                        if (data.xiafenorders.length != 0) {
+//                             var num = 0;
+//                             for (var item in data.xiafenorders) {
+//                                 num++;
+//                             }
+//                            $('.ordernum').text('+'+num);
+//                            $('.xiafenorder').text('+'+num);
+//                        }
+//                    }
+//            });
+//        }
+//        setInterval(getmessage,2000);
+//    })
 </script>

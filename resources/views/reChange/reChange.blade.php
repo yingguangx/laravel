@@ -65,7 +65,7 @@
 <!--充值列表-->
 <div class="person_wallet_recharge">
     <div class="pic">
-        <span>小提示: 每上分200可获得20积分！！</span>
+        <span>小提示: 每上分200元可获得20积分！！</span>
     </div>
     <div class="botton">我要充值</div>
     <div class="agreement"><p>点击我要充值，即您已经表示同意<a>《充返活动协议》</a></p></div>
