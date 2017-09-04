@@ -38,7 +38,20 @@ class OrderController extends Controller
     public function saveGame(Request $request)
     {
     	$all = $request->all();
-    	DB::table('game')->insert( ['name' =>$all['game_name'], 'hhwx_rate' => $all['down_rate'],'business_id' => $all['business_id'], 'up_rate' => $all['up_rate'],'created_at'=>time(),'updated_at'=>time()]);
+    	DB::table('game')->insert( ['name' =>$all['game_name'], 'hhwx_rate' => $all['down_rate'],'business_id' => $all['business_id'], 'up_rate' => $all['up_rate'],'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time())]);
+    	return Redirect::route('staff.gameSetting');
+    }
+
+    public function delGame($id)
+    {
+    	DB::table('game')->where('id',$id)->delete();
+    	return Redirect::route('staff.gameSetting');
+    }
+
+    public function saveupGame(Request $request)
+    {
+    	$all = $request->all();
+    	DB::table('game')->where('id',$all['gameid'])->update(['name' => $all['game_name_up'],'up_rate' => $all['up_rate_up'],'hhwx_rate' => $all['down_rate_up'],'business_id' => $all['business_id_up']]);
     	return Redirect::route('staff.gameSetting');
     }
 }
