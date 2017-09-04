@@ -54,6 +54,8 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/user', 'UserController@index');
 	Route::post('/user/keygen', 'UserController@addKeyGen');
 	Route::get('/wheel', 'pointsController@wheel');
+  Route::get('/wheel/award_list', 'pointsController@award_list')->name('wheel.award');
+  Route::get('/wheel/award', 'pointsController@get_award')->name('wheel.award_random');
 	//获取游戏表id
 	Route::post('/getGamesinfo', 'ExChangeController@getGamesinfo');
 	//下分
