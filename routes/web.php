@@ -52,6 +52,12 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/user', 'UserController@index');
 	Route::post('/user/keygen', 'UserController@addKeyGen');
 	Route::get('/wheel', 'pointsController@wheel');
+	//获取游戏表id
+	Route::post('/getGamesinfo', 'ExChangeController@getGamesinfo');
+	//下分
+	Route::post('/xiafensubmit', 'ExChangeController@xiafensubmit');
+	//test
+	Route::get('/test', 'ExChangeController@test');
 });
 
 Route::group(['prefix' => 'staff','namespace' => 'Staff','middleware' => 'auth.beforeStaff:staff'],function ($router) {
