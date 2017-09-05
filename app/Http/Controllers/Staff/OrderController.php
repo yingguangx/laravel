@@ -54,4 +54,19 @@ class OrderController extends Controller
     	DB::table('game')->where('id',$all['gameid'])->update(['name' => $all['game_name_up'],'up_rate' => $all['up_rate_up'],'hhwx_rate' => $all['down_rate_up'],'business_id' => $all['business_id_up']]);
     	return Redirect::route('staff.gameSetting');
     }
+
+    public function shafenOrderIndex()
+    {
+        return view('staff.order.shafen');
+    }
+
+    public function jifenOrderIndex()
+    {
+        return view('staff.order.jifen');
+    }
+
+    public function balanceIndex()
+    {
+        return view('staff.order.balance');
+    }
 }
