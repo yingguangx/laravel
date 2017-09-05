@@ -137,7 +137,7 @@
     <ul class="coupons-div clearfix">
         <li class="clearfix active">
             <img class="fl " src="{{URL::asset('image/coupons/award_bg0.png')}}" alt="">
-            <span class="fl">未使用</span>
+            <span class="fl">待使用</span>
             <span class="fl">(&nbsp;{{$coupon_list['un_used']['count']}}&nbsp;)</span>
         </li>
         <li class="clearfix">

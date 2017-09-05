@@ -38,8 +38,8 @@ class user_coupon extends Model
                 ->orderBy('create_time','desc')
                 ->join(Prize_detail::tableName().' as pd','pd.prize_detail_id','=',$table_name.'.prize_detail_id');
         ;
-        $un_used = (clone $query)->where('is_used','=',0);
-        $used_query = (clone $query)->where('is_used','=','1');
+        $un_used = (clone $query)->where('is_used','=',0)->where('expire_time','>=',time());
+        $used_query = (clone $query)->where('expire_time','<',time());
 
         return [
           'un_used'=>[
@@ -49,6 +49,7 @@ class user_coupon extends Model
                     return $item;
               })->toArray(),
           ],
+          //已经过期的卡券
           'used'=>[
               'count' => $used_query->count(),
               'list'  => $used_query->get($base_field)->transform(function($item,$key){
