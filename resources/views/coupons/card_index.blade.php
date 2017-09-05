@@ -59,8 +59,8 @@
         ul.cer_card li .ygq{
             background: url({{URL::asset('image/coupons/ygq.png')}});
             position: absolute;
-            /*width: 251px;*/
-            /*height: 151px;*/
+            width: 251px;
+            height: 151px;
             position: absolute;
             z-index: 2;
         }
