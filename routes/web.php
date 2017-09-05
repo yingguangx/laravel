@@ -36,7 +36,6 @@ Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsControlle
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/hello', 'helloController@index');
-	Route::get('/hello', 'helloController@index');
 	//上分充值
 	Route::get('/reChange', 'ReChangeController@reChange');
     Route::post('/getRate', 'ReChangeController@getRate');
