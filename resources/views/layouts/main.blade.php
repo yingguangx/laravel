@@ -15,7 +15,8 @@
 {{--    <link rel="stylesheet" href="{{url(elixir("css/app.src.css"))}}" type="text/css"/>--}}
     {{--<link rel="stylesheet" href="{{asset('fonts/icofont/iconfont.css')}}">--}}
     {{--<link rel="stylesheet" href="{{asset('fonts/icofont/iconfont.css')}}">--}}
-    {{--<link rel="stylesheet" href="{{asset(("web/css/swiper-3.4.0.min.css"))}}">--}}
+{{--    <link rel="stylesheet" href="{{asset(("web/css/swiper-3.4.0.min.css"))}}">--}}
+    <link rel="stylesheet" href="{{asset(("css/bootstrap.min.css"))}}">
 
     {{--<link rel="stylesheet" href="{{asset('web/css/index.css') }}">--}}
     {{--    <link rel="stylesheet" href="{{asset('web/css/house_reg.css')}}">--}}
