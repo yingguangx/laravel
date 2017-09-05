@@ -57,9 +57,10 @@
             background-position: -1px 0;
         }
         ul.cer_card li .ygq{
-            background: url({{URL::asset('image/coupons/ygq.png')}});
+            background: url({{URL::asset('image/coupons/ygq.png')}}) no-repeat 100% 100%;
             position: absolute;
-            width: 251px;
+            width:100%;
+            /*width: 251px;*/
             height: 151px;
             position: absolute;
             z-index: 2;
@@ -74,6 +75,9 @@
             /*height: 151px;*/
             /* color: #FFF; */
             background-position: -1px 0;
+        }
+        ul.cer_card li>div{
+            position:relative;
         }
         .f14 {
             font-size: 14px;
@@ -109,6 +113,12 @@
         }
         .hide{
             display: none;
+        }
+        .weui-dialog{
+            opacity: 1;
+            visibility: visible;
+            -webkit-transform: scale(2) translate(-50%, -50%)!important;
+            transform: scale(2) translate(-50%, -50%) !important;
         }
     </style>
 @endsection
