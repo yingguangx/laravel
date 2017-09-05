@@ -79,6 +79,9 @@
         ul.cer_card li>div{
             position:relative;
         }
+        ul.cer_card{
+            color:#fff;
+        }
         .f14 {
             font-size: 14px;
         }
@@ -108,18 +111,25 @@
        .yxsj {
             color: #ffffff;
             opacity: 0.9;
-            padding-left: 30px;
             font-size: 13px;padding-bottom: 7px;
+           padding-left: 30px;
+           padding-bottom: 10px;
+           padding-top: 10px;
         }
         .hide{
             display: none;
         }
-        .weui-dialog{
-            opacity: 1;
-            visibility: visible;
-            -webkit-transform: scale(2) translate(-50%, -50%)!important;
-            transform: scale(2) translate(-50%, -50%) !important;
+        .im_use{
+            position: absolute;
+            left: 7px;
+            /* right: 0px; */
+            top: 7px;
+            font-size: 15px;
+            color: blue;
+            background: rgb(0, 255, 245);
+            z-index: 10000;
         }
+
     </style>
 @endsection
 {{--主题内容--}}
@@ -128,191 +138,56 @@
         <li class="clearfix active">
             <img class="fl " src="{{URL::asset('image/coupons/award_bg0.png')}}" alt="">
             <span class="fl">未使用</span>
-            <span class="fl">(&nbsp;0&nbsp;)</span>
+            <span class="fl">(&nbsp;{{$coupon_list['un_used']['count']}}&nbsp;)</span>
         </li>
         <li class="clearfix">
             <img class="fl " src="{{URL::asset('image/coupons/award_bg0.png')}}" alt="">
             <span class="fl">已过期</span>
-            <span class="fl">(&nbsp;0&nbsp;)</span>
+            <span class="fl">(&nbsp;{{$coupon_list['used']['count']}}&nbsp;)</span>
         </li>
     </ul>
     <ul class="coupons-card-div">
-        <ul class="cer_card clearfix" id="tabs_cont">
-            <li>
-                <div class="img jxq">
-                    <div class="">
-                    </div>
-                    <div class="f14 quanName" title="黄金福利券">黄金福利券</div>
-                    <div class="money">
+            <ul class="cer_card clearfix" id="tabs_cont">
+                @foreach($coupon_list['un_used']['list'] as $k => $v)
+                <li>
+                    {{--过期后class变为invalid,没过期是img --}}
+                    <div class="img jxq">
+                        {{--过期后加class ygq--}}
+                        <div class="">
+                        </div>
+                        <div class="f14 quanName" title="{{$v['name']}}">{{$v['name']}}</div>
+                        <div class="money">
 
-                        <span class="price">2</span><span class="f14">克</span>
+                            {{--<span class="price">2</span><span class="f14">克</span>--}}
 
+                        </div>
+                        <div class="yxsj">
+                            {{$v['time']}} 有效
+                        </div>
+                        {{--没过期--}}
+                        <div class="im_use">
+                            立<br/>即<br/>使<br/>用
+                        </div>
                     </div>
-                    <div class="yxsj">
-                        08-30 15:19 至 09-06 15:19有效
-                    </div>
-                </div>
-                {{--<div class="desc">--}}
-                    {{--<div class="clearfix"><span class="gray tit">购买金额：</span><span class="gray">满15克可用</span></div>--}}
-                    {{--<div class="clearfix"><span class="gray tit">购买期限：</span><span class="gray">满170天可用</span></div>--}}
-                {{--</div>--}}
-            </li>
-            <li>
-                <div class="img jxq">
-                    <div class="">
-                    </div>
-                    <div class="f14 quanName" title="黄金福利券">黄金福利券</div>
-                    <div class="money">
-
-                        <span class="price">2</span><span class="f14">克</span>
-
-                    </div>
-                    <div class="yxsj">
-                        08-30 15:19 至 09-06 15:19有效
-                    </div>
-                </div>
-                {{--<div class="desc">--}}
-                {{--<div class="clearfix"><span class="gray tit">购买金额：</span><span class="gray">满15克可用</span></div>--}}
-                {{--<div class="clearfix"><span class="gray tit">购买期限：</span><span class="gray">满170天可用</span></div>--}}
-                {{--</div>--}}
-            </li>
-            <li>
-                <div class="invalid">
-                    <div class="ygq">
-                    </div>
-                    <div class="f14 quanName" title="黄金福利券">黄金福利券</div>
-                    <div class="money">
-
-                        <span class="price">2</span><span class="f24">克</span>
-
-                    </div>
-                    <div class="yxsj">
-                        08-30 15:19 至 09-06 15:19有效
-                    </div>
-                </div>
-                {{--<div class="desc">--}}
-                {{--<div class="clearfix"><span class="gray tit">购买金额：</span><span class="gray">满15克可用</span></div>--}}
-                {{--<div class="clearfix"><span class="gray tit">购买期限：</span><span class="gray">满170天可用</span></div>--}}
-                {{--</div>--}}
-            </li>
-            <li>
-                <div class="img jxq">
-                    <div class="">
-                    </div>
-                    <div class="f14 quanName" title="黄金福利券">黄金福利券</div>
-                    <div class="money">
-
-                        <span class="price">2</span><span class="f24">克</span>
-
-                    </div>
-                    <div class="yxsj">
-                        08-30 15:19 至 09-06 15:19有效
-                    </div>
-                </div>
-                {{--<div class="desc">--}}
-                {{--<div class="clearfix"><span class="gray tit">购买金额：</span><span class="gray">满15克可用</span></div>--}}
-                {{--<div class="clearfix"><span class="gray tit">购买期限：</span><span class="gray">满170天可用</span></div>--}}
-                {{--</div>--}}
-            </li>
-            {{--<p class="j_tips gray">仅显示最近30天内的投资券</p></ul>--}}
-    </ul>
+                </li>
+                @endforeach
+        </ul>
         <ul class="cer_card clearfix hide" id="tabs_cont">
+            @foreach($coupon_list['used']['list'] as $k => $v)
             <li>
                 <div class="invalid">
                     <div class="ygq">
                     </div>
-                    <div class="f14 quanName" title="黄金福利券">黄金福利券</div>
+                    <div class="f14 quanName" title="{{$v['name']}}">{{$v['name']}}</div>
                     <div class="money">
-
-                        <span class="price">2</span><span class="f24">克</span>
-
+                        {{--<span class="price">2</span><span class="f24">克</span>--}}
                     </div>
                     <div class="yxsj">
-                        08-30 15:19 至 09-06 15:19有效
+                        {{$v['time']}} 有效
                     </div>
                 </div>
-                {{--<div class="desc">--}}
-                {{--<div class="clearfix"><span class="gray tit">购买金额：</span><span class="gray">满15克可用</span></div>--}}
-                {{--<div class="clearfix"><span class="gray tit">购买期限：</span><span class="gray">满170天可用</span></div>--}}
-                {{--</div>--}}
             </li>
-            <li>
-                <div class="invalid">
-                    <div class="ygq">
-                    </div>
-                    <div class="f14 quanName" title="黄金福利券">黄金福利券</div>
-                    <div class="money">
-
-                        <span class="price">2</span><span class="f24">克</span>
-
-                    </div>
-                    <div class="yxsj">
-                        08-30 15:19 至 09-06 15:19有效
-                    </div>
-                </div>
-                {{--<div class="desc">--}}
-                {{--<div class="clearfix"><span class="gray tit">购买金额：</span><span class="gray">满15克可用</span></div>--}}
-                {{--<div class="clearfix"><span class="gray tit">购买期限：</span><span class="gray">满170天可用</span></div>--}}
-                {{--</div>--}}
-            </li>
-            <li>
-                <div class="invalid">
-                    <div class="ygq">
-                    </div>
-                    <div class="f14 quanName" title="黄金福利券">黄金福利券</div>
-                    <div class="money">
-
-                        <span class="price">2</span><span class="f24">克</span>
-
-                    </div>
-                    <div class="yxsj">
-                        08-30 15:19 至 09-06 15:19有效
-                    </div>
-                </div>
-                {{--<div class="desc">--}}
-                {{--<div class="clearfix"><span class="gray tit">购买金额：</span><span class="gray">满15克可用</span></div>--}}
-                {{--<div class="clearfix"><span class="gray tit">购买期限：</span><span class="gray">满170天可用</span></div>--}}
-                {{--</div>--}}
-            </li>
-            <li>
-                <div class="invalid">
-                    <div class="ygq">
-                    </div>
-                    <div class="f14 quanName" title="黄金福利券">黄金福利券</div>
-                    <div class="money">
-
-                        <span class="price">2</span><span class="f24">克</span>
-
-                    </div>
-                    <div class="yxsj">
-                        08-30 15:19 至 09-06 15:19有效
-                    </div>
-                </div>
-                {{--<div class="desc">--}}
-                {{--<div class="clearfix"><span class="gray tit">购买金额：</span><span class="gray">满15克可用</span></div>--}}
-                {{--<div class="clearfix"><span class="gray tit">购买期限：</span><span class="gray">满170天可用</span></div>--}}
-                {{--</div>--}}
-            </li>
-            <li>
-                <div class="invalid">
-                    <div class="ygq">
-                    </div>
-                    <div class="f14 quanName" title="黄金福利券">黄金福利券</div>
-                    <div class="money">
-
-                        <span class="price">2</span><span class="f24">克</span>
-
-                    </div>
-                    <div class="yxsj">
-                        08-30 15:19 至 09-06 15:19有效
-                    </div>
-                </div>
-                {{--<div class="desc">--}}
-                {{--<div class="clearfix"><span class="gray tit">购买金额：</span><span class="gray">满15克可用</span></div>--}}
-                {{--<div class="clearfix"><span class="gray tit">购买期限：</span><span class="gray">满170天可用</span></div>--}}
-                {{--</div>--}}
-            </li>
-            {{--<p class="j_tips gray">仅显示最近30天内的投资券</p></ul>--}}
+            @endforeach
         </ul>
     </ul>
 @endsection
