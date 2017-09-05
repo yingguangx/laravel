@@ -20,7 +20,7 @@
         .clearfix{*+height:1%;}
         .coupons-div li{
             padding:10px 5px 10px 10px;
-            width:33.33vw;
+            width: 44vw;
             display: flex;
             float:left;
             justify-content: center;
