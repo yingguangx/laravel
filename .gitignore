@@ -23,5 +23,4 @@ laradock
 /public/images/
 /public/img/
 /config/database.php
-composer.lock
 
