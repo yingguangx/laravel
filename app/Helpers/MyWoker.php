@@ -19,8 +19,11 @@ class MyWoker
      * @param $award
      * @return int|string
      */
-    public static function get_award($award)
+    public static function get_award($award=[])
     {
+        if(empty($award)){
+            return '';
+        }
         $random = mt_rand(1,array_sum($award));
         foreach($award as $k => $v){
             if($random <= $v){
