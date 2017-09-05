@@ -18,6 +18,7 @@ class CouponsController extends Controller
     {
         return view('coupons.card_index');
     }
+
     public function show()
     {
         return view('coupons.wheel');
