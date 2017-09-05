@@ -5,9 +5,14 @@
 <title>红色大气转盘抽奖活动专题模板</title>
 <link href="{{URL::asset('css/zp_style.css')}}" rel="stylesheet" />
 <link href="{{URL::asset('css/style.css')}}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="{{URL::asset('css/weui.min.css')}}">
+<link rel="stylesheet" href="{{URL::asset('css/jquery-weui.css')}}">
+
 <script type="text/javascript" src="{{URL::asset('js/jquery-1.8.0.min.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('js/jQueryRotate.2.2.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('js/awardRotate.js')}}"></script>
+<script src="{{URL::asset('js/jquery-weui.js')}}"></script>
+
 
 <script type="text/javascript">
 $(function(){
@@ -48,13 +53,7 @@ $(function(){
         <img class="pointer" src="{{URL::asset('image/coupons/turnplate-pointer.png')}}"/>
       </div>
     </div>
-    <div style="display:none">
-      <script type="text/javascript">
-          var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-          document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F6f798e51a1cd93937ee8293eece39b1a' type='text/javascript'%3E%3C/script%3E"));
-      </script>
-      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5718743'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/stat.php%3Fid%3D5718743%26show%3Dpic2' type='text/javascript'%3E%3C/script%3E"));</script>
-    </div>
+
   </div>
   <div class="win_open"> 
     <!-- 中奖列表begin -->
@@ -116,7 +115,12 @@ $(function(){
     };
 
     $(document).ready(function(){
+        var new_luck_list ;
         $.get("<?= Route('wheel.award')?>",{},function(data){
+            if(data.code==400){
+                $.alert(data.msg);
+                return false;
+            }
             turnplate.restaraunts = data.data.restaraunts;
             turnplate.colors = data.data.color;
             drawRouletteWheel();
@@ -146,9 +150,17 @@ $(function(){
             $('#wheelcanvas').rotate({
                 angle:0,
                 animateTo:angles+1800,
-                duration:8000,
+                duration:5000,
                 callback:function (){
-                    alert(txt);
+                    if(new_luck_list!=''){
+                        var list = new_luck_list;
+                        var html = '<li><span class="txt"><font>'+list.name+'</font></span><strong class="num">'+list.nickName+'</strong></li>';
+                        $('ul.mulitline').append(html);
+                        $.alert('恭喜你中了'+txt+'的卡券,可在个人中心我的卡券页面查看并使用');
+                        $('ul.mulitline').trigger('mouseleave');
+                    }else{
+                        $.alert(txt);
+                    }
                     turnplate.bRotate = !turnplate.bRotate;
                 }
             });
@@ -163,12 +175,20 @@ $(function(){
                 url  : "<?= Route('wheel.award_random') ?>",
                 type : 'GET',
                 success:function(data){
-                    item = data.data;
+                    item = data.data.item;
+                    if(data.code==400){
+                        $.alert(data.msg,function(){
+                            turnplate.bRotate=false;
+                        });
+                        return false;
+                    }
+                    new_luck_list = data.data.new_luck_list;
+                    //奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
+                    rotateFn(item, turnplate.restaraunts[item-1]);
                 }
             });
 
-            //奖品数量等于10,指针落在对应奖品区域的中心角度[252, 216, 180, 144, 108, 72, 36, 360, 324, 288]
-            rotateFn(item, turnplate.restaraunts[item-1]);
+
         });
     });
 
