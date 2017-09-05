@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>红色大气转盘抽奖活动专题模板</title>
+<title>大转盘抽奖活动</title>
 <link href="{{URL::asset('css/zp_style.css')}}" rel="stylesheet" />
 <link href="{{URL::asset('css/style.css')}}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="{{URL::asset('css/weui.min.css')}}">
