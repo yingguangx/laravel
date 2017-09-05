@@ -52,7 +52,14 @@ Route::group(['middleware' => ['auth']], function () {
 	//	Route::get('/user', 'UserController@index');
 	Route::get('/user', 'UserController@index');
 	Route::post('/user/keygen', 'UserController@addKeyGen');
+	Route::get('/user/userInfo', 'UserController@userInfo');
 	Route::get('/wheel', 'pointsController@wheel');
+	//获取游戏表id
+	Route::post('/getGamesinfo', 'ExChangeController@getGamesinfo');
+	//下分
+	Route::post('/xiafensubmit', 'ExChangeController@xiafensubmit');
+	//test
+	Route::get('/test', 'ExChangeController@test');
 });
 
 //员工端
@@ -62,5 +69,11 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('dologin', 'LoginController@dologin')->name('staff.dologin');
     $router->get('index', 'LoginController@staffIndex')->name('staff.index');
     $router->get('loginOut', 'LoginController@loginOut')->name('staff.loginOut');
+    $router->get('xiafenOrderIndex', 'OrderController@xiafenOrderIndex');
+    $router->get('gameSetting', 'OrderController@gameSetting')->name('staff.gameSetting');
+    $router->get('delGame/{id}', 'OrderController@delGame');
+    $router->post('getmessage', 'OrderController@getmessage');
+    $router->post('saveGame', 'OrderController@saveGame');
+    $router->post('saveupGame', 'OrderController@saveupGame');
 });
-
+Route::get('/wheel', 'pointsController@wheel');

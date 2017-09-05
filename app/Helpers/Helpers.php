@@ -6,7 +6,7 @@ if (!function_exists('getUserAgent')) {
     {
 	    $user_agent = $_SERVER['HTTP_USER_AGENT'];
 	    $result = '';
-	
+
 	    if( isset($_SERVER['HTTP_X_REST_TYPE']) ) {
 		    $result = 'App';
 	    } else {
@@ -20,7 +20,7 @@ if (!function_exists('getUserAgent')) {
 			    $result = 'Other';
 		    }
 	    }
-	
+
 	    return $result;
     }
 }
