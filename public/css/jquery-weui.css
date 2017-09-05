@@ -670,8 +670,8 @@ body {
 .weui-toast.weui-toast--visible {
   opacity: 1;
   visibility: visible;
-  -webkit-transform: scale(1) translate(-50%, -50%);
-          transform: scale(1) translate(-50%, -50%);
+  -webkit-transform: scale(2) translate(-50%, -50%);
+          transform: scale(2) translate(-50%, -50%);
 }
 .weui-toast_forbidden {
   color: #F76260;
