@@ -84,5 +84,6 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('getmessage', 'OrderController@getmessage');
     $router->post('saveGame', 'OrderController@saveGame');
     $router->post('saveupGame', 'OrderController@saveupGame');
+    $router->post('xiafenok', 'OrderController@xiafenok');
 });
 Route::get('/wheel', 'pointsController@wheel');

@@ -29,7 +29,7 @@
             <ul>
                 <li>
                     <i class="idt"></i>
-                    <p>余额</p>
+                    <p >余额</p>
                     <span>200</span>
                 </li>
                 <li class="pt-line">
