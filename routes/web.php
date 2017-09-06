@@ -71,9 +71,17 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('dologin', 'LoginController@dologin')->name('staff.dologin');
     $router->get('loginOut', 'LoginController@loginOut')->name('staff.loginOut');
     $router->get('index', 'LoginController@staffIndex')->name('staff.index');
+    //积分设置
     $router->get('integrationSetting', 'IntegrationController@integrationSetting');
     $router->post('addIntegration', 'IntegrationController@addIntegration');
     $router->post('editIntegration', 'IntegrationController@editIntegration');
+    //员工设置
+    $router->get('staffList', 'StaffController@staffList');
+    $router->post('checkAccount', 'StaffController@checkAccount');
+    $router->post('addAccount', 'StaffController@addAccount');
+    $router->post('delStaff', 'StaffController@delStaff');
+    $router->post('editStaff', 'StaffController@editStaff');
+
     $router->get('xiafenOrderIndex', 'OrderController@xiafenOrderIndex');
     $router->get('shafenOrderIndex', 'OrderController@shafenOrderIndex');
     $router->get('jifenOrderIndex', 'OrderController@jifenOrderIndex');
