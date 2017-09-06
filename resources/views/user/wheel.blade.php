@@ -7,7 +7,12 @@
 <link href="{{URL::asset('css/style.css')}}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="{{URL::asset('css/weui.min.css')}}">
 <link rel="stylesheet" href="{{URL::asset('css/jquery-weui.css')}}">
-
+  <style>
+    .weui-dialog.weui-dialog--visible {
+        -webkit-transform: scale(2) translate(-50%, -50%)!important;
+        transform: scale(2) translate(-50%, -50%)!important;
+    }
+  </style>
 <script type="text/javascript" src="{{URL::asset('js/jquery-1.8.0.min.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('js/jQueryRotate.2.2.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('js/awardRotate.js')}}"></script>
