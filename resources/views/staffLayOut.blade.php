@@ -53,9 +53,10 @@
         <li class="childUlLi">
             <a href="#"  target="menuFrame"> <i class="glyph-icon icon-reorder"></i>订单管理<span style="color:red;" class="ordernum"></span></a>
             <ul>
-                <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>上分订单</a></li>
+                <li><a href="{{ URL('staff/shafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>上分订单</a></li>
                 <li><a href="{{ URL('staff/xiafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>下分订单<span style="color:red;" class="xiafenorder"></span></a></li>
-                <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>积分订单</a></li>
+                <li><a href="{{ URL('staff/jifenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>积分订单</a></li>
+                <li><a href="{{ URL('staff/balanceIndex') }}"><i class="glyph-icon icon-chevron-right"></i>余额兑换</a></li>
             </ul>
         </li>
         <li class="childUlLi">
@@ -69,7 +70,7 @@
         </li>
         @if(session('staff_role') == 1)
         <li class="childUlLi">
-            <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>员工管理</a>
+            <a href="#"> <i class="glyph-icon  icon-reorder"></i>员工管理</a>
             <ul>
                 <li><a href="{{ URL::asset('staff/staffList') }}"><i class="glyph-icon icon-chevron-right"></i>员工列表</a></li>
             </ul>
@@ -89,27 +90,33 @@
     @yield('jquery')
 </html>
 <script>
-//    $(document).ready(function(){
-//        function getmessage(){
-//            $.ajax({
-//                url: "/staff/getmessage",
-//                type: "POST",
-//                dataType: "json",
-//                headers: {
-//                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//                },
-//                success: function (data) {
-//                        if (data.xiafenorders.length != 0) {
-//                             var num = 0;
-//                             for (var item in data.xiafenorders) {
-//                                 num++;
-//                             }
-//                            $('.ordernum').text('+'+num);
-//                            $('.xiafenorder').text('+'+num);
-//                        }
-//                    }
-//            });
-//        }
-//        setInterval(getmessage,2000);
-//    })
+       function getmessage(){
+           $.ajax({
+               url: "/staff/getmessage",
+               type: "POST",
+               dataType: "json",
+               headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function (data) {
+                console.log(data);
+                        $('.ordernum').text('');
+                        $('.xiafenorder').text('');
+                        $('.xiafenorderappend').html('');
+                       if (data.xiafenorders.length != 0) {
+                            var num = 0;
+                            var html="";
+                            $.each(data.xiafenorders, function (i, item) {
+                                console.log(item.user_name);
+                                num++;
+                                html = html+"<tr><td>"+item.user_name+"</td><td>"+item.game_name+"</td><td>"+item.money+"</td><td>"+item.txt+"</td><td>"+item.created_at+'</td><td><button onclick="xiafenok('+i+')">下分完成点击</button></td></tr>';
+                            })
+                           $('.ordernum').text('+'+num);
+                           $('.xiafenorder').text('+'+num);
+                           $('.xiafenorderappend').html(html);
+                       }
+                   }
+           });
+       }
+       setInterval(getmessage,2000);
 </script>

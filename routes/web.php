@@ -36,7 +36,6 @@ Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsControlle
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/hello', 'helloController@index');
-	Route::get('/hello', 'helloController@index');
 	//上分充值
 	Route::get('/reChange', 'ReChangeController@reChange');
     Route::post('/getRate', 'ReChangeController@getRate');
@@ -44,16 +43,18 @@ Route::group(['middleware' => ['auth']], function () {
 	//下分兑换
 	Route::get('/exChange', 'ExChangeController@exChange');
 	Route::get('/points', 'pointsController@index');
-	Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
-		$action = empty($action)?'index':$action;
-		if(method_exists($controller,$action)){
-			return $controller->$action();
-		}
-	});
+	Route::post('/coupons/use_card','CouponsController@use_card');
+    Route::get('/coupons/index','CouponsController@index');
+
+
 	//	Route::get('/user', 'UserController@index');
 	Route::get('/user', 'UserController@index');
 	Route::post('/user/keygen', 'UserController@addKeyGen');
+	Route::get('/user/userInfo', 'UserController@userInfo');
+	Route::post('/user/fileUpload', 'UserController@fileUpload');
 	Route::get('/wheel', 'pointsController@wheel');
+  Route::get('/wheel/award_list', 'pointsController@award_list')->name('wheel.award');
+  Route::get('/wheel/award', 'pointsController@get_award')->name('wheel.award_random');
 	//获取游戏表id
 	Route::post('/getGamesinfo', 'ExChangeController@getGamesinfo');
 	//下分
@@ -65,6 +66,7 @@ Route::group(['middleware' => ['auth']], function () {
 //员工端
 Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
 {
+    $router->get('', 'LoginController@login')->name('staff.index');
     $router->get('login', 'LoginController@login')->name('staff.login');
     $router->post('dologin', 'LoginController@dologin')->name('staff.dologin');
     $router->get('loginOut', 'LoginController@loginOut')->name('staff.loginOut');
@@ -81,8 +83,14 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('editStaff', 'StaffController@editStaff');
 
     $router->get('xiafenOrderIndex', 'OrderController@xiafenOrderIndex');
+    $router->get('shafenOrderIndex', 'OrderController@shafenOrderIndex');
+    $router->get('jifenOrderIndex', 'OrderController@jifenOrderIndex');
+    $router->get('balanceIndex', 'OrderController@balanceIndex');
     $router->get('gameSetting', 'OrderController@gameSetting')->name('staff.gameSetting');
+    $router->get('delGame/{id}', 'OrderController@delGame');
     $router->post('getmessage', 'OrderController@getmessage');
     $router->post('saveGame', 'OrderController@saveGame');
+    $router->post('saveupGame', 'OrderController@saveupGame');
+    $router->post('xiafenok', 'OrderController@xiafenok');
 });
-
+Route::get('/wheel', 'pointsController@wheel');

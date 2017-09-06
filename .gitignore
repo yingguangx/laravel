@@ -19,8 +19,6 @@ bootstrap/cache/
 .gitmodules
 laradock
 /storage
-/public/image/
-/public/images/
 /public/img/
 /config/database.php
 
