@@ -43,12 +43,10 @@ Route::group(['middleware' => ['auth']], function () {
 	//下分兑换
 	Route::get('/exChange', 'ExChangeController@exChange');
 	Route::get('/points', 'pointsController@index');
-	Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
-		$action = empty($action)?'index':$action;
-		if(method_exists($controller,$action)){
-			return $controller->$action();
-		}
-	});
+	Route::post('/coupons/use_card','CouponsController@use_card');
+    Route::get('/coupons/index','CouponsController@index');
+
+
 	//	Route::get('/user', 'UserController@index');
 	Route::get('/user', 'UserController@index');
 	Route::post('/user/keygen', 'UserController@addKeyGen');
