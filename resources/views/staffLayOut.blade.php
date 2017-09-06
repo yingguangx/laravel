@@ -69,9 +69,15 @@
             </ul>
         </li>
         <li class="childUlLi">
-            <a href="#"> <i class="glyph-icon  icon-location-arrow"></i>员工管理</a>
+            <a href="#"> <i class="glyph-icon  icon-reorder"></i>员工管理</a>
             <ul>
                 <li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>员工列表</a></li>
+            </ul>
+        </li>
+        <li class="childUlLi">
+            <a href="#"> <i class="glyph-icon  icon-reorder"></i>用户管理</a>
+            <ul>
+                <li><a href="#" target="menuFrame"><i class="glyph-icon icon-chevron-right"></i>用户列表</a></li>
             </ul>
         </li>
     </ul>

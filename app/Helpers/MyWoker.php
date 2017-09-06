@@ -54,7 +54,7 @@ class MyWoker
     public static function get_deadline($start_time,$expire_day)
     {
         $ctime_begin = mktime(0,0,0,date('m',$start_time),date('d',$start_time),date('Y',$start_time));
-        return $ctime_begin + ($expire_day+1)*3600*24;
+        return $ctime_begin + ($expire_day)*3600*24+3600*24-1;
     }
 
 
