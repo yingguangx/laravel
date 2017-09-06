@@ -7,6 +7,8 @@
  */
 
 namespace App\Http\Controllers;
+use App\Models\user_coupon;
+use Illuminate\Support\Facades\Auth;
 
 /**卡券 大转盘控制器
  * Class CouponsController
@@ -16,8 +18,10 @@ class CouponsController extends Controller
 {
     public function index()
     {
-        return view('coupons.card_index');
+        $coupon_list = user_coupon::coupons_list(Auth::user()->id);
+        return view('coupons.card_index',['coupon_list'=>$coupon_list]);
     }
+
     public function show()
     {
         return view('coupons.wheel');
