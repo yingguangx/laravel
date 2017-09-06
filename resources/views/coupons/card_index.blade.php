@@ -194,6 +194,9 @@
             font-weight: inherit;
             outline: 0;
         }
+        .weui-dialog.weui-dialog--visible{
+            transform: scale(1) translate(-50%, -50%)!important;
+        }
     </style>
 @endsection
 
