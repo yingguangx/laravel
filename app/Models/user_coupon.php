@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class user_coupon extends Model
 {
-    protected $fillable = ['user_id', 'prize_detail_id', 'create_time', 'expire_time'];
+    protected $fillable = ['user_id', 'prize_detail_id', 'create_time', 'expire_time','code'];
 
     /**
      * 中奖名单
@@ -32,7 +32,7 @@ class user_coupon extends Model
      */
     public static function coupons_list($user_id)
     {
-        $base_field = ['user_id','create_time','expire_time','pd.name'];
+        $base_field = ['user_id','create_time','expire_time','pd.name','pd.prize_detail_id','code'];
         $table_name = (new self)->getTable();
         $query = self::where('user_id','=',$user_id)
                 ->orderBy('create_time','desc')
@@ -58,5 +58,32 @@ class user_coupon extends Model
               })->toArray(),
           ]
         ];
+    }
+
+    /**检查是否是有效的卡券
+     * @param $code
+     * @return bool
+     */
+    public static function check_code($code)
+    {
+        if(empty(self::where('code','=',$code)->first())){
+            return false;
+        }
+        return true;
+    }
+
+    /**生成12位唯一卡券码的方法
+     * @return mixed
+     */
+    public static function generate_card_code()
+    {
+        $data = self::get(['code'])->toArray();
+        if(empty($data)){
+            $arr = [];
+        }else{
+            $arr = array_column($data,'code');
+        }
+
+        return MyWoker::generateCode(1,$arr,12)[0];
     }
 }

@@ -81,6 +81,7 @@ class pointsController extends Controller
                 'user_id'         => Auth::user()->id,
                 'prize_detail_id' => $prize_detail_id,
                 'create_time'     => time(),
+                'code'            => user_coupon::generate_card_code(),
                 'expire_time'     => MyWoker::get_deadline(time(),Wheel_setting::first()->valid_time),
             ]);
            $userCoupon->save();
