@@ -39,7 +39,7 @@ class LoginController extends Controller
     }
 
     //密码加密
-    function encrypt($id)
+    public static function encrypt($id)
     {
         $id=serialize($id);
         $key="1112121212121212121212";
@@ -50,7 +50,7 @@ class LoginController extends Controller
     }
 
     //密码解密
-    function decrypt($encrypt)
+    public static function decrypt($encrypt)
     {
         $key = '1112121212121212121212';//解密钥匙
         $encrypt = json_decode(base64_decode($encrypt), true);
