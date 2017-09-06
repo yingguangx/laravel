@@ -26,6 +26,12 @@
         }
         .clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
         .clearfix{*+height:1%;}
+        .coupons-div{
+            position: fixed;
+            z-index: 200;
+            top: 0;
+            background: white;
+        }
         .coupons-div li{
             padding:10px 5px 10px 10px;
             width: 44vw;
@@ -196,6 +202,9 @@
         }
         .weui-dialog.weui-dialog--visible{
             transform: scale(1) translate(-50%, -50%)!important;
+        }
+        .coupons-card-div{
+            margin-top:63px;
         }
     </style>
 @endsection
