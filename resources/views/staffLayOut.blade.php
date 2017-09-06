@@ -93,27 +93,33 @@
     @yield('jquery')
 </html>
 <script>
-//    $(document).ready(function(){
-//        function getmessage(){
-//            $.ajax({
-//                url: "/staff/getmessage",
-//                type: "POST",
-//                dataType: "json",
-//                headers: {
-//                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//                },
-//                success: function (data) {
-//                        if (data.xiafenorders.length != 0) {
-//                             var num = 0;
-//                             for (var item in data.xiafenorders) {
-//                                 num++;
-//                             }
-//                            $('.ordernum').text('+'+num);
-//                            $('.xiafenorder').text('+'+num);
-//                        }
-//                    }
-//            });
-//        }
-//        setInterval(getmessage,2000);
-//    })
+       function getmessage(){
+           $.ajax({
+               url: "/staff/getmessage",
+               type: "POST",
+               dataType: "json",
+               headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function (data) {
+                console.log(data);
+                        $('.ordernum').text('');
+                        $('.xiafenorder').text('');
+                        $('.xiafenorderappend').html('');
+                       if (data.xiafenorders.length != 0) {
+                            var num = 0;
+                            var html="";
+                            $.each(data.xiafenorders, function (i, item) {
+                                console.log(item.user_name);
+                                num++;
+                                html = html+"<tr><td>"+item.user_name+"</td><td>"+item.game_name+"</td><td>"+item.money+"</td><td>"+item.txt+"</td><td>"+item.created_at+'</td><td><button onclick="xiafenok('+i+')">下分完成点击</button></td></tr>';
+                            })
+                           $('.ordernum').text('+'+num);
+                           $('.xiafenorder').text('+'+num);
+                           $('.xiafenorderappend').html(html);
+                       }
+                   }
+           });
+       }
+       setInterval(getmessage,2000);
 </script>
