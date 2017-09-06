@@ -203,7 +203,7 @@
         <li class="clearfix active">
             <img class="fl " src="{{URL::asset('image/coupons/award_bg0.png')}}" alt="">
             <span class="fl">待使用</span>
-            <span class="fl">(&nbsp;{{$coupon_list['un_used']['count']}}&nbsp;)</span>
+            <span class="fl">(&nbsp;<span class="un_used_num">{{$coupon_list['un_used']['count']}}</span>&nbsp;)</span>
         </li>
         <li class="clearfix">
             <img class="fl " src="{{URL::asset('image/coupons/award_bg0.png')}}" alt="">
@@ -347,8 +347,11 @@
                                    success:function(data){
                                        $.hideLoading();
                                        closeModal(0);
-                                       that.fadeOut().remove();
-                                       $('ul.cer_card li').eq(0).css('margin-top','30px');
+                                       if(data.code==200){
+                                           $('.un_used_num').html(parseInt($('.un_used_num').html())-1);
+                                           that.fadeOut().remove();
+                                           $('ul.cer_card li').eq(0).css('margin-top','30px');
+                                       }
                                        $.alert(data.msg);
                                    }
                                })

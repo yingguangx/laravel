@@ -41,8 +41,11 @@ class CouponsController extends Controller
         if(!user_coupon::check_code($request->input('value'))){
             return MyWoker::jsonFail('','','不是有效的卡券码！');
         }
+
+        //生成订单
         $order = new Order(array_merge($request->input(),['user_id'=>Auth::user()->id]));
         if($order->save()>0){
+
             //用户卡券标记为已经使用
             $userCoupon = user_coupon::where('code','=',$request->input('value'))->first();
             $userCoupon->is_used = 1;
