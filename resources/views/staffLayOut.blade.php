@@ -7,11 +7,14 @@
 
     <link rel="stylesheet" href="{{ URL::asset('css/index.css') }}" type="text/css" media="screen" />
     <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{URL::asset('css/weui.min.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('css/jquery-weui.css')}}">
 
     <script type="text/javascript" src="{{ URL::asset('js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/tendina.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/common.js') }}"></script>
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{URL::asset('js/jquery-weui.js')}}"></script>
     @yield('style')
 </head>
 <body>

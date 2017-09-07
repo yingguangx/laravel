@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{url(elixir("css/user.css"))}}" type="text/css"/>
+<link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -27,7 +28,7 @@
 
         <div class="nav">
             <ul>
-                <li>
+                <li id='money_hare'>
                     <i class="idt"></i>
                     <p >余额</p>
                     <span>200</span>
@@ -146,6 +147,7 @@
         })
     </script>
     <script type="text/javascript" src="{{asset('/js/layui/layui.js')}}"></script>
+    <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
     <script type="text/javascript">
       layui.use('layer',function(){
              window.layer = layui.layer;
@@ -200,6 +202,36 @@
 
       })
 
+    </script>
+    <script>
+    $('#money_hare').click(function(){
+        layer.confirm('<div class="row"><input type="text" class="form-control" placeholder="请输入兑换金额数" name="money_for"></div><div class="row"><input type="radio" name="" /><img src="{{URL::asset("images/wx.jpg")}}" width="40vw" height="20vh"  /><input type="radio" name="" />&nbsp;&nbsp<img src="{{URL::asset("images/zfb.jpg")}}" width="25vw" height="13vh"  />&nbsp;&nbsp<input type="radio" name="" /><img src="{{URL::asset("images/yhk.png")}}" width="40vw" height="30vh"  /></div>', {
+              btn: ['确定','取消'] //按钮
+        }, function(){
+            var money = $('input[name="money_for"]').val();
+            // layer.msg('的确很重要', {icon: 1});
+            $.ajax({
+               url: "/money_change",
+               type: "POST",
+               dataType: "json",
+               data: {
+                'money':money,
+               },
+                headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function (data) {
+                    console.log(data);
+                   }
+           });
+        }, function(){
+        layer.msg('也可以这样', {
+            time: 20000, //20s后自动关闭
+            btn: ['明白了', '知道了']
+        });
+        });
+    })
+       
     </script>
 @endpush
 @endsection
