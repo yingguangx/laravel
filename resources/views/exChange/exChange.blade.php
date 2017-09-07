@@ -157,6 +157,9 @@ window.onload = function(){
                 },
                 success: function (data) {
                     console.log(data);
+                        if(data.result1){
+                           window.location.reload();
+                        }
                     }
             });
         }else if(play_sort == '') {

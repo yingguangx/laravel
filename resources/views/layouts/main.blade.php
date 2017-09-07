@@ -10,6 +10,7 @@
     <meta name="author" content="fish">
     <meta name="keywords" content="bootstrap,css,html">
     <meta name="description" content="fish">
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <title>fish</title>
     {{--<link rel="stylesheet" href="{{url(elixir("css/theme.src.css"))}}" type="text/css"/>--}}
 {{--    <link rel="stylesheet" href="{{url(elixir("css/app.src.css"))}}" type="text/css"/>--}}

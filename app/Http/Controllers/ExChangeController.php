@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Cache\MemcacheConnector;
 use Illuminate\Http\Request;
-use DB,Session,Redirect,Excel,Cache,URL;
+use Illuminate\Support\Facades\DB;
+use Session,Redirect,Excel,Cache,URL;
 use Memcache;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\ToolController;
 
 class ExChangeController extends Controller
 {
@@ -39,8 +42,10 @@ class ExChangeController extends Controller
     	$money = (int)($all['txt']/$all['hhwx_rate']);
     	$money = round($money);
     	$id = DB::table('order')->insertGetId(
-		    ['game_id' => $all['play_sort'], 'game_account' => $all['play_id'],'value'=>$all['txt'],'money'=>$money,'user_id'=>1]
+		    ['game_id' => $all['play_sort'], 'game_account' => $all['play_id'],'value'=>$all['txt'],'money'=>$money,'user_id'=>1,'created_at'=>date('Y-m-d H:i:s',time())]
 		);
+        $game_name = DB::table('game')->where('id',$all['play_sort'])->pluck('name')->toArray()[0];
+        $user_name = DB::table('users')->where('id',1)->pluck('name')->toArray()[0];
     	if ($mem->get('xiafenkey') == false){
     		$mem->set('xiafenkey', [$id],MEMCACHE_COMPRESSED,0);
     	} else {
@@ -48,7 +53,11 @@ class ExChangeController extends Controller
     		$arr[] = $id;
     		$mem->set('xiafenkey', $arr,MEMCACHE_COMPRESSED,0);
     	}
-    	$all['money'] = $money;
+        $all['money'] = $money;
+        $all['created_at'] = date('Y-m-d H:i:s',time());
+        $all['xiafenmark'] = $all['hhwx_rate']*$money;
+        $all['game_name'] = $game_name;
+    	$all['user_name'] = $user_name;
     	$bool = $mem->set($id,$all,MEMCACHE_COMPRESSED,0);
     	return response()->json(['result1'=>true]);
     }
@@ -59,7 +68,9 @@ class ExChangeController extends Controller
     	if (!$mem->connect('127.0.0.1',11211)){
     		die('连接失败');
     	}
-    	// $mem->delete(6,0);
+        // $mem->delete(27,0);
+     //    $mem->delete(13,0);
+    	// $mem->delete(14,0);
     	// $mem->delete('xiafenkey',0);
     	dd($mem->get($mem->get('xiafenkey')));
     }

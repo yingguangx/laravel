@@ -10,6 +10,10 @@ use Memcache;
 
 class OrderController extends Controller
 {
+    // public function __construct()
+    // {
+    //     dd(11);
+    // }
     public function getmessage()
     {
     	$mem = new Memcache;
@@ -26,7 +30,13 @@ class OrderController extends Controller
 
     public function xiafenOrderIndex()
     {
-    	return view('staff.order.xiafen');
+        $order = DB::table('order as o')
+        ->leftJoin('game as g','o.game_id','=','g.id')
+        ->leftJoin('users as u','o.user_id','=','u.id')
+        ->select('o.money','o.value','o.created_at','u.name as uname','g.name as gname','o.id')
+        ->where('o.status',1)
+        ->get();
+    	return view('staff.order.xiafen',['orders'=>$order]);
     }
 
     public function gameSetting()
@@ -68,5 +78,17 @@ class OrderController extends Controller
     public function balanceIndex()
     {
         return view('staff.order.balance');
+    }
+
+    public function xiafenok(Request $request)
+    {
+        $id = $request->input('id');
+        $mem = new Memcache;
+        if (!$mem->connect('127.0.0.1',11211)){
+            die('连接失败');
+        }
+        $bool = $mem->delete($id,0);
+        $bool2 = DB::table('order')->where('id',$id)->update(['status'=>0]);
+        return response()->json(['result'=>true]);
     }
 }

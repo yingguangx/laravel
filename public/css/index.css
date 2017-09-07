@@ -299,6 +299,30 @@ body{padding: 0px;
     width: 70%;
     padding-left: 18px;
 }
+.select-default {
+    background-color: white;
+    color: #2F353F;
+    font-size: 14px;
+    border-radius: 2px;
+    border: 1px solid #eee;
+    box-shadow: none;
+    height: 20px;
+    width: 70%;
+}
+.boxAdd {
+    background-color: white;
+    color: #2F353F;
+    font-size: 14px;
+    border-radius: 2px;
+    border: 1px solid #eee;
+    box-shadow: none;
+    height: 20px;
+    width: 70%;
+    padding-left: 10px;
+}
+body {
+    font-family: "microsoft YaHei";
+}
 
 
 
