@@ -122,9 +122,7 @@
     	<img src="images/4.png">
         <p>个人中心</p>
     </div>
-
-    <div class="row"><input type="text" class="form-control" placeholder="请输入兑换金额数" name="money_for"></div><div class="row" style="margin-top: 10px;
-"><input type="radio" name=""><img src="http://localhost/laravel/public/images/wx.jpg" width="" height="29vh" style="margin-left: 2px;"><input type="radio" name=""><img src="http://localhost/laravel/public/images/zfb.jpg" width="" height="25vh" style="margin-left: 9px;margin-top: -5px;">&nbsp;&nbsp;<input type="radio" name=""><img src="http://localhost/laravel/public/images/yhk.png" width="" height="39vh" style="margin-top: -13px;margin-left: 1px;"></div>
+    
 @push('js')
     <script>
         (function (doc, win) {
