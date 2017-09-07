@@ -289,7 +289,7 @@
               btn: ['确认兑换','取消'] //按钮
         }, function(){
             var money = $('input[name="money_for"]').val();
-            var gather_sort = $('input[name="zfname"]').val();
+            var gather_sort = $('input[name="zfname"]:checked').val();
             var gather_account = "";
             var gather_name = "";
             if (gather_sort == '微信') {
@@ -303,11 +303,11 @@
                 
             }
             if (gather_sort == '支付宝') {
-                console.log($('input[name="zfb_number"]').length);
+                console.log($('input[name="zfb_number"]'));
                 return false;
             }
             if (gather_sort == '银行卡') {
-                console.log($('input[name="yhk_number"]').val());
+                console.log(11);
                 return false;
             }
             // layer.msg('的确很重要', {icon: 1});
