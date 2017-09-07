@@ -94,3 +94,4 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('xiafenok', 'OrderController@xiafenok');
 });
 Route::get('/wheel', 'pointsController@wheel');
+Route::post('/money_change', 'pointsController@money_change');

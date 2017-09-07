@@ -89,4 +89,12 @@ class pointsController extends Controller
         }
         return MyWoKer::jsonSuccess(['item'=>array_search($prize_detail->name,$data['restaraunts'])+1,'new_luck_list'=>$userCoupon?$userCoupon:'']);
     }
+
+    public function money_change(Request $request)
+    {
+        $all = $request->all();
+        $user = Auth::user()->toArray();
+        dd($user['id']);
+        
+    }
 }
