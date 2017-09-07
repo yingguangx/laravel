@@ -67,7 +67,7 @@
             <ul>
                 <li><a href="{{ URL('staff/gameSetting') }}"><i class="glyph-icon icon-chevron-right"></i>游戏类目设置</a></li>
                 <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>优惠券设置</a></li>
-                <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>大转盘设置</a></li>
+                <li><a href="{{ URL('staff/wheel/index') }}"><i class="glyph-icon icon-chevron-right"></i>大转盘设置</a></li>
                 <li><a href="{{ URL::asset('staff/integrationSetting') }}"><i class="glyph-icon icon-chevron-right"></i>积分设置</a></li>
             </ul>
         </li>
