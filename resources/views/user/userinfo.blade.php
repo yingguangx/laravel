@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('css')
-    <link rel="stylesheet" href="{{url(elixir("css/user.css"))}}" type="text/css"/>
-    <link rel="stylesheet" href="{{url(elixir("css/layer.css"))}}" type="text/css"/>
-    <link rel="stylesheet" href="{{url(elixir("css/uploader/uploader.css"))}}" type="text/css"/>
+    <link rel="stylesheet" href="{{url(elixir('css/user.css'))}}" type="text/css"/>
+    <link rel="stylesheet" href="{{url(elixir('css/layer.css'))}}" type="text/css"/>
+    <link rel="stylesheet" href="{{url(elixir('css/uploader/uploader.css'))}}" type="text/css"/>
 @endsection
 
 @section('content')

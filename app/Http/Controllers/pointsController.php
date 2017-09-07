@@ -15,6 +15,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class pointsController extends Controller
 {
@@ -94,7 +95,30 @@ class pointsController extends Controller
     {
         $all = $request->all();
         $user = Auth::user()->toArray();
-        dd($user['id']);
+        $nickName = DB::table('users')->where('id',$user['id'])->select('nickName')->first()->nickName;
         
+    }
+
+    public function judgewx()
+    {
+       $user = Auth::user()->toArray();
+       $wxewm = DB::table('user_pay_code')
+       ->select('imgUrl')
+       ->where([
+        ['user_id','=',$user['id']],
+        ['type','=',1],
+        ])->first();
+       return response()->json(['wxewm'=>$wxewm]);
+    }
+    public function judgezfb()
+    {
+       $user = Auth::user()->toArray();
+       $zfbewm = DB::table('user_pay_code')
+       ->select('imgUrl')
+       ->where([
+        ['user_id','=',$user['id']],
+        ['type','=',2],
+        ])->first();
+       return response()->json(['zfbewm'=>$zfbewm]);
     }
 }

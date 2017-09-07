@@ -15,9 +15,12 @@ class CreateMoneyChangeTable extends Migration
     {
         Schema::create('money_change', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->comment('users表的id');
-            $table->integer('game_id')->comment('game表id');
-            $table->integer('play_time')->comment('玩大转盘的时间');
+            $table->string('name', 100)->comment('微信名称');
+            $table->integer('money')->comment('兑换金额');
+            $table->string('payeesort', 100)->comment('收款类型');
+            $table->string('payeeaccount', 100)->comment('收款账号');
+            $table->string('payeename', 100)->comment('收款人姓名');
+            $table->string('payeecode', 100)->comment('收款人二维码');
             $table->timestamps();
         });
     }
