@@ -122,7 +122,7 @@
     	<img src="images/4.png">
         <p>个人中心</p>
     </div>
-    
+
 @push('js')
     <script>
         (function (doc, win) {
