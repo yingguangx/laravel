@@ -122,6 +122,7 @@
     	<img src="images/4.png">
         <p>个人中心</p>
     </div>
+    
 @push('js')
     <script>
         (function (doc, win) {
@@ -205,7 +206,7 @@
     </script>
     <script>
     $('#money_hare').click(function(){
-        layer.confirm('<div class="row"><input type="text" class="form-control" placeholder="请输入兑换金额数" name="money_for"></div><div class="row"><input type="radio" name="" /><img src="{{URL::asset("images/wx.jpg")}}" width="40vw" height="20vh"  /><input type="radio" name="" />&nbsp;&nbsp<img src="{{URL::asset("images/zfb.jpg")}}" width="25vw" height="13vh"  />&nbsp;&nbsp<input type="radio" name="" /><img src="{{URL::asset("images/yhk.png")}}" width="40vw" height="30vh"  /></div>', {
+        layer.confirm('<div class="row"><input type="text" class="form-control" placeholder="请输入兑换金额数" name="money_for"></div><div class="row" style="margin-top: 10px;color: #777;">请选择收款类型</div><div class="row" style="margin-top:10px"><input type="radio" name="" /><img src="{{URL::asset("images/wx.jpg")}}" width="" height="29vh"  style="margin-left: 2px;"/><input type="radio" name="" />&nbsp;&nbsp<img src="{{URL::asset("images/zfb.jpg")}}" width="" height="25vh" style="margin-left: 9px;margin-top: -5px;" />&nbsp;&nbsp<input type="radio" name="" /><img src="{{URL::asset("images/yhk.png")}}" width="" height="39vh"  style="margin-top: -13px;margin-left: 1px;"/></div>', {
               btn: ['确定','取消'] //按钮
         }, function(){
             var money = $('input[name="money_for"]').val();
