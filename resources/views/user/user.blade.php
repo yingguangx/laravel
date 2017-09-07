@@ -226,6 +226,7 @@
         var html="";
         $('.zhifuappend').html(html);
         $('.zfbafter').html(html);
+        $('.zhifuappend').after(html);
        if ($('input:radio[name="zfname"]:checked').val() == '微信') {
         $.ajax({
                url: "/judgewx",

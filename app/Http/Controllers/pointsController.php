@@ -102,7 +102,7 @@ class pointsController extends Controller
     public function judgewx()
     {
        $user = Auth::user()->toArray();
-       $wxewm = DB::table('user_pay_code')
+       $wxewm = DB::table('user_pay_codes')
        ->select('imgUrl')
        ->where([
         ['user_id','=',$user['id']],
@@ -113,7 +113,7 @@ class pointsController extends Controller
     public function judgezfb()
     {
        $user = Auth::user()->toArray();
-       $zfbewm = DB::table('user_pay_code')
+       $zfbewm = DB::table('user_pay_codes')
        ->select('imgUrl')
        ->where([
         ['user_id','=',$user['id']],
