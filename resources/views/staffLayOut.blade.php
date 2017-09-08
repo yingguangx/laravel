@@ -7,8 +7,11 @@
 
     <link rel="stylesheet" href="{{ URL::asset('css/index.css') }}" type="text/css" media="screen" />
     <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <link href="{{URL::asset('/layui/css/layui.css')}}" rel="stylesheet">
+
     <link rel="stylesheet" href="{{URL::asset('css/weui.min.css')}}">
-    <link rel="stylesheet" href="{{URL::asset('css/jquery-weui.css')}}">
+
 
     <script type="text/javascript" src="{{ URL::asset('js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/tendina.min.js') }}"></script>
@@ -50,7 +53,7 @@
 
         @if(session('staff_role') == 1)
         <li class="childUlLi">
-            <a href="#"> <i class="glyph-icon  icon-reorder"></i>经营状况</a>
+            <a href="{{ URL::asset('staff/turnOver') }}"> <i class="glyph-icon  icon-reorder"></i>经营状况</a>
         </li>
         @else
         @endif

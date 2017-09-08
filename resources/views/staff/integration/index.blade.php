@@ -1,7 +1,7 @@
 @extends('staffLayOut')
 
 @section('content')
-    <div class="row m-l-15 m-t-5">
+    <div class="row m-l-15 m-t-15">
         <span class="font-title">系统设置-积分设置</span>
     </div>
 
