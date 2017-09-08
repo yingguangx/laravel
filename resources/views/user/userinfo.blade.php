@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('css')
-    <link rel="stylesheet" href="{{url(elixir("css/user.css"))}}" type="text/css"/>
-    <link rel="stylesheet" href="{{url(elixir("css/layer.css"))}}" type="text/css"/>
-    <link rel="stylesheet" href="{{url(elixir("css/uploader/uploader.css"))}}" type="text/css"/>
+    <link rel="stylesheet" href="{{url(elixir('css/user.css'))}}" type="text/css"/>
+    <link rel="stylesheet" href="{{url(elixir('css/layer.css'))}}" type="text/css"/>
+    <link rel="stylesheet" href="{{url(elixir('css/uploader/uploader.css'))}}" type="text/css"/>
 @endsection
 
 @section('content')
@@ -19,7 +19,11 @@
         </header>
         
         <div class="panel-body demo-panel-files" id='demo-files1'>
+            @if($_GET['type'] == 1)
             示例图片:<img src="{{ asset('/images/fkm.png') }}" alt="" width="100%">
+            @else
+            示例图片:<img src="{{ asset('/images/zfbskm.png') }}" alt="" width="100%">
+            @endif
         </div>
 
         <div id="drag-and-drop-zone" class="uploader" style="border:0;padding:0;text-align: left;">
@@ -30,7 +34,7 @@
         </div>
     </div>
     <div style="position: fixed;bottom: 0;width: 100%">
-        <span class="layui-btn layui-btn layui-btn-danger" style="width: 100%">提交二维码</span>
+        <span class="layui-btn layui-btn layui-btn-danger submit" style="width: 100%">提交二维码</span>
     </div>
 @endsection
 @push('js')
@@ -57,7 +61,7 @@
         url: '/user/fileUpload',
         extraData: {
           userID: '{{ \Illuminate\Support\Facades\Auth::user()->id }}',
-          type:'1',//收款码
+          type:'{{ $_GET['type'] }}',//收款码
           _token:'{{csrf_token()}}'
         },
         maxFileSize: 209712500,
@@ -126,6 +130,13 @@
           // $.danidemo.addLog('#demo-debug', 'info', 'Browser not supported(do something else here!): ' + message);
         }
       });
+      layui.use('layer',function(){
+          window.layer = layui.layer;
+      });
+      $('.submit').on('click',function () {
+          layer.alert('提交成功', {icon: 1});
+          setTimeout("location.href = '/user'",1500);
+      })
 
 </script>
 @endpush

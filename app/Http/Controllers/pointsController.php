@@ -15,6 +15,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class pointsController extends Controller
 {
@@ -88,5 +89,36 @@ class pointsController extends Controller
            $userCoupon = $userCoupon::luck_list($userCoupon->id);
         }
         return MyWoKer::jsonSuccess(['item'=>array_search($prize_detail->name,$data['restaraunts'])+1,'new_luck_list'=>$userCoupon?$userCoupon:'']);
+    }
+
+    public function money_change(Request $request)
+    {
+        $all = $request->all();
+        $user = Auth::user()->toArray();
+        $nickName = DB::table('users')->where('id',$user['id'])->select('nickName')->first()->nickName;
+        
+    }
+
+    public function judgewx()
+    {
+       $user = Auth::user()->toArray();
+       $wxewm = DB::table('user_pay_codes')
+       ->select('imgUrl')
+       ->where([
+        ['user_id','=',$user['id']],
+        ['type','=',1],
+        ])->first();
+       return response()->json(['wxewm'=>$wxewm]);
+    }
+    public function judgezfb()
+    {
+       $user = Auth::user()->toArray();
+       $zfbewm = DB::table('user_pay_codes')
+       ->select('imgUrl')
+       ->where([
+        ['user_id','=',$user['id']],
+        ['type','=',2],
+        ])->first();
+       return response()->json(['zfbewm'=>$zfbewm]);
     }
 }

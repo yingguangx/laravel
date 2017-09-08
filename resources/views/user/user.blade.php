@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{url(elixir("css/user.css"))}}" type="text/css"/>
+<link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -27,7 +28,7 @@
 
         <div class="nav">
             <ul>
-                <li>
+                <li id='money_hare'>
                     <i class="idt"></i>
                     <p >余额</p>
                     <span>200</span>
@@ -85,19 +86,17 @@
                 </div>
             </div>
             <div class="ps-lt keyGen">
-                <div class="lt-dsb cl-bb">
+                <div class="lt-dsb">
                     <p>我的密钥</p>
                     <i class="arr-right"></i>
                 </div>
             </div>
-            <a href="/user/userInfo">
-                <div class="ps-lt">
-                    <div class="lt-dsb cl-bb">
-                        <p>我的收款码</p>
-                        <i class="arr-right"></i>
-                    </div>
+            <div class="ps-lt skm">
+                <div class="lt-dsb cl-bb">
+                    <p>我的收款码</p>
+                    <i class="arr-right"></i>
                 </div>
-            </a>
+            </div>
         </section>
 
         <div class="jg"></div>
@@ -121,6 +120,7 @@
     	<img src="images/4.png">
         <p>个人中心</p>
     </div>
+
 @push('js')
     <script>
         (function (doc, win) {
@@ -146,6 +146,7 @@
         })
     </script>
     <script type="text/javascript" src="{{asset('/js/layui/layui.js')}}"></script>
+    <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
     <script type="text/javascript">
       layui.use('layer',function(){
              window.layer = layui.layer;
@@ -198,8 +199,178 @@
           })
         }
 
+      });
+      $('.skm').on('click',function () {
+          layer.open({
+              title:'收款码类型',
+              content: '请选择收款码类型'
+              ,btn: ['微信收款码', '支付宝收款码']
+              ,yes: function(index){
+                  if ('{{ Auth::user()->has_wechat_code  }}' == true){
+                      layer.open({
+                          title:'微信收款码',
+                          content: '已经设置收款码，确定要重新设置？'
+                          ,btn: ['是的', '查看收款码']
+                          ,yes: function(index, layer){
+                              location.href = '/user/userInfo?type=1';
+                          }
+                          ,btn2: function(index){
+                              layer.open({
+                                  type: 1,
+                                  area: '90%',
+                                  offset: '100px',
+                                  title:'我的收款码',
+                                  content: '<img src="/user/wechatCode" width="100%">' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                              });
+                          }
+                          ,cancel: function(){
+                              //右上角关闭回调
+
+                              //return false 开启该代码可禁止点击该按钮关闭
+                          }
+                      });
+                  }
+              }
+              ,btn2: function(index, layer){
+                  //按钮【按钮二】的回调
+                  location.href = '/user/userInfo?type=2';
+                  //return false 开启该代码可禁止点击该按钮关闭
+              }
+              ,cancel: function(){
+                  //右上角关闭回调
+
+                  //return false 开启该代码可禁止点击该按钮关闭
+              }
+          });
       })
 
+    </script>
+    <script>
+    function xuanzeyh()
+    {
+        var html2 = '<div class="row zfbafter"><input type="text" class="form-control" placeholder="请输入您的银行卡卡号" name="yhk_number"><input type="text" class="form-control" placeholder="请输入银行卡姓名" name="yhk_name"></div>';
+         $('.zhifuappend').after(html2);
+    }
+    function morenfangshi()
+    {
+        $('input[name="zfname"]:checked').click();
+    }
+    function shuruzhanghu()
+    {
+        var html = '<span style="color:red;">确认兑换后工作人员将在5分钟内汇款到该支付宝账户，可在个人中心->我的消息列表中查看</span><span style="color:blue;" onclick="morenfangshi()">使用收款码方式</span>';
+        var html2 = '<div class="row zfbafter"><input type="text" class="form-control" placeholder="请输入您的支付宝账号" name="zfb_number"><input type="text" class="form-control" placeholder="请输入您的支付宝姓名" name="zfb_name"></div>';
+         $('.zhifuappend').html(html);
+         $('.zhifuappend').after(html2);
+    }
+    function zfselect()
+    {
+        var html="";
+        $('.zhifuappend').html(html);
+        $('.zfbafter').html(html);
+        $('.zhifuappend').after(html);
+       if ($('input:radio[name="zfname"]:checked').val() == '微信') {
+        $.ajax({
+               url: "/judgewx",
+               type: "POST",
+               dataType: "json",
+               data:{
+
+               },
+                headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function (data) {
+                   if (data.wxewm == null) {
+                    var html = '<span style="color:red;" class="wechatsubmitjudge" judge="no">小提示：请到个人中心我的收款码下上传你的微信收款码，方便工作人员以后打钱到您的微信，或选择其它收款方式</span>';
+                    $('.zhifuappend').html(html);
+                   } else {
+                     var html = '<span style="color:red;" class="wechatsubmitjudge" judge="yes">小提示：余额兑换后工作人员将对照您个人中心微信收款码，在5分钟内汇款，并在您个人中心我的消息列表中提示</span>';
+                    $('.zhifuappend').html(html);
+                   }
+                }
+           });
+       }
+        if ($('input:radio[name="zfname"]:checked').val() == '支付宝') {
+            $.ajax({
+               url: "/judgezfb",
+               type: "POST",
+               dataType: "json",
+               data:{
+
+               },
+                headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function (data) {
+                   if (data.zfbewm == null) {
+                    var html = '<span style="color:red;">小提示：在个人中心上传支付宝收款码收钱更方便哦！</span>';
+                    var html2 = '<div class="row zfbafter"><input type="text" class="form-control" placeholder="请输入您的支付宝账号" name="zfb_number"><input type="text" class="form-control" placeholder="请输入您的支付宝姓名" name="zfb_name"></div>';
+                    $('.zhifuappend').html(html);
+                    $('.zhifuappend').after(html2);
+                   } else {
+                     var html = '<span style="color:red;">小提示：您可以直接点击确认兑换，工作人员会在5分钟内转钱到您的支付宝账户，也可以选择手动输入账户</span><span onclick="shuruzhanghu()" style="color:blue;">手动输入账户</span>';
+
+                    $('.zhifuappend').html(html);
+                   }
+                }
+           });
+        }
+
+        if ($('input:radio[name="zfname"]:checked').val() == '银行卡') {
+            var html = '<label class="col-sm-2 control-label">银行卡类型：</label><select class="form-control" name="yhksort" onchange="xuanzeyh()"><option value="工商银行">工商银行</option><option value="招商银行">招商银行</option><option value="农业银行">农业银行</option><option value="建设银行">建设银行</option><option value="中国银行">中国银行</option><option value="交通银行">交通银行</option></select>';
+            $('.zhifuappend').html(html);
+        }
+
+
+    }
+
+    
+    $('#money_hare').click(function(){
+        layer.confirm('<div class="row"><input type="text" class="form-control" placeholder="请输入兑换金额数" name="money_for"></div><div class="row" style="margin-top: 10px;color: #777;">请选择收款类型</div><div class="row" style="margin-top:10px"><input type="radio" name="zfname" value="微信" / onclick="zfselect()"><img src="{{URL::asset("images/wx.jpg")}}" width="" height="29vh"  style="margin-left: 2px;"/><input type="radio" name="zfname" value="支付宝" onclick="zfselect()"/>&nbsp;&nbsp<img src="{{URL::asset("images/zfb.jpg")}}" width="" height="25vh" style="margin-left: 9px;margin-top: -5px;" />&nbsp;&nbsp<input type="radio" name="zfname" value="银行卡" onclick="zfselect()" /><img src="{{URL::asset("images/yhk.png")}}" width="" height="39vh"  style="margin-top: -13px;margin-left: 1px;"/></div><div class="row zhifuappend" style="margin-top:10px"></div>', {
+              btn: ['确认兑换','取消'] //按钮
+        }, function(){
+            var money = $('input[name="money_for"]').val();
+            var gather_sort = $('input[name="zfname"]:checked').val();
+            var gather_account = "";
+            var gather_name = "";
+            if (gather_sort == '微信') {
+                if ($('.zhifuappend').find('.wechatsubmitjudge').attr('judge') == 'no') {
+                        layer.confirm('请到个人中心上传您个人微信收款码，或选择其它收款方式', {
+                          btn: ['我知道了'] //按钮
+                        });
+                        return false;
+
+                    }
+                
+            }
+            if (gather_sort == '支付宝') {
+                console.log($('input[name="zfb_number"]'));
+                return false;
+            }
+            if (gather_sort == '银行卡') {
+                console.log(11);
+                return false;
+            }
+            // layer.msg('的确很重要', {icon: 1});
+            $.ajax({
+               url: "/money_change",
+               type: "POST",
+               dataType: "json",
+               data: {
+                'money':money,
+               },
+                headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function (data) {
+                    console.log(data);
+                   }
+           });
+        }, function(){
+        
+        });
+    })
+       
     </script>
 @endpush
 @endsection

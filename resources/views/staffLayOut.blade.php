@@ -7,12 +7,18 @@
 
     <link rel="stylesheet" href="{{ URL::asset('css/index.css') }}" type="text/css" media="screen" />
     <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+
     <link href="{{URL::asset('/layui/css/layui.css')}}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{URL::asset('css/weui.min.css')}}">
+
 
     <script type="text/javascript" src="{{ URL::asset('js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/tendina.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/common.js') }}"></script>
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
+    <script src="{{URL::asset('js/jquery-weui.js')}}"></script>
+    <style>body{font-size:14px;}</style>
     @yield('style')
 </head>
 <body>
@@ -65,7 +71,7 @@
             <ul>
                 <li><a href="{{ URL('staff/gameSetting') }}"><i class="glyph-icon icon-chevron-right"></i>游戏类目设置</a></li>
                 <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>优惠券设置</a></li>
-                <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>大转盘设置</a></li>
+                <li><a href="{{ URL('staff/wheel/index') }}"><i class="glyph-icon icon-chevron-right"></i>大转盘设置</a></li>
                 <li><a href="{{ URL::asset('staff/integrationSetting') }}"><i class="glyph-icon icon-chevron-right"></i>积分设置</a></li>
             </ul>
         </li>
