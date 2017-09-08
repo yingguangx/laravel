@@ -79,6 +79,8 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('addAccount', 'StaffController@addAccount');
     $router->post('delStaff', 'StaffController@delStaff');
     $router->post('editStaff', 'StaffController@editStaff');
+    //经营状况
+    $router->get('turnOver', 'TurnOverController@turnOver');
 
     $router->get('xiafenOrderIndex', 'OrderController@xiafenOrderIndex');
     $router->get('gameSetting', 'OrderController@gameSetting')->name('staff.gameSetting');
