@@ -1,88 +1,55 @@
 @extends('staffLayOut')
 
 @section('content')
-    <div class="wraper container-fluid">
-    	<div class="page-title">
-            <h3 class="title">系统管理-杂货个清重量档运费设置</h3>
-        </div>
-         <div class="row">
-           	<div class="col-lg-12">
-	            <div class="panel panel-defaul">
-	            <div class="panel-heading">
-				<div>
-					<ul class="nav nav-tabs" role="tablist" id="tab_dang">
-				    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">重量档参数设置</a></li>
-				    <li role="presentation"  ><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">重量档运费设置</a></li>
-				  </ul>
-				  <!-- Tab panes -->
-  <div class="tab-content">
-    <div role="tabpanel" class="tab-pane active" id="home">
-                                   <div class="form-group m-t-15">
-                                       <div class="col-md-9 col-md-offset-2 data-list-weight">
-                                           <div class="row">
-                                               <div class="col-md-offset-1 col-md-2">
-                                                   <h5>北极星重量档显示（KG）</h5>
-                                               </div>
-                                               <div class="col-md-2 col-md-offset-1">
-                                                   <h5>最小重量（g）</h5>
-                                               </div>
-                                               <div class="col-md-2 col-md-offset-1">
-                                                   <h5>最大重量（g）</h5>
-                                               </div>
-                                           </div>
-                                           @foreach($polweights as $polweight)
-                                               <div class="row m-t-15">
-                                                   <div class="col-md-3">
-                                                       <div class="row">
-                                                           <span class="col-md-2 clh" id="polweight_{{$polweight['id']}}">{{$polweight['id']}}</span>
-                                                           <div class="col-md-10">
-                                                               <input type="text" class="form-control" value="{{$polweight['weight_show']}}">
-                                                           </div>
-                                                       </div>
-                                                   </div>
-                                                   <div class="col-md-3">
-                                                       <input type="text" class="form-control" value="{{$polweight['min_weight']}}">
-                                                   </div>
-                                                   <div class="col-md-3">
-                                                       <input type="text" class="form-control" value="{{$polweight['max_weight']}}">
-                                                   </div>
-                                                   <div class="col-md-3">
-                                                       <button type="button" class="btn btn-inverse m-b-5" onclick="deletepolweight($(this),{{$polweight['id']}})">删除</button>
-                                                   </div>
-                                               </div>
-                                           @endforeach
-                                        <form class="form-horizontal sys_6" id="weight_add_form" method="post" action="/staff/zhgqCreatePolWeight">
-                                        {{ csrf_field() }}
-                                           <div class="row m-t-15">
-                                               <div class="col-md-3">
-                                                   <div class="row">
-                                                       <span class="col-md-2 clh"></span>
-                                                       <div class="col-md-10">
-                                                           <input type="text" id="pweight_show" name="pweight_show" class="form-control">
-                                                       </div>
-                                                   </div>
-                                               </div>
-                                               <div class="col-md-3">
-                                                   <input type="text" id="pmin_weight" name="pmin_weight" class="form-control">
-                                               </div>
-                                               <div class="col-md-3">
-                                                   <input type="text" id="pmax_weight" name="pmax_weight" class="form-control">
-                                               </div>
-                                               <div class="col-md-3">
-                                                   <button type="button" class="btn btn-info m-b-5" onclick="addpolweight()">保存</button>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </form>
-    </div>
-    <!-- s -->
-				</div>
-				</div>
-				</div>
-			</div>
-    </div>
+<table class="table-responsive table-hover table-striped table table-bordered">
+    <caption>
+        <h3 >新订单</h3>
+    </caption>
+    <thead>
+        <tr>
+            <th>微信名称</th>
+            <th>游戏种类</th>
+            <th>下分金额（单位元）</th>
+            <th>下分分数（单位万） </th>
+            <th>时间</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody class="xiafenorderappend">
+    <?php foreach ($orders as $key => $order) {
+    ?>
+        <tr>
+            <td><?php echo $order->uname ?></td>
+            <td><?php echo $order->gname ?></td>
+            <td><?php echo $order->money ?></td>
+            <td><?php echo $order->value ?></td>
+            <td><?php echo $order->created_at ?></td>
+            <td><button class="xiafenok" onclick="xiafenok(<?php echo $order->id ?>)">下分完成点击</button></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tfoot>
+        <td colspan="6" class="text-center">分页</td>
+    </tfoot>
+</table>
 @endsection
 
 @section('jquery')
+<script>
+    function xiafenok(id){
+           $.ajax({
+               url: "/staff/xiafenok",
+               type: "POST",
+               dataType: "json",
+               data:{id:id},
+               headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function (data) {
+                       console.log(data);
+                   }
+           });
+       }
+       
+</script>
 @endsection

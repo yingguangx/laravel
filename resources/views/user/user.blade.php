@@ -29,7 +29,7 @@
             <ul>
                 <li>
                     <i class="idt"></i>
-                    <p>余额</p>
+                    <p >余额</p>
                     <span>200</span>
                 </li>
                 <li class="pt-line">
@@ -90,6 +90,14 @@
                     <i class="arr-right"></i>
                 </div>
             </div>
+            <a href="/user/userInfo">
+                <div class="ps-lt">
+                    <div class="lt-dsb cl-bb">
+                        <p>我的收款码</p>
+                        <i class="arr-right"></i>
+                    </div>
+                </div>
+            </a>
         </section>
 
         <div class="jg"></div>

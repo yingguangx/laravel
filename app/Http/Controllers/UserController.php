@@ -10,6 +10,9 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use App\Models\UserPayCode;
+
 
 class UserController extends Controller
 {
@@ -56,4 +59,29 @@ class UserController extends Controller
 	    	return \GuzzleHttp\json_encode(['success'=>true,'message'=>'设置密钥成功！']);
 	    return \GuzzleHttp\json_encode(['success'=>false,'message'=>'设置密钥是失败，请稍后再试']);
     }
+    public function userInfo()
+    {
+        return view('user.userinfo');
+    }
+
+    public function fileUpload(Request $request)
+    {
+        $file = $request->file('file');
+        $types = array('gif','jpeg','jpg','png');
+        if($file->isValid()){
+            if(!in_array($file->extension(),$types)) return \GuzzleHttp\json_encode(array('success'=>false,'message'=>'暂不支持该文件类型！'));
+            $randFileName = md5(str_random(12).time()).'.'.$file->extension();
+            $file->move(app_path().'/../storage/fkm',$randFileName);
+            $userPayCode = new UserPayCode;
+            $userPayCode->user_id = Auth::user()->id;
+            $userPayCode->imgUrl = app_path().'/../storage/fkm/'.$randFileName;
+            $userPayCode->type = 1;//付款码
+            if($userPayCode->save())
+                return \GuzzleHttp\json_encode(array('success'=>true));
+            return \GuzzleHttp\json_encode(array('success'=>false,'message'=>'上传失败！'));
+
+        }
+
+    }
 }
+
