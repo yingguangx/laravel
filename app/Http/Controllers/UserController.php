@@ -74,14 +74,20 @@ class UserController extends Controller
             $file->move(app_path().'/../storage/fkm',$randFileName);
             $userPayCode = new UserPayCode;
             $userPayCode->user_id = Auth::user()->id;
-            $userPayCode->imgUrl = app_path().'/../storage/fkm/'.$randFileName;
-            $userPayCode->type = 1;//付款码
+            $userPayCode->imgUrl = '/fkm/'.$randFileName;
+            $userPayCode->type = $request->input('type');//付款码
             if($userPayCode->save())
                 return \GuzzleHttp\json_encode(array('success'=>true));
             return \GuzzleHttp\json_encode(array('success'=>false,'message'=>'上传失败！'));
 
         }
 
+    }
+    public function getWechatCode()
+    {
+        $path = userPayCode::where('user_id',Auth::id())->where('type',1)->orderBy('created_at','desc')->first()->imgUrl;
+        $path = storage_path().$path;
+        return response()->file($path);
     }
 }
 

@@ -52,6 +52,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/user/keygen', 'UserController@addKeyGen');
 	Route::get('/user/userInfo', 'UserController@userInfo');
 	Route::post('/user/fileUpload', 'UserController@fileUpload');
+	Route::get('/user/wechatCode', 'UserController@getWechatCode');
 	Route::get('/wheel', 'pointsController@wheel');
   Route::get('/wheel/award_list', 'pointsController@award_list')->name('wheel.award');
   Route::get('/wheel/award', 'pointsController@get_award')->name('wheel.award_random');
@@ -97,3 +98,5 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
 });
 Route::get('/wheel', 'pointsController@wheel');
 Route::post('/money_change', 'pointsController@money_change');
+Route::post('/judgewx', 'pointsController@judgewx');
+Route::post('/judgezfb', 'pointsController@judgezfb');
