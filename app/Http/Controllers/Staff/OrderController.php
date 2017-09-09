@@ -20,13 +20,19 @@ class OrderController extends Controller
     	if (!$mem->connect('127.0.0.1',11211)){
     		die('连接失败');
     	}
-    	if ($mem->get('xiafenkey') != false && $mem->get($mem->get('xiafenkey')) != array()) {
+    	if ($mem->get('xiafenkey') != false && $mem->get('xiafenkey') != array()) {
     		$xiafenorders = $mem->get($mem->get('xiafenkey'));
+           foreach ($xiafenorders as $k => &$v) {
+                $v = unserialize($v);
+           }
     	} else {
     		$xiafenorders = [];
     	}
-        if ($mem->get('moneyChangekey') != false && $mem->get($mem->get('moneyChangekey')) != array()) {
+        if ($mem->get('moneyChangekey') != false && $mem->get('moneyChangekey') != array()) {
             $moneychangenorders = $mem->get($mem->get('moneyChangekey'));
+            foreach ($moneychangenorders as $k => &$v) {
+                $v = unserialize($v);
+           }
         } else {
             $moneychangenorders = [];
         }
@@ -96,6 +102,10 @@ class OrderController extends Controller
             die('连接失败');
         }
         $bool = $mem->delete('xiafenkey'.$id,0);
+        $xiafenkey = $mem->get('xiafenkey');
+        array_splice($xiafenkey,array_search('xiafenkey'.$id,$xiafenkey),1);
+        $mem->set("xiafenkey",$xiafenkey,MEMCACHE_COMPRESSED,0);
+        // unset($xiafenkey[]);
         $bool2 = DB::table('order')->where('id',$id)->update(['status'=>0]);
         return response()->json(['result'=>true]);
     }
@@ -108,6 +118,10 @@ class OrderController extends Controller
             die('连接失败');
         }
         $bool = $mem->delete('moneyChange'.$id,0);
+        $moneyChangekey = $mem->get('moneyChangekey');
+        array_splice($moneyChangekey,array_search('moneyChange'.$id,$moneyChangekey),1);
+        $mem->set("moneyChangekey",$moneyChangekey,MEMCACHE_COMPRESSED,0);
+        
         $bool2 = DB::table('money_change')->where('id',$id)->update(['status'=>0]);
         return response()->json(['result'=>true]);
     }
