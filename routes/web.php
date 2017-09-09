@@ -60,7 +60,8 @@ Route::group(['middleware' => ['auth']], function () {
 	//下分
 	Route::post('/xiafensubmit', 'ExChangeController@xiafensubmit');
 	//test
-	Route::get('/test', 'ExChangeController@test');
+    Route::get('/test', 'ExChangeController@test');
+	Route::get('/test2', 'ExChangeController@test2');
 });
 
 //员工端

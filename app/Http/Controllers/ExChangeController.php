@@ -59,7 +59,8 @@ class ExChangeController extends Controller
         $all['game_name'] = $game_name;
         $all['user_name'] = $user_name;
     	$all['id'] = $id;
-    	$bool = $mem->set("xiafenkey".$id,$all,MEMCACHE_COMPRESSED,0);
+        $str_arr = serialize($all);
+    	$bool = $mem->set("xiafenkey".$id,$str_arr,MEMCACHE_COMPRESSED,0);
     	return response()->json(['result1'=>true]);
     }
 
@@ -69,10 +70,22 @@ class ExChangeController extends Controller
     	if (!$mem->connect('127.0.0.1',11211)){
     		die('连接失败');
     	}
-        $mem->delete('xiafenkey40',0);
-     //    $mem->delete(4,0);
-    	// $mem->delete(6,0);
-    	// $mem->delete('xiafenkey',0);
-    	dd($mem->get($mem->get('xiafenkey')));
+        //   $mem->set('a11','1',MEMCACHE_COMPRESSED,0);
+        // $mem->set('a22',['11','22','33'],MEMCACHE_COMPRESSED,0);
+         dd($mem->get('moneyChangekey'));
+        // dd($mem->get('moneyChangekey')); 
+        // dd($mem->get('xiafenkey41')); 
+        // $mem = $mem->set('xiafenkey',['xiafenkey40','xiafenkey41']);
+        // dd($mem->get(['a1','a2']));
+    	// dd($mem->get('aa1'));
+    }
+    public function test2()
+    {
+        $mem = new Memcache;
+        if (!$mem->connect('127.0.0.1',11211)){
+            die('连接失败');
+        }
+        serialize([11,22]);
+     
     }
 }

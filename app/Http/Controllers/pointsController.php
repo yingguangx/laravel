@@ -148,7 +148,8 @@ class pointsController extends Controller
             $all_arr['gather_account'] = $gather_account;
             $all_arr['gather_name'] = $gather_name;
         }
-        $bool = $mem->set("moneyChange".$id,$all_arr,MEMCACHE_COMPRESSED,0);
+        $str_arr = serialize($all_arr);
+        $bool = $mem->set("moneyChange".$id,$str_arr,MEMCACHE_COMPRESSED,0);
 
         return response()->json(['result1'=>true]);
         
