@@ -66,6 +66,7 @@
                 <li><a href="{{ URL('staff/balanceIndex') }}"><i class="glyph-icon icon-chevron-right"></i>余额兑换<span style="color:red;" class="moneychangeorder"></span></a></li>
             </ul>
         </li>
+
         <li class="childUlLi">
             <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>系统设置</a>
             <ul>
@@ -97,6 +98,7 @@
     @yield('jquery')
 </html>
 <script>
+$('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="audio/mpeg"></audio>').appendTo('body');
        function getmessage(){
            $.ajax({
                url: "/staff/getmessage",
@@ -107,7 +109,7 @@
                },
                success: function (data) {
                
-                        $('.ordernum').text('');
+                        // $('.ordernum').text('');
                         $('.xiafenorder').text('');
                         $('.xiafenorderappend').html('');
                             var num = 0;
@@ -157,9 +159,15 @@
                            $('.moneychangeorder').text('+'+num2);
                            $('.moneychangeorderappend').html(html2);
                        }
+                            var ordernum_has = $('.ordernum').text();
+                            // console.log(ordernum_has);
                             var num_all = num+num2;
+                            if (ordernum_has != '') {
+                                if (num_all > parseInt(ordernum_has)) {
+                                     $('#chatAudio')[0].play();
+                                }
+                            }
                            $('.ordernum').text('+'+num_all);
-
 
                    }
            });
