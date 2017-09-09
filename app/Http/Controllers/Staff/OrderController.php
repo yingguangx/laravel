@@ -20,12 +20,17 @@ class OrderController extends Controller
     	if (!$mem->connect('127.0.0.1',11211)){
     		die('连接失败');
     	}
-    	if ($mem->get('xiafenkey') != false) {
+    	if ($mem->get('xiafenkey') != false && $mem->get($mem->get('xiafenkey')) != array()) {
     		$xiafenorders = $mem->get($mem->get('xiafenkey'));
     	} else {
     		$xiafenorders = [];
     	}
-    	return response()->json(['xiafenorders'=>$xiafenorders]);
+        if ($mem->get('moneyChangekey') != false && $mem->get($mem->get('moneyChangekey')) != array()) {
+            $moneychangenorders = $mem->get($mem->get('moneyChangekey'));
+        } else {
+            $moneychangenorders = [];
+        }
+    	return response()->json(['xiafenorders'=>$xiafenorders,'moneychangenorders'=>$moneychangenorders]);
     }
 
     public function xiafenOrderIndex()
@@ -77,7 +82,10 @@ class OrderController extends Controller
 
     public function balanceIndex()
     {
-        return view('staff.order.balance');
+        $order = DB::table('money_change')
+        ->where('status',1)
+        ->get();
+        return view('staff.order.balance',['orders'=>$order]);
     }
 
     public function xiafenok(Request $request)
@@ -87,8 +95,20 @@ class OrderController extends Controller
         if (!$mem->connect('127.0.0.1',11211)){
             die('连接失败');
         }
-        $bool = $mem->delete($id,0);
+        $bool = $mem->delete('xiafenkey'.$id,0);
         $bool2 = DB::table('order')->where('id',$id)->update(['status'=>0]);
+        return response()->json(['result'=>true]);
+    }
+
+    public function moneychangeok(Request $request)
+    {
+        $id = $request->input('id'); 
+        $mem = new Memcache;
+        if (!$mem->connect('127.0.0.1',11211)){
+            die('连接失败');
+        }
+        $bool = $mem->delete('moneyChange'.$id,0);
+        $bool2 = DB::table('money_change')->where('id',$id)->update(['status'=>0]);
         return response()->json(['result'=>true]);
     }
 }

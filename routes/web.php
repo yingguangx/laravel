@@ -92,6 +92,7 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('saveGame', 'OrderController@saveGame');
     $router->post('saveupGame', 'OrderController@saveupGame');
     $router->post('xiafenok', 'OrderController@xiafenok');
+    $router->post('moneychangeok', 'OrderController@moneychangeok');
 
     $router->get('wheel/index', 'WheelController@index');
 });

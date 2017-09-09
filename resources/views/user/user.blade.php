@@ -205,11 +205,11 @@
 
     </script>
     <script>
-    function xuanzeyh()
-    {
-        var html2 = '<div class="row zfbafter"><input type="text" class="form-control" placeholder="请输入您的银行卡卡号" name="yhk_number"><input type="text" class="form-control" placeholder="请输入银行卡姓名" name="yhk_name"></div>';
-         $('.zhifuappend').after(html2);
-    }
+    // function xuanzeyh()
+    // {
+    //     $('.zfbafter').html('');
+        
+    // }
     function morenfangshi()
     {
         $('input[name="zfname"]:checked').click();
@@ -226,7 +226,6 @@
         var html="";
         $('.zhifuappend').html(html);
         $('.zfbafter').html(html);
-        $('.zhifuappend').after(html);
        if ($('input:radio[name="zfname"]:checked').val() == '微信') {
         $.ajax({
                url: "/judgewx",
@@ -262,12 +261,12 @@
                },
                success: function (data) {
                    if (data.zfbewm == null) {
-                    var html = '<span style="color:red;">小提示：在个人中心上传支付宝收款码收钱更方便哦！</span>';
+                    var html = '<span style="color:red;" class="zfbsubmitjudge" judge="no">小提示：在个人中心上传支付宝收款码收钱更方便哦！</span>';
                     var html2 = '<div class="row zfbafter"><input type="text" class="form-control" placeholder="请输入您的支付宝账号" name="zfb_number"><input type="text" class="form-control" placeholder="请输入您的支付宝姓名" name="zfb_name"></div>';
                     $('.zhifuappend').html(html);
                     $('.zhifuappend').after(html2);
                    } else {
-                     var html = '<span style="color:red;">小提示：您可以直接点击确认兑换，工作人员会在5分钟内转钱到您的支付宝账户，也可以选择手动输入账户</span><span onclick="shuruzhanghu()" style="color:blue;">手动输入账户</span>';
+                     var html = '<span style="color:red;" class="zfbsubmitjudge" judge="yes">小提示：您可以直接点击确认兑换，工作人员会在5分钟内转钱到您的支付宝账户，也可以选择手动输入账户</span><span onclick="shuruzhanghu()" style="color:blue;">手动输入账户</span>';
 
                     $('.zhifuappend').html(html);
                    }
@@ -276,7 +275,9 @@
         }
 
         if ($('input:radio[name="zfname"]:checked').val() == '银行卡') {
-            var html = '<label class="col-sm-2 control-label">银行卡类型：</label><select class="form-control" name="yhksort" onchange="xuanzeyh()"><option value="工商银行">工商银行</option><option value="招商银行">招商银行</option><option value="农业银行">农业银行</option><option value="建设银行">建设银行</option><option value="中国银行">中国银行</option><option value="交通银行">交通银行</option></select>';
+            var html = '<label class="col-sm-2 control-label">银行卡类型：</label><select class="form-control" name="yhksort" "><option value="工商银行">工商银行</option><option value="招商银行">招商银行</option><option value="农业银行">农业银行</option><option value="建设银行">建设银行</option><option value="中国银行">中国银行</option><option value="交通银行">交通银行</option></select>';
+            var html2 = '<div class="row zfbafter"><input type="text" class="form-control" placeholder="请输入您的银行卡卡号" name="yhk_number"><input type="text" class="form-control" placeholder="请输入银行卡姓名" name="yhk_name"></div>';
+         $('.zhifuappend').after(html2);
             $('.zhifuappend').html(html);
         }
 
@@ -292,6 +293,20 @@
             var gather_sort = $('input[name="zfname"]:checked').val();
             var gather_account = "";
             var gather_name = "";
+            if (gather_sort != '微信' && gather_sort != '支付宝' && gather_sort != '银行卡') {
+                layer.confirm('请选择收款方式', {
+                          btn: ['我知道了'] //按钮
+                        });
+                return false;
+            }
+
+            if (money == '') {
+              layer.confirm('请输入兑换金额', {
+                          btn: ['我知道了'] //按钮
+                        });
+                        return false;
+
+            }
             if (gather_sort == '微信') {
                 if ($('.zhifuappend').find('.wechatsubmitjudge').attr('judge') == 'no') {
                         layer.confirm('请到个人中心上传您个人微信收款码，或选择其它收款方式', {
@@ -303,12 +318,50 @@
                 
             }
             if (gather_sort == '支付宝') {
-                console.log($('input[name="zfb_number"]'));
-                return false;
+                if($('.zfbsubmitjudge').attr('judge') == 'no'){
+                  if(typeof($('input[name="zfb_number"]').val()) == "undefined"){
+                    layer.confirm('未上传支付宝收款码，请手动输入支付宝账号', {
+                          btn: ['我知道了'] //按钮
+                        });
+                        return false;
+                  } else if( $('input[name="zfb_number"]').val() == '' ){
+                    layer.confirm('支付宝账号不能为空', {
+                          btn: ['我知道了'] //按钮
+                        });
+                        return false;
+                  } else if($('input[name="zfb_name"]').val() == '') {
+                     layer.confirm('支付宝姓名不能为空', {
+                          btn: ['我知道了'] //按钮
+                        });
+                        return false;
+                  } else {
+                    gather_account = $('input[name="zfb_number"]').val();
+                    gather_name = $('input[name="zfb_name"]').val();
+                  }
+                } else {
+                  if ($('input[name="zfb_number"]').val() != '' && typeof($('input[name="zfb_number"]').val()) != 'undefined') {
+                     gather_account = $('input[name="zfb_number"]').val();
+                  }
+                   if ($('input[name="zfb_name"]').val() != '' && typeof($('input[name="zfb_name"]').val()) != 'undefined') {
+                     gather_name = $('input[name="zfb_name"]').val();
+                  }
+                }
             }
             if (gather_sort == '银行卡') {
-                console.log(11);
-                return false;
+              if ($('input[name="yhk_number"]').val() == '') {
+                layer.confirm('银行卡卡号不能为空', {
+                          btn: ['我知道了'] //按钮
+                        });
+                        return false;
+              } else if($('input[name="yhk_name"]').val() == ''){
+                layer.confirm('持卡者姓名不能为空', {
+                          btn: ['我知道了'] //按钮
+                        });
+                        return false;
+              } else {
+                gather_account = $('input[name="yhk_number"]').val();
+                gather_name = $('input[name="yhk_name"]').val();
+              }
             }
             // layer.msg('的确很重要', {icon: 1});
             $.ajax({
@@ -317,12 +370,25 @@
                dataType: "json",
                data: {
                 'money':money,
+                'gather_sort':gather_sort,
+                'gather_account':gather_account,
+                'gather_name':gather_name,
                },
                 headers: {
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                },
                success: function (data) {
-                    console.log(data);
+                      if(data.result1){
+                        layer.confirm('兑换成功', {
+                          btn: ['我知道了'] //按钮
+                        });
+                           window.location.reload();
+                      } else {
+                        layer.confirm(data.issue, {
+                          btn: ['我知道了'] //按钮
+                        });
+                        return false;
+                      }
                    }
            });
         }, function(){
