@@ -47,18 +47,19 @@ class ExChangeController extends Controller
         $game_name = DB::table('game')->where('id',$all['play_sort'])->pluck('name')->toArray()[0];
         $user_name = DB::table('users')->where('id',1)->pluck('name')->toArray()[0];
     	if ($mem->get('xiafenkey') == false){
-    		$mem->set('xiafenkey', [$id],MEMCACHE_COMPRESSED,0);
+    		$mem->set('xiafenkey', ["xiafenkey".$id],MEMCACHE_COMPRESSED,0);
     	} else {
     		$arr = $mem->get('xiafenkey');
-    		$arr[] = $id;
+    		$arr[] = "xiafenkey".$id;
     		$mem->set('xiafenkey', $arr,MEMCACHE_COMPRESSED,0);
     	}
         $all['money'] = $money;
         $all['created_at'] = date('Y-m-d H:i:s',time());
         $all['xiafenmark'] = $all['hhwx_rate']*$money;
         $all['game_name'] = $game_name;
-    	$all['user_name'] = $user_name;
-    	$bool = $mem->set($id,$all,MEMCACHE_COMPRESSED,0);
+        $all['user_name'] = $user_name;
+    	$all['id'] = $id;
+    	$bool = $mem->set("xiafenkey".$id,$all,MEMCACHE_COMPRESSED,0);
     	return response()->json(['result1'=>true]);
     }
 
@@ -68,9 +69,9 @@ class ExChangeController extends Controller
     	if (!$mem->connect('127.0.0.1',11211)){
     		die('连接失败');
     	}
-        // $mem->delete(27,0);
-     //    $mem->delete(13,0);
-    	// $mem->delete(14,0);
+        $mem->delete('xiafenkey40',0);
+     //    $mem->delete(4,0);
+    	// $mem->delete(6,0);
     	// $mem->delete('xiafenkey',0);
     	dd($mem->get($mem->get('xiafenkey')));
     }

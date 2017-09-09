@@ -63,7 +63,7 @@
                 <li><a href="{{ URL('staff/shafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>上分订单</a></li>
                 <li><a href="{{ URL('staff/xiafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>下分订单<span style="color:red;" class="xiafenorder"></span></a></li>
                 <li><a href="{{ URL('staff/jifenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>积分订单</a></li>
-                <li><a href="{{ URL('staff/balanceIndex') }}"><i class="glyph-icon icon-chevron-right"></i>余额兑换</a></li>
+                <li><a href="{{ URL('staff/balanceIndex') }}"><i class="glyph-icon icon-chevron-right"></i>余额兑换<span style="color:red;" class="moneychangeorder"></span></a></li>
             </ul>
         </li>
         <li class="childUlLi">
@@ -106,22 +106,61 @@
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                },
                success: function (data) {
-                console.log(data);
+               
                         $('.ordernum').text('');
                         $('.xiafenorder').text('');
                         $('.xiafenorderappend').html('');
-                       if (data.xiafenorders.length != 0) {
                             var num = 0;
+                            var num2 = 0;
+                       if (data.xiafenorders.length != 0) {
                             var html="";
                             $.each(data.xiafenorders, function (i, item) {
                                 console.log(item.user_name);
                                 num++;
-                                html = html+"<tr><td>"+item.user_name+"</td><td>"+item.game_name+"</td><td>"+item.money+"</td><td>"+item.txt+"</td><td>"+item.created_at+'</td><td><button onclick="xiafenok('+i+')">下分完成点击</button></td></tr>';
+                                html = html+"<tr><td>"+item.user_name+"</td><td>"+item.game_name+"</td><td>"+item.money+"</td><td>"+item.txt+"</td><td>"+item.created_at+'</td><td><button onclick="xiafenok('+item.id+')">下分完成点击</button></td></tr>';
                             })
-                           $('.ordernum').text('+'+num);
                            $('.xiafenorder').text('+'+num);
                            $('.xiafenorderappend').html(html);
                        }
+                       if (data.moneychangenorders.length != 0) {
+                        // console.log(data.moneychangenorders);
+                        // return false;
+                        
+                            var html2="";
+                            $.each(data.moneychangenorders, function (i, item) {
+                                var gather_sort = item.gather_sort;
+                                var money = item.money;
+                                var nickName = item.nickName;
+                                if (typeof(item.imgUrl) != 'undefined') {
+                                    var imgUrl = item.imgUrl;
+                                } else {
+                                    var imgUrl = '';
+                                }
+                                 if (typeof(item.gather_account) != 'undefined') {
+                                    var gather_account = item.gather_account;
+                                } else {
+                                    var gather_account = '';
+                                }
+                                 if (typeof(item.time) != 'undefined') {
+                                    var time = item.time;
+                                } else {
+                                    var time = '';
+                                }
+                                 if (typeof(item.gather_name) != 'undefined') {
+                                    var gather_name = item.gather_name;
+                                } else {
+                                    var gather_name = '';
+                                }
+                                num2++;
+                                html2 = html2+"<tr><td>"+nickName+"</td><td>"+money+"</td><td>"+gather_sort+"</td><td>"+gather_account+"</td><td>"+gather_name+'</td><td>'+imgUrl+'</td><td>'+time+'</td><td><button onclick="moneychangeok('+item.id+')">下分完成点击</button></td></tr>';
+                            })
+                           $('.moneychangeorder').text('+'+num2);
+                           $('.moneychangeorderappend').html(html2);
+                       }
+                            var num_all = num+num2;
+                           $('.ordernum').text('+'+num_all);
+
+
                    }
            });
        }
