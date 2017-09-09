@@ -108,6 +108,8 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                         // $('.ordernum').text('');
                         $('.xiafenorder').text('');
                         $('.xiafenorderappend').html('');
+                        $('.moneychangeorder').text('');
+                        $('.moneychangeorderappend').html('');
                             var num = 0;
                             var num2 = 0;
                        if (data.xiafenorders.length != 0) {
