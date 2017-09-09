@@ -145,7 +145,7 @@
             $('.ps-xl').slideToggle();
         })
     </script>
-    <script type="text/javascript" src="{{asset('/js/layui/layui.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
     <script type="text/javascript">
       layui.use('layer',function(){
