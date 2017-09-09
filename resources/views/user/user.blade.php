@@ -86,19 +86,17 @@
                 </div>
             </div>
             <div class="ps-lt keyGen">
-                <div class="lt-dsb cl-bb">
+                <div class="lt-dsb">
                     <p>我的密钥</p>
                     <i class="arr-right"></i>
                 </div>
             </div>
-            <a href="/user/userInfo">
-                <div class="ps-lt">
-                    <div class="lt-dsb cl-bb">
-                        <p>我的收款码</p>
-                        <i class="arr-right"></i>
-                    </div>
+            <div class="ps-lt skm">
+                <div class="lt-dsb cl-bb">
+                    <p>我的收款码</p>
+                    <i class="arr-right"></i>
                 </div>
-            </a>
+            </div>
         </section>
 
         <div class="jg"></div>
@@ -201,6 +199,49 @@
           })
         }
 
+      });
+      $('.skm').on('click',function () {
+          layer.open({
+              title:'收款码类型',
+              content: '请选择收款码类型'
+              ,btn: ['微信收款码', '支付宝收款码']
+              ,yes: function(index){
+                  if ('{{ Auth::user()->has_wechat_code  }}' == true){
+                      layer.open({
+                          title:'微信收款码',
+                          content: '已经设置收款码，确定要重新设置？'
+                          ,btn: ['是的', '查看收款码']
+                          ,yes: function(index, layer){
+                              location.href = '/user/userInfo?type=1';
+                          }
+                          ,btn2: function(index){
+                              layer.open({
+                                  type: 1,
+                                  area: '90%',
+                                  offset: '100px',
+                                  title:'我的收款码',
+                                  content: '<img src="/user/wechatCode" width="100%">' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                              });
+                          }
+                          ,cancel: function(){
+                              //右上角关闭回调
+
+                              //return false 开启该代码可禁止点击该按钮关闭
+                          }
+                      });
+                  }
+              }
+              ,btn2: function(index, layer){
+                  //按钮【按钮二】的回调
+                  location.href = '/user/userInfo?type=2';
+                  //return false 开启该代码可禁止点击该按钮关闭
+              }
+              ,cancel: function(){
+                  //右上角关闭回调
+
+                  //return false 开启该代码可禁止点击该按钮关闭
+              }
+          });
       })
 
     </script>
