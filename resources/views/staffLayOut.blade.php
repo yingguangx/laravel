@@ -66,7 +66,9 @@
                 <li><a href="{{ URL('staff/balanceIndex') }}"><i class="glyph-icon icon-chevron-right"></i>余额兑换<span style="color:red;" class="moneychangeorder"></span></a></li>
             </ul>
         </li>
-
+         <li class="childUlLi">
+            <a href="{{ URL('staff/balance_into') }}"> <i class="glyph-icon  icon-reorder"></i>余额充值</a>
+        </li>
         <li class="childUlLi">
             <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>系统设置</a>
             <ul>

@@ -107,6 +107,7 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
 
     //大转盘设置
     $router->get('wheel/index', 'WheelController@index');
+    $router->get('balance_into', 'OrderController@balance_into');
     $router->post('wheel/base_setting','WheelController@base_setting');
     $router->post('wheel/award_save','WheelController@award_add_save');
     $router->post('wheel/award_delete','WheelController@award_delete');
