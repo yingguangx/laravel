@@ -371,6 +371,8 @@
                             })
                         }else{
                             tr.fadeOut().remove();
+                            that.infoSuccess('删除成功!');
+
                         }
 
                     });
