@@ -172,10 +172,12 @@
     </div>
 
 @push('js')
-   
     <script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
     <script type="text/javascript">
+    layui.use('layer',function(){
+             window.layer = layui.layer;
+      });
         (function (doc, win) {
             var docEl = doc.documentElement,
                 resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -196,9 +198,7 @@
         $('.lt-order').on('click',function () {
             $('.ps-xl').slideToggle();
         })
-      layui.use('layer',function(){
-             window.layer = layui.layer;
-      });
+      
       $('.keyGen').on('click',function () {
         if('{{ $user->key }}' == ''){
           layer.open({
