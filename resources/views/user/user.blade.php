@@ -167,14 +167,15 @@
     	<img src="images/4.png">
         <p>个人中心</p>
     </div>
+@endsection
 
-@push('js')
+@section('jquery')
     <script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
     <script type="text/javascript">
-    layui.use('layer',function(){
-             window.layer = layui.layer;
-      });
+      layui.use('layer',function(){
+               window.layer = layui.layer;
+        });
         (function (doc, win) {
             var docEl = doc.documentElement,
                 resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -605,5 +606,4 @@
             });
         })
     </script>
-@endpush
 @endsection
