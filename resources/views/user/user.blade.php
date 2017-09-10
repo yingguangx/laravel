@@ -3,6 +3,52 @@
 @section('css')
 <link rel="stylesheet" href="{{url(elixir("css/user.css"))}}" type="text/css"/>
 <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+<style>
+    .layui-layer-btn0 {
+        float: left;
+    }
+    .blue {
+        color:blue;
+    }
+    .fl {
+        float: left;
+    }
+    .clear {
+        clean:both;
+    }
+    .select-default {
+        background-color: white;
+        color: #2F353F;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid dimgray;
+        box-shadow: none;
+        height: 20px;
+        width: 70%;
+    }
+    .input-default {
+        background-color: white;
+        color: #2F353F;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid dimgray;
+        box-shadow: none;
+        height: 20px;
+        width: 70%;
+        padding-left: 5px;
+    }
+    .input-default1 {
+        background-color: white;
+        color: #2F353F;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid dimgray;
+        box-shadow: none;
+        height: 20px;
+        width: 100%;
+        padding-left: 5px;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -370,7 +416,105 @@
         
         });
     })
-       
+
+    //积分兑换
+        $('.pt-line').click(function () {
+            var _this = $(this);
+            var value = $(this).children('span').html();
+
+            //获取积分兑换规则 及游戏类目
+            $.ajax({
+                url: "/getIntegrationInfo",
+                type: "get",
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                    var content =
+                        '<div>'
+                            +'<span>您当前积分余额<span class="blue">'+value+'</span>，<span class="blue">'+data['start_value']+'</span>积分起兑，每<span class="blue">'+data['start_value']+'</span>积分可兑换<span class="blue">'+data['get_value']+'万</span>游戏分值。祝您游戏愉快！</span>'
+                        +'</div>'
+
+                        +'<div style="margin-left: 20px">'
+                            +'<div style="margin-top: 10px;">'
+                                 +'<div style="width: 40%;text-align: right" class="fl">'
+                                    +'<span>游戏类目选择<span style="color:red;">*</span>：</span>'
+                                +'</div>'
+                                +'<div style="width: 60%;" class="fl">'
+                                    +'<select id="gameId" class="select-default demo">'
+                                        +'<option value="">请选择游戏种类</option>';
+                    $.each(data['game'], function (i, item) {
+                        content+= '<option value="'+item['id']+'">'+item['name']+'</option>';
+                    })
+
+                            content+= '</select>'
+                                +'</div>'
+                                +'<div class="clear"></div>'
+                            +'</div>'
+                            +'<div style="margin-top: 15px;">'
+                                +'<div style="width: 40%;margin-top: 5px;text-align: right" class="fl">'
+                                    +'<span>游戏账号填写<span style="color:red;">*</span>：</span>'
+                                +'</div>'
+                                +'<div style="width: 60%;margin-top: 5px;" class="fl">'
+                                    +'<input class="input-default demo" type="text" id="account" placeholder="请填写游戏账号">'
+                                +'</div>'
+                                +'<div class="clear"></div>'
+                            +'</div>'
+                            +'<div style="margin-top: 15px;">'
+                                +'<div style="width: 40%;margin-top: 5px;text-align: right" class="fl">'
+                                    +'<span>积分数额填写<span style="color:red;">*</span>：</span>'
+                                +'</div>'
+                                +'<div style="width: 60%;margin-top: 5px;" class="fl">'
+                                    +'<input class="input-default demo" type="text"  id="value" placeholder="积分数额">'
+                                +'</div>'
+                                +'<div class="clear"></div>'
+                            +'</div>'
+                            +'<div style="margin-top: 15px;display: none" id="notice">'
+                                +'<div style="width: 60%;margin-top: 5px;margin-left: 17px" class="fl">'
+                                +'<span style="color:red;">请将带*选项填写完毕！</span>'
+                                +'</div>'
+                                +'<div class="clear"></div>'
+                            +'</div>'
+                        +'</div>';
+
+                    layer.confirm(content, {
+                        btn: ['取消','确定兑换']
+                    }, function(){
+                        layer.closeAll('dialog');
+                    }, function(){
+                        var game = $('#gameId').val();
+                        var account = $('#account').val();
+                        var t_value = $('#value').val();
+
+                        if (game == '' || account == '' || t_value == '') {
+                            $('#notice').show();
+                            return false;
+                        }
+
+                        $.ajax({
+                            url: "/newIntegrationOrder",
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                'game_id':game,
+                                'game_account':account,
+                                'value':t_value
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (data) {
+                                if (data) {
+                                    _this.children('span').html(Number(value)-Number(t_value));
+                                    layer.msg('兑换成功！');
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+        })
     </script>
 @endpush
 @endsection
