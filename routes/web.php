@@ -101,6 +101,10 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('wheel/base_setting','WheelController@base_setting');
     $router->post('wheel/award_save','WheelController@award_add_save');
     $router->post('wheel/award_delete','WheelController@award_delete');
+
+    //卡券设置
+    $router->get('coupons/index','CouponsController@index');
+    $router->post('coupons/setting','CouponsController@setting');
 });
 Route::get('/wheel', 'pointsController@wheel');
 Route::post('/money_change', 'pointsController@money_change');
