@@ -320,11 +320,6 @@
           });
       })
 
-    </script>
-    <script>
-     layui.use('layer',function(){
-             window.layer = layui.layer;
-      });
     // function xuanzeyh()
     // {
     //     $('.zfbafter').html('');
