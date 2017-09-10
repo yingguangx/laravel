@@ -42,7 +42,7 @@ class Wheel_setting extends Model
     {
         $data = self::first(['start_time','finish_time'])->toArray();
         if(!empty($data)){
-            return MyWoker::format_time($data['start_time']).'至'.MyWoker::format_time($data['finish_time']);
+            return MyWoker::format_time($data['start_time'],'-',true).'至'.MyWoker::format_time($data['finish_time'],'-',true);
         }
         return '';
     }

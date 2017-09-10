@@ -52,15 +52,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <tr data-prize_id="" data-prize_detail_id="">
-                                <td>谢谢参与</td>
-                                <td>10</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td>
-                                    <button type="submit" class="btn btn-primary thank_edit">修改</button>
-                                </td>
-                            </tr>
+                            {{--<tr data-prize_id="" data-prize_detail_id="">--}}
+                                {{--<td>谢谢参与</td>--}}
+                                {{--<td>10</td>--}}
+                                {{--<td>0</td>--}}
+                                {{--<td>0</td>--}}
+                                {{--<td>--}}
+                                    {{--<button type="submit" class="btn btn-primary thank_edit">修改</button>--}}
+                                {{--</td>--}}
+                            {{--</tr>--}}
                             @foreach($award_list as $k => $v)
                             <tr prize_id="{{$v['prize_id']}}" prize_detail_id="{{$v['prize_detail_id']}}">
                                 <td><div><input style="display: none" type="text" value="{{$v['name']}}" name="name" class="required_val"><span class="val">{{$v['name']}}</div><span class="error hide">不能为空</span></td>

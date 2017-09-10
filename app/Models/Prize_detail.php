@@ -33,6 +33,9 @@ class Prize_detail extends Model
         foreach($award as $v){
             $arr[$v['prize_detail_id']] = $v['probability'];
         }
+        if(empty($arr)){
+            return false;
+        }
         return MyWoker::get_award($arr);
     }
 
@@ -43,6 +46,7 @@ class Prize_detail extends Model
     {
         $prize_name = array_column($data,'name');
         $color_arr = ["#FFF4D6", "#FFFFFF"];
+
         foreach($prize_name as $k => $v){
             $color_arr[] = $color_arr[$k%2];
         }
