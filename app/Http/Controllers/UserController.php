@@ -95,5 +95,10 @@ class UserController extends Controller
         $path = storage_path().$path;
         return response()->file($path);
     }
+
+    public function orderList()
+    {
+        return view('user.orderList');
+    }
 }
 

@@ -54,6 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/user/fileUpload', 'UserController@fileUpload');
 	Route::get('/user/wechatCode', 'UserController@getWechatCode');
 	Route::get('/user/zfbCode', 'UserController@getZfbCode');
+	Route::get('/user/order', 'UserController@orderList');
 	Route::get('/wheel', 'pointsController@wheel');
   Route::get('/wheel/award_list', 'pointsController@award_list')->name('wheel.award');
   Route::get('/wheel/award', 'pointsController@get_award')->name('wheel.award_random');

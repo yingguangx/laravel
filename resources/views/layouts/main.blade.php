@@ -31,7 +31,7 @@
     {{--<link rel="stylesheet" href="{{asset(("web/css/about_us.css"))}}">--}}
 
     @yield('css')
-    <script src="{{url('js/jquery-1.8.2.min.js')}}"></script>
+    <script src="{{url('js/jquery-2.1.4.js')}}"></script>
 </head>
 <body id="main">
 @yield('header')

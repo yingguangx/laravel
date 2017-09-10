@@ -10,7 +10,7 @@
         <header>
             <div class="rt-bk">
                 <i class="bk"></i>
-                <a href="/">
+                <a href="javascript:window.history.go(-1)">
                     <p>返回</p>
                 </a>
             </div>
@@ -31,12 +31,12 @@
                 <li id='money_hare'>
                     <i class="idt"></i>
                     <p >余额</p>
-                    <span>200</span>
+                    <span>{{ Auth::user()->money }}</span>
                 </li>
                 <li class="pt-line">
                     <i class="clt"></i>
                     <p>积分</p>
-                    <span>3000</span>
+                    <span>{{ Auth::user()->point?Auth::user()->point:'0' }}</span>
                 </li>
                 <li>
                     <i class="rcm"></i>
@@ -52,24 +52,28 @@
                     <i class="arr-right"></i>
                 </div>
             </div>
-            <div class="ps-lt ps-xl" style="display: none;">
-                <div class="lt-dsb" style="border-bottom: 0;">
-                    <p>订单1：2312312312</p>
+            @foreach(\Illuminate\Support\Facades\Auth::user()->userOrder as $order)
+                @break($loop->index == 3)
+                <div class="ps-lt ps-xl" style="display: none;">
+                    <div class="lt-dsb">
+                        <p>{{ $order->game_account }}：{{ $order->money }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="ps-lt ps-xl" style="display: none;">
-                <div class="lt-dsb" style="border-bottom: 0;">
-                    <p>订单2：321312312</p>
+            @endforeach
+            <a href="/user/order">
+                <div class="ps-lt ps-xl" style="display: none;">
+                    <div class="lt-dsb">
+                        <p>更多</p>
+                        <i class="arr-right"></i>
+
+                    </div>
                 </div>
-            </div>
-            <div class="ps-lt ps-xl" style="display: none;">
-                <div class="lt-dsb" style="border-bottom: 0;">
-                    <p>订单3:12312312</p>
-                </div>
-            </div>
+            </a>
             <div class="ps-lt">
                 <div class="lt-dsb">
-                    <p>优惠抽奖</p>
+                    <a href="/wheel">
+                        <p>优惠抽奖</p>
+                    </a>
                     <i class="arr-right"></i>
                 </div>
             </div>

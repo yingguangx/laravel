@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Order;
 use App\Models\userPayCode;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -35,6 +36,10 @@ class User extends Authenticatable
     public function userPayCode()
     {
         return $this->hasMany(userPayCode::class, 'user_id', 'id');
+    }
+    public function userOrder()
+    {
+        return $this->hasMany(Order::class, 'user_id', 'id');
     }
 
     public function getHasWechatCodeAttribute()
