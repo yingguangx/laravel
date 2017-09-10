@@ -10,7 +10,7 @@
         <header>
             <div class="rt-bk">
                 <i class="bk"></i>
-                <a href="/">
+                <a href="javascript:window.history.go(-1)">
                     <p>返回</p>
                 </a>
             </div>
@@ -31,12 +31,12 @@
                 <li id='money_hare'>
                     <i class="idt"></i>
                     <p >余额</p>
-                    <span>200</span>
+                    <span>{{ Auth::user()->money }}</span>
                 </li>
                 <li class="pt-line">
                     <i class="clt"></i>
                     <p>积分</p>
-                    <span>3000</span>
+                    <span>{{ Auth::user()->point?Auth::user()->point:'0' }}</span>
                 </li>
                 <li>
                     <i class="rcm"></i>
@@ -52,24 +52,28 @@
                     <i class="arr-right"></i>
                 </div>
             </div>
-            <div class="ps-lt ps-xl" style="display: none;">
-                <div class="lt-dsb" style="border-bottom: 0;">
-                    <p>订单1：2312312312</p>
+            @foreach(\Illuminate\Support\Facades\Auth::user()->userOrder as $order)
+                @break($loop->index == 3)
+                <div class="ps-lt ps-xl" style="display: none;">
+                    <div class="lt-dsb">
+                        <p>{{ $order->game_account }}：{{ $order->money }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="ps-lt ps-xl" style="display: none;">
-                <div class="lt-dsb" style="border-bottom: 0;">
-                    <p>订单2：321312312</p>
+            @endforeach
+            <a href="/user/order">
+                <div class="ps-lt ps-xl" style="display: none;">
+                    <div class="lt-dsb">
+                        <p>更多</p>
+                        <i class="arr-right"></i>
+
+                    </div>
                 </div>
-            </div>
-            <div class="ps-lt ps-xl" style="display: none;">
-                <div class="lt-dsb" style="border-bottom: 0;">
-                    <p>订单3:12312312</p>
-                </div>
-            </div>
+            </a>
             <div class="ps-lt">
                 <div class="lt-dsb">
-                    <p>优惠抽奖</p>
+                    <a href="/wheel">
+                        <p>优惠抽奖</p>
+                    </a>
                     <i class="arr-right"></i>
                 </div>
             </div>
@@ -92,7 +96,7 @@
                 </div>
             </div>
             <div class="ps-lt skm">
-                <div class="lt-dsb cl-bb">
+                <div class="lt-dsb">
                     <p>我的收款码</p>
                     <i class="arr-right"></i>
                 </div>
@@ -206,7 +210,7 @@
               content: '请选择收款码类型'
               ,btn: ['微信收款码', '支付宝收款码']
               ,yes: function(index){
-                  if ('{{ Auth::user()->has_wechat_code  }}' == true){
+                  if ('{{ Auth::user()->has_wechat_code  }}' == 'true'){
                       layer.open({
                           title:'微信收款码',
                           content: '已经设置收款码，确定要重新设置？'
@@ -229,12 +233,38 @@
                               //return false 开启该代码可禁止点击该按钮关闭
                           }
                       });
+                  }else{
+                      location.href = '/user/userInfo?type=1';
                   }
               }
-              ,btn2: function(index, layer){
+              ,btn2: function(index){
                   //按钮【按钮二】的回调
-                  location.href = '/user/userInfo?type=2';
-                  //return false 开启该代码可禁止点击该按钮关闭
+                  if ('{{ Auth::user()->has_zfb_code  }}' == 'true'){
+                      layer.open({
+                          title:'支付宝收款码',
+                          content: '已经设置收款码，确定要重新设置？'
+                          ,btn: ['是的', '查看收款码']
+                          ,yes: function(index, layer){
+                              location.href = '/user/userInfo?type=2';
+                          }
+                          ,btn2: function(index){
+                              layer.open({
+                                  type: 1,
+                                  area: '90%',
+                                  offset: '100px',
+                                  title:'我的收款码',
+                                  content: '<img src="/user/zfbCode" width="100%">' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                              });
+                          }
+                          ,cancel: function(){
+                              //右上角关闭回调
+
+                              //return false 开启该代码可禁止点击该按钮关闭
+                          }
+                      });
+                  }else{
+                      location.href = '/user/userInfo?type=2';
+                  }
               }
               ,cancel: function(){
                   //右上角关闭回调

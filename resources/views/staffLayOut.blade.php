@@ -76,6 +76,12 @@
                 <li><a href="{{ URL::asset('staff/integrationSetting') }}"><i class="glyph-icon icon-chevron-right"></i>积分设置</a></li>
             </ul>
         </li>
+        <li class="childUlLi">
+            <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>用户管理</a>
+            <ul>
+                <li><a href="{{ URL('staff/user') }}"><i class="glyph-icon icon-chevron-right"></i>用户列表</a></li>
+            </ul>
+        </li>
         @if(session('staff_role') == 1)
         <li class="childUlLi">
             <a href="#"> <i class="glyph-icon  icon-reorder"></i>员工管理</a>
@@ -174,5 +180,5 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                    }
            });
        }
-       setInterval(getmessage,2000);
+//       setInterval(getmessage,2000);
 </script>
