@@ -74,10 +74,11 @@ class pointsController extends Controller
             return MyWoker::jsonFail('','','今天抽奖次数已经用完，明天再来哦!');
         }
         $prize_detail_id = Prize_detail::get_award();
+        if(empty($prize_detail_id)) return MyWoker::jsonFail('','','活动暂无奖品!');
         $prize_detail = Prize_detail::find($prize_detail_id);
         $data = Prize_detail::format_award_arr(Prize_detail::award_list());
         $userCoupon = '';
-        if($prize_detail->name!='谢谢参与'){
+        if($prize_detail->deposit!=0 || $prize_detail->prize!=0){
             //向中奖的数据中插入数据
             $userCoupon = new user_coupon([
                 'user_id'         => Auth::user()->id,

@@ -3,6 +3,52 @@
 @section('css')
 <link rel="stylesheet" href="{{url(elixir("css/user.css"))}}" type="text/css"/>
 <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+<style>
+    .layui-layer-btn0 {
+        float: left;
+    }
+    .blue {
+        color:blue;
+    }
+    .fl {
+        float: left;
+    }
+    .clear {
+        clean:both;
+    }
+    .select-default {
+        background-color: white;
+        color: #2F353F;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid dimgray;
+        box-shadow: none;
+        height: 20px;
+        width: 70%;
+    }
+    .input-default {
+        background-color: white;
+        color: #2F353F;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid dimgray;
+        box-shadow: none;
+        height: 20px;
+        width: 70%;
+        padding-left: 5px;
+    }
+    .input-default1 {
+        background-color: white;
+        color: #2F353F;
+        font-size: 14px;
+        border-radius: 4px;
+        border: 1px solid dimgray;
+        box-shadow: none;
+        height: 20px;
+        width: 100%;
+        padding-left: 5px;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -10,7 +56,7 @@
         <header>
             <div class="rt-bk">
                 <i class="bk"></i>
-                <a href="/">
+                <a href="javascript:window.history.go(-1)">
                     <p>返回</p>
                 </a>
             </div>
@@ -31,12 +77,12 @@
                 <li id='money_hare'>
                     <i class="idt"></i>
                     <p >余额</p>
-                    <span>200</span>
+                    <span>{{ Auth::user()->money }}</span>
                 </li>
                 <li class="pt-line">
                     <i class="clt"></i>
                     <p>积分</p>
-                    <span>3000</span>
+                    <span>{{ Auth::user()->point?Auth::user()->point:'0' }}</span>
                 </li>
                 <li>
                     <i class="rcm"></i>
@@ -52,24 +98,28 @@
                     <i class="arr-right"></i>
                 </div>
             </div>
-            <div class="ps-lt ps-xl" style="display: none;">
-                <div class="lt-dsb" style="border-bottom: 0;">
-                    <p>订单1：2312312312</p>
+            @foreach(\Illuminate\Support\Facades\Auth::user()->userOrder as $order)
+                @break($loop->index == 3)
+                <div class="ps-lt ps-xl" style="display: none;">
+                    <div class="lt-dsb">
+                        <p>{{ $order->game_account }}：{{ $order->money }}</p>
+                    </div>
                 </div>
-            </div>
-            <div class="ps-lt ps-xl" style="display: none;">
-                <div class="lt-dsb" style="border-bottom: 0;">
-                    <p>订单2：321312312</p>
+            @endforeach
+            <a href="/user/order">
+                <div class="ps-lt ps-xl" style="display: none;">
+                    <div class="lt-dsb">
+                        <p>更多</p>
+                        <i class="arr-right"></i>
+
+                    </div>
                 </div>
-            </div>
-            <div class="ps-lt ps-xl" style="display: none;">
-                <div class="lt-dsb" style="border-bottom: 0;">
-                    <p>订单3:12312312</p>
-                </div>
-            </div>
+            </a>
             <div class="ps-lt">
                 <div class="lt-dsb">
-                    <p>优惠抽奖</p>
+                    <a href="/wheel">
+                        <p>优惠抽奖</p>
+                    </a>
                     <i class="arr-right"></i>
                 </div>
             </div>
@@ -92,7 +142,7 @@
                 </div>
             </div>
             <div class="ps-lt skm">
-                <div class="lt-dsb cl-bb">
+                <div class="lt-dsb">
                     <p>我的收款码</p>
                     <i class="arr-right"></i>
                 </div>
@@ -206,7 +256,7 @@
               content: '请选择收款码类型'
               ,btn: ['微信收款码', '支付宝收款码']
               ,yes: function(index){
-                  if ('{{ Auth::user()->has_wechat_code  }}' == true){
+                  if ('{{ Auth::user()->has_wechat_code  }}' == 'true'){
                       layer.open({
                           title:'微信收款码',
                           content: '已经设置收款码，确定要重新设置？'
@@ -229,12 +279,38 @@
                               //return false 开启该代码可禁止点击该按钮关闭
                           }
                       });
+                  }else{
+                      location.href = '/user/userInfo?type=1';
                   }
               }
-              ,btn2: function(index, layer){
+              ,btn2: function(index){
                   //按钮【按钮二】的回调
-                  location.href = '/user/userInfo?type=2';
-                  //return false 开启该代码可禁止点击该按钮关闭
+                  if ('{{ Auth::user()->has_zfb_code  }}' == 'true'){
+                      layer.open({
+                          title:'支付宝收款码',
+                          content: '已经设置收款码，确定要重新设置？'
+                          ,btn: ['是的', '查看收款码']
+                          ,yes: function(index, layer){
+                              location.href = '/user/userInfo?type=2';
+                          }
+                          ,btn2: function(index){
+                              layer.open({
+                                  type: 1,
+                                  area: '90%',
+                                  offset: '100px',
+                                  title:'我的收款码',
+                                  content: '<img src="/user/zfbCode" width="100%">' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                              });
+                          }
+                          ,cancel: function(){
+                              //右上角关闭回调
+
+                              //return false 开启该代码可禁止点击该按钮关闭
+                          }
+                      });
+                  }else{
+                      location.href = '/user/userInfo?type=2';
+                  }
               }
               ,cancel: function(){
                   //右上角关闭回调
@@ -436,7 +512,105 @@
         
         });
     })
-       
+
+    //积分兑换
+        $('.pt-line').click(function () {
+            var _this = $(this);
+            var value = $(this).children('span').html();
+
+            //获取积分兑换规则 及游戏类目
+            $.ajax({
+                url: "/getIntegrationInfo",
+                type: "get",
+                dataType: "json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                    var content =
+                        '<div>'
+                            +'<span>您当前积分余额<span class="blue">'+value+'</span>，<span class="blue">'+data['start_value']+'</span>积分起兑，每<span class="blue">'+data['start_value']+'</span>积分可兑换<span class="blue">'+data['get_value']+'万</span>游戏分值。祝您游戏愉快！</span>'
+                        +'</div>'
+
+                        +'<div style="margin-left: 20px">'
+                            +'<div style="margin-top: 10px;">'
+                                 +'<div style="width: 40%;text-align: right" class="fl">'
+                                    +'<span>游戏类目选择<span style="color:red;">*</span>：</span>'
+                                +'</div>'
+                                +'<div style="width: 60%;" class="fl">'
+                                    +'<select id="gameId" class="select-default demo">'
+                                        +'<option value="">请选择游戏种类</option>';
+                    $.each(data['game'], function (i, item) {
+                        content+= '<option value="'+item['id']+'">'+item['name']+'</option>';
+                    })
+
+                            content+= '</select>'
+                                +'</div>'
+                                +'<div class="clear"></div>'
+                            +'</div>'
+                            +'<div style="margin-top: 15px;">'
+                                +'<div style="width: 40%;margin-top: 5px;text-align: right" class="fl">'
+                                    +'<span>游戏账号填写<span style="color:red;">*</span>：</span>'
+                                +'</div>'
+                                +'<div style="width: 60%;margin-top: 5px;" class="fl">'
+                                    +'<input class="input-default demo" type="text" id="account" placeholder="请填写游戏账号">'
+                                +'</div>'
+                                +'<div class="clear"></div>'
+                            +'</div>'
+                            +'<div style="margin-top: 15px;">'
+                                +'<div style="width: 40%;margin-top: 5px;text-align: right" class="fl">'
+                                    +'<span>积分数额填写<span style="color:red;">*</span>：</span>'
+                                +'</div>'
+                                +'<div style="width: 60%;margin-top: 5px;" class="fl">'
+                                    +'<input class="input-default demo" type="text"  id="value" placeholder="积分数额">'
+                                +'</div>'
+                                +'<div class="clear"></div>'
+                            +'</div>'
+                            +'<div style="margin-top: 15px;display: none" id="notice">'
+                                +'<div style="width: 60%;margin-top: 5px;margin-left: 17px" class="fl">'
+                                +'<span style="color:red;">请将带*选项填写完毕！</span>'
+                                +'</div>'
+                                +'<div class="clear"></div>'
+                            +'</div>'
+                        +'</div>';
+
+                    layer.confirm(content, {
+                        btn: ['取消','确定兑换']
+                    }, function(){
+                        layer.closeAll('dialog');
+                    }, function(){
+                        var game = $('#gameId').val();
+                        var account = $('#account').val();
+                        var t_value = $('#value').val();
+
+                        if (game == '' || account == '' || t_value == '') {
+                            $('#notice').show();
+                            return false;
+                        }
+
+                        $.ajax({
+                            url: "/newIntegrationOrder",
+                            type: "POST",
+                            dataType: "json",
+                            data: {
+                                'game_id':game,
+                                'game_account':account,
+                                'value':t_value
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function (data) {
+                                if (data) {
+                                    _this.children('span').html(Number(value)-Number(t_value));
+                                    layer.msg('兑换成功！');
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+        })
     </script>
 @endpush
 @endsection

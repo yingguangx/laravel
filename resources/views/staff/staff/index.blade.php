@@ -7,7 +7,7 @@
         vertical-align: middle !important;
     }
     </style>
-    <div class="row m-l-15 m-t-5">
+    <div class="row m-l-15 m-t-15">
         <span class="font-title">员工管理-员工列表</span>
     </div>
 
@@ -135,6 +135,9 @@
 
         //员工新增
         function addStaff() {
+            $('.m').val('');
+            $('.n').val('');
+            $('#appendBox').html('');
             $('#addBox').show();
         }
 

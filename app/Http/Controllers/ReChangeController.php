@@ -48,7 +48,7 @@ class ReChangeController extends Controller
         foreach ($data as $k => $v) {
             $obj -> $k = $v;
         }
-
+        $obj -> type = 1;
         return response()->json($obj->save());
     }
 
