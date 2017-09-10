@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Prize extends Model
 {
+    public $fillable = ['probability'];
     public $table = 'prize';
     public $primaryKey = 'prize_id';
 

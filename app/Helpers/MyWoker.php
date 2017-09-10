@@ -47,7 +47,7 @@ class MyWoker
         if(empty($hms)){
             return date('Y'.$delimiter.'m'.$delimiter.'d',$time);
         }
-        return date('Y'.$delimiter.'m'.$delimiter.'d'.' H:m:s',$time);
+        return date('Y'.$delimiter.'m'.$delimiter.'d'.' H:i',$time);
     }
 
 
