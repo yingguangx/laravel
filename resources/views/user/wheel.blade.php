@@ -91,11 +91,15 @@ $(function(){
         <th width="50%" scope="col" align="center">奖品序号</th>
         <th width="50%" scope="col" align="center">奖品</th>
       </tr>
+      <?php $i = 0;?>
       @foreach($award_list as $k => $v)
-      <tr>
-        <td align="center">{{$k+1}}</td>
-        <td align="center">{{$v['name']}}</td>
-      </tr>
+        @if(strpos($v['name'],'谢谢')===false)
+          <?php $i++ ?>
+          <tr>
+            <td align="center">{{$i}}</td>
+            <td align="center">{{ $v['name']}}</td>
+          </tr>
+        @endif
       @endforeach
     </table>
   </div>
@@ -104,7 +108,7 @@ $(function(){
 <div class="Activities">
   <h1><span class="fh_top2"> <a href="#top" target="_self" title="返回顶部"><img src="images/ic_top.png" /></a></span><img src="images/Activities_09.jpg" width="146" height="35" alt=""/></h1>
   <div class="ate_box">
-    {{$rules}}
+    {!! $rules !!}
   </div>
 </div>
 </body>
@@ -268,11 +272,11 @@ $(function(){
                     };
                     ctx.drawImage(img,-15,10);
                 }else if(text.indexOf("谢谢参与")>=0){
-                    var img= document.getElementById("sorry-img");
-                    img.onload=function(){
-                        ctx.drawImage(img,-15,10);
-                    };
-                    ctx.drawImage(img,-15,10);
+//                    var img= document.getElementById("sorry-img");
+//                    img.onload=function(){
+//                        ctx.drawImage(img,-15,10);
+//                    };
+//                    ctx.drawImage(img,-15,10);
                 }
                 //把当前画布返回（调整）到上一个save()状态之前
                 ctx.restore();

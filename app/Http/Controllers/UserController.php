@@ -139,5 +139,17 @@ class UserController extends Controller
         $user -> save();
         return response()->json($obj->save());
     }
+  
+    public function getZfbCode()
+    {
+        $path = userPayCode::where('user_id',Auth::id())->where('type',2)->orderBy('created_at','desc')->first()->imgUrl;
+        $path = storage_path().$path;
+        return response()->file($path);
+    }
+
+    public function orderList()
+    {
+        return view('user.orderList');
+    }
 }
 

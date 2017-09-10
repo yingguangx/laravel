@@ -4,9 +4,11 @@ namespace App\Models;
 
 use App\Helpers\MyWoker;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Wheel_setting extends Model
 {
+    public $fillable = ['start_time','finish_time','play_num','rules','valid_time'];
     public $primaryKey = 'wheel_setting_id';
 
     /**判断活动是否开启
@@ -32,6 +34,7 @@ class Wheel_setting extends Model
         return false;
     }
 
+
     /**取得活动时间
      *
      */
@@ -39,8 +42,9 @@ class Wheel_setting extends Model
     {
         $data = self::first(['start_time','finish_time'])->toArray();
         if(!empty($data)){
-            return MyWoker::format_time($data['start_time']).'至'.MyWoker::format_time($data['finish_time']);
+            return MyWoker::format_time($data['start_time'],'-',true).'至'.MyWoker::format_time($data['finish_time'],'-',true);
         }
         return '';
     }
+
 }

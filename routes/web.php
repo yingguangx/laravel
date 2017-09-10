@@ -54,9 +54,13 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/user/fileUpload', 'UserController@fileUpload');
 	Route::get('/user/wechatCode', 'UserController@getWechatCode');
     //获取积分兑换规则
-    Route::get('getIntegrationInfo', 'UserController@getIntegrationInfo');
-    Route::post('newIntegrationOrder', 'UserController@newIntegrationOrder');
-    Route::get('/wheel', 'pointsController@wheel');
+  Route::get('getIntegrationInfo', 'UserController@getIntegrationInfo');
+  Route::post('newIntegrationOrder', 'UserController@newIntegrationOrder');
+  
+  Route::get('/wheel', 'pointsController@wheel');
+	Route::get('/user/zfbCode', 'UserController@getZfbCode');
+	Route::get('/user/order', 'UserController@orderList');
+	Route::get('/wheel', 'pointsController@wheel');
   Route::get('/wheel/award_list', 'pointsController@award_list')->name('wheel.award');
   Route::get('/wheel/award', 'pointsController@get_award')->name('wheel.award_random');
 	//获取游戏表id
@@ -64,7 +68,8 @@ Route::group(['middleware' => ['auth']], function () {
 	//下分
 	Route::post('/xiafensubmit', 'ExChangeController@xiafensubmit');
 	//test
-	Route::get('/test', 'ExChangeController@test');
+    Route::get('/test', 'ExChangeController@test');
+	Route::get('/test2', 'ExChangeController@test2');
 });
 
 //员工端
@@ -98,8 +103,22 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('saveGame', 'OrderController@saveGame');
     $router->post('saveupGame', 'OrderController@saveupGame');
     $router->post('xiafenok', 'OrderController@xiafenok');
+    $router->post('moneychangeok', 'OrderController@moneychangeok');
 
+    //大转盘设置
     $router->get('wheel/index', 'WheelController@index');
+    $router->post('wheel/base_setting','WheelController@base_setting');
+    $router->post('wheel/award_save','WheelController@award_add_save');
+    $router->post('wheel/award_delete','WheelController@award_delete');
+
+    //卡券设置
+    $router->get('coupons/index','CouponsController@index');
+    $router->post('coupons/setting','CouponsController@setting');
+    //用户管理
+    $router->get('user','UserController@index');
+    $router->post('user/apiGetUser','UserController@apiGetUser');
+    $router->get('user/wechatCode','UserController@apiGetWechatCode');
+    $router->get('user/ztbCode','UserController@apiGetZtbCode');
 });
 Route::get('/wheel', 'pointsController@wheel');
 Route::post('/money_change', 'pointsController@money_change');
