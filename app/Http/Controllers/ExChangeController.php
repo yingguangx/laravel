@@ -42,7 +42,7 @@ class ExChangeController extends Controller
     	$money = (int)($all['txt']/$all['hhwx_rate']);
     	$money = round($money);
     	$id = DB::table('order')->insertGetId(
-		    ['game_id' => $all['play_sort'], 'game_account' => $all['play_id'],'value'=>$all['txt'],'money'=>$money,'user_id'=>1,'created_at'=>date('Y-m-d H:i:s',time())]
+		    ['game_id' => $all['play_sort'], 'game_account' => $all['play_id'],'value'=>$all['txt'],'money'=>$money,'user_id'=>1,'created_at'=>date('Y-m-d H:i:s',time()),'type'=>2]
 		);
         $game_name = DB::table('game')->where('id',$all['play_sort'])->pluck('name')->toArray()[0];
         $user_name = DB::table('users')->where('id',1)->pluck('name')->toArray()[0];
