@@ -172,7 +172,10 @@
     </div>
 
 @push('js')
-    <script>
+   
+    <script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
+    <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript">
         (function (doc, win) {
             var docEl = doc.documentElement,
                 resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -186,18 +189,13 @@
             win.addEventListener(resizeEvt, recalc, false);
             doc.addEventListener('DOMContentLoaded', recalc, false);
         })(document, window);
-    </script>
-    <script type="text/javascript">
+    
         $('.check-on').click(function(){
             $(this).toggleClass('check-off');
         })
         $('.lt-order').on('click',function () {
             $('.ps-xl').slideToggle();
         })
-    </script>
-    <script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
-    <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
-    <script type="text/javascript">
       layui.use('layer',function(){
              window.layer = layui.layer;
       });
