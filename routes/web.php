@@ -100,7 +100,11 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('xiafenok', 'OrderController@xiafenok');
     $router->post('moneychangeok', 'OrderController@moneychangeok');
 
+    //大转盘设置
     $router->get('wheel/index', 'WheelController@index');
+    $router->post('wheel/base_setting','WheelController@base_setting');
+    $router->post('wheel/award_save','WheelController@award_add_save');
+    $router->post('wheel/award_delete','WheelController@award_delete');
     //用户管理
     $router->get('user','UserController@index');
     $router->post('user/apiGetUser','UserController@apiGetUser');
