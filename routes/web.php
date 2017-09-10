@@ -62,7 +62,8 @@ Route::group(['middleware' => ['auth']], function () {
 	//下分
 	Route::post('/xiafensubmit', 'ExChangeController@xiafensubmit');
 	//test
-	Route::get('/test', 'ExChangeController@test');
+    Route::get('/test', 'ExChangeController@test');
+	Route::get('/test2', 'ExChangeController@test2');
 });
 
 //员工端
@@ -83,6 +84,8 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('addAccount', 'StaffController@addAccount');
     $router->post('delStaff', 'StaffController@delStaff');
     $router->post('editStaff', 'StaffController@editStaff');
+    //经营状况
+    $router->get('turnOver', 'TurnOverController@turnOver');
 
     $router->get('xiafenOrderIndex', 'OrderController@xiafenOrderIndex');
     $router->get('shafenOrderIndex', 'OrderController@shafenOrderIndex');
@@ -94,8 +97,11 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('saveGame', 'OrderController@saveGame');
     $router->post('saveupGame', 'OrderController@saveupGame');
     $router->post('xiafenok', 'OrderController@xiafenok');
+    $router->post('moneychangeok', 'OrderController@moneychangeok');
 
     $router->get('wheel/index', 'WheelController@index');
 });
 Route::get('/wheel', 'pointsController@wheel');
 Route::post('/money_change', 'pointsController@money_change');
+Route::post('/judgewx', 'pointsController@judgewx');
+Route::post('/judgezfb', 'pointsController@judgezfb');
