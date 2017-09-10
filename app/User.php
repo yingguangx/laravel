@@ -42,19 +42,19 @@ class User extends Authenticatable
         $codes = $this->userPayCode;
         foreach ($codes as $code){
             if($code->type == 1){
-                return true;
+                return 'true';
             }
         }
-        return false;
+        return 'false';
     }
     public function getHasZfbCodeAttribute()
     {
         $codes = $this->userPayCode;
         foreach ($codes as $code){
             if($code->type == 2){
-                return true;
+                return 'true';
             }
         }
-        return false;
+        return 'false';
     }
 }

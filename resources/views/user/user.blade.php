@@ -206,7 +206,7 @@
               content: '请选择收款码类型'
               ,btn: ['微信收款码', '支付宝收款码']
               ,yes: function(index){
-                  if ('{{ Auth::user()->has_wechat_code  }}' == true){
+                  if ('{{ Auth::user()->has_wechat_code  }}' == 'true'){
                       layer.open({
                           title:'微信收款码',
                           content: '已经设置收款码，确定要重新设置？'
@@ -229,12 +229,38 @@
                               //return false 开启该代码可禁止点击该按钮关闭
                           }
                       });
+                  }else{
+                      location.href = '/user/userInfo?type=1';
                   }
               }
-              ,btn2: function(index, layer){
+              ,btn2: function(index){
                   //按钮【按钮二】的回调
-                  location.href = '/user/userInfo?type=2';
-                  //return false 开启该代码可禁止点击该按钮关闭
+                  if ('{{ Auth::user()->has_zfb_code  }}' == 'true'){
+                      layer.open({
+                          title:'支付宝收款码',
+                          content: '已经设置收款码，确定要重新设置？'
+                          ,btn: ['是的', '查看收款码']
+                          ,yes: function(index, layer){
+                              location.href = '/user/userInfo?type=2';
+                          }
+                          ,btn2: function(index){
+                              layer.open({
+                                  type: 1,
+                                  area: '90%',
+                                  offset: '100px',
+                                  title:'我的收款码',
+                                  content: '<img src="/user/zfbCode" width="100%">' //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+                              });
+                          }
+                          ,cancel: function(){
+                              //右上角关闭回调
+
+                              //return false 开启该代码可禁止点击该按钮关闭
+                          }
+                      });
+                  }else{
+                      location.href = '/user/userInfo?type=2';
+                  }
               }
               ,cancel: function(){
                   //右上角关闭回调
