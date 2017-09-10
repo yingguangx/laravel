@@ -4,9 +4,6 @@
 <link rel="stylesheet" href="{{url(elixir("css/user.css"))}}" type="text/css"/>
 <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
 <style>
-    .layui-layer-btn0 {
-        float: left;
-    }
     .blue {
         color:blue;
     }
