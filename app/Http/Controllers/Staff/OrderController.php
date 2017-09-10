@@ -125,4 +125,9 @@ class OrderController extends Controller
         $bool2 = DB::table('money_change')->where('id',$id)->update(['status'=>0]);
         return response()->json(['result'=>true]);
     }
+
+    public function balance_into()
+    {
+        return view('staff.order.balance_into');
+    }
 }

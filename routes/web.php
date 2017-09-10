@@ -97,6 +97,7 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('moneychangeok', 'OrderController@moneychangeok');
 
     $router->get('wheel/index', 'WheelController@index');
+    $router->get('balance_into', 'OrderController@balance_into');
 });
 Route::get('/wheel', 'pointsController@wheel');
 Route::post('/money_change', 'pointsController@money_change');
