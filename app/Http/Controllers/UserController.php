@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IntegrationRule;
+use App\Models\Order;
 use App\User;
 use Illuminate\Console\Application;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -10,6 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\UserPayCode;
 
@@ -89,6 +92,50 @@ class UserController extends Controller
         $path = storage_path().$path;
         return response()->file($path);
     }
+
+    //获取积分兑换规则
+    public function getIntegrationInfo()
+    {
+        $obj = new ExChangeController();
+
+        $game = DB::table('game')
+            ->where('status', 1)
+            ->select('id', 'name')
+            ->get()->toArray();
+        $rule = IntegrationRule::find(1);
+
+        $array = Array();
+        $array['game'] = $game;
+        $array['start_value'] = $rule->start_value;
+        $array['get_value'] = $rule->get_value;
+
+        return response()->json($array);
+    }
+
+    //积分订单添加
+    public function newIntegrationOrder(Request $request)
+    {
+        $data = $request->all();
+        $obj = new Order();
+        $rule = IntegrationRule::find(1);
+        $rate = $rule->start_value;
+        $value = $rule->get_value;
+        $data['value'] = $data['value']/$rate*$value;
+
+        //获取用户信息
+//        $user = Auth::user()->toArray();
+//        $id = $user['id'];
+        $id = 1;
+        $data['user_id'] = $id;
+        $data['type'] = 1;
+
+        foreach ($data as $k=> $v) {
+            $obj -> $k = $v;
+        }
+
+        return response()->json($obj->save());
+    }
+  
     public function getZfbCode()
     {
         $path = userPayCode::where('user_id',Auth::id())->where('type',2)->orderBy('created_at','desc')->first()->imgUrl;

@@ -53,6 +53,11 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/user/userInfo', 'UserController@userInfo');
 	Route::post('/user/fileUpload', 'UserController@fileUpload');
 	Route::get('/user/wechatCode', 'UserController@getWechatCode');
+    //获取积分兑换规则
+  Route::get('getIntegrationInfo', 'UserController@getIntegrationInfo');
+  Route::post('newIntegrationOrder', 'UserController@newIntegrationOrder');
+  
+  Route::get('/wheel', 'pointsController@wheel');
 	Route::get('/user/zfbCode', 'UserController@getZfbCode');
 	Route::get('/user/order', 'UserController@orderList');
 	Route::get('/wheel', 'pointsController@wheel');
