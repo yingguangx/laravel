@@ -96,7 +96,7 @@
                 </div>
             </div>
             <div class="ps-lt skm">
-                <div class="lt-dsb cl-bb">
+                <div class="lt-dsb">
                     <p>我的收款码</p>
                     <i class="arr-right"></i>
                 </div>

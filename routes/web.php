@@ -101,6 +101,11 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('moneychangeok', 'OrderController@moneychangeok');
 
     $router->get('wheel/index', 'WheelController@index');
+    //用户管理
+    $router->get('user','UserController@index');
+    $router->post('user/apiGetUser','UserController@apiGetUser');
+    $router->get('user/wechatCode','UserController@apiGetWechatCode');
+    $router->get('user/ztbCode','UserController@apiGetZtbCode');
 });
 Route::get('/wheel', 'pointsController@wheel');
 Route::post('/money_change', 'pointsController@money_change');
