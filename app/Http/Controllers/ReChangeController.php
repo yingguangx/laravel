@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Integration;
 use App\Models\IntegrationRule;
 use App\Models\Order;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -58,10 +59,8 @@ class ReChangeController extends Controller
         $multiple = (int)floor($money/$obj['limit_value']);
         $integration = $multiple*$obj['integration'];
 
-        $newObj = new Integration();
-        $newObj -> user_id = $user_id;
-        $newObj -> integration = $integration;
-
-        $newObj -> save();
+        $user = User::find($user_id);
+        $user -> integration = $user['integration'] + $integration;
+        $user -> save();
     }
 }

@@ -116,6 +116,7 @@ class UserController extends Controller
     public function newIntegrationOrder(Request $request)
     {
         $data = $request->all();
+        $integration = $data['value'];
         $obj = new Order();
         $rule = IntegrationRule::find(1);
         $rate = $rule->start_value;
@@ -133,6 +134,9 @@ class UserController extends Controller
             $obj -> $k = $v;
         }
 
+        $user = User::find($id);
+        $user -> integration = $user['integration'] - $integration;
+        $user -> save();
         return response()->json($obj->save());
     }
 }
