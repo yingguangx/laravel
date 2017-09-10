@@ -218,7 +218,7 @@
                 dataType:'json',
                 url:'/user/keygen',
                 data:{
-                  'userID $user->id }}',
+                  'userID':'$user->id }}',
                   'keygen':$('#keygen').val(),
                   '_token':'{{csrf_token()}}'
                 },
@@ -322,6 +322,9 @@
 
     </script>
     <script>
+     layui.use('layer',function(){
+             window.layer = layui.layer;
+      });
     // function xuanzeyh()
     // {
     //     $('.zfbafter').html('');

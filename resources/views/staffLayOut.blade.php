@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="{{ URL::asset('css/index.css') }}" type="text/css" media="screen" />
     <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/bootstrap-reset.css')}}" rel="stylesheet">
 
     <link href="{{URL::asset('/layui/css/layui.css')}}" rel="stylesheet">
 
@@ -18,6 +19,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/common.js') }}"></script>
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('js/jquery-weui.js')}}"></script>
+<script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
     <style>body{font-size:14px;}</style>
     @yield('style')
 </head>
@@ -116,7 +118,6 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                },
                success: function (data) {
-               
                         // $('.ordernum').text('');
                         $('.xiafenorder').text('');
                         $('.xiafenorderappend').html('');
@@ -182,5 +183,5 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                    }
            });
        }
-//       setInterval(getmessage,2000);
+      // setInterval(getmessage,2000);
 </script>
