@@ -7,6 +7,7 @@ use App\Models\IntegrationRule;
 use App\Models\Order;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ReChangeController extends Controller
@@ -19,8 +20,11 @@ class ReChangeController extends Controller
             ->select('id', 'name')
             ->get();
 
+        $rule = IntegrationRule::find(1);
+
         return view('reChange/reChange',[
-            'game' => $game
+            'game' => $game,
+            'rule' => $rule
         ]);
     }
 
@@ -39,6 +43,9 @@ class ReChangeController extends Controller
         $array['name'] = $obj->name;
         $array['value'] = $money*$obj->up_rate;
 
+        $user = Auth::user()->toArray();
+        $array['nickName'] = $user['nickName'];
+
         return response()->json($array);
     }
 
@@ -46,21 +53,36 @@ class ReChangeController extends Controller
     public function newOrder(Request $request)
     {
         $data = $request->all();
+        $user = Auth::user()->toArray();
+
+        $id = $user['id'];
         $money = $data['money'];
 
-        $rule = IntegrationRule::find(1);
-        if ($money >= $rule['limit_value']) {
-            $this::userAddIntegration($data['user_id'], $data['money'], $rule);
-        }
-        $obj = new Order();
+        $data['user_id'] = $id;
+
+
 
         //获取用余额
+        $balance = $user['money'];
+        if ($data['money'] > $balance) {
+            return response()->json(false);
+        } else {
+            $rule = IntegrationRule::find(1);
+            if ($money >= $rule['limit_value']) {
+                $this::userAddIntegration($data['user_id'], $data['money'], $rule);
+            }
 
-        foreach ($data as $k => $v) {
-            $obj -> $k = $v;
+            $obj = new Order();
+            foreach ($data as $k => $v) {
+                $obj -> $k = $v;
+            }
+            $obj -> type = 1;
+
+            $user = User::find($id);
+            $user -> money = $user['money'] - $data['money'];
+            $user -> save();
+            return response()->json($obj->save());
         }
-        $obj -> type = 1;
-        return response()->json($obj->save());
     }
 
     //客户积分存储

@@ -8,14 +8,14 @@
     }
     </style>
     <div class="row m-l-15 m-t-15">
-        <span class="font-title">员工管理-员工列表</span>
+        <span class="font-title m-l-15" style="font-size: 15px">员工管理-员工列表</span>
     </div>
 
     <div class="row m-l-15 m-t-15">
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         @if(count($data) == 0)
                         <span style="margin-top: 8px;display:block;">
                             当前系统暂无员工！
