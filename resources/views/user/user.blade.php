@@ -79,7 +79,7 @@
                 <li class="pt-line">
                     <i class="clt"></i>
                     <p>积分</p>
-                    <span>{{ Auth::user()->point?Auth::user()->point:'0' }}</span>
+                    <span>{{ Auth::user()->integration}}</span>
                 </li>
                 <li>
                     <i class="rcm"></i>
@@ -562,7 +562,7 @@
                                 +'<div class="clear"></div>'
                             +'</div>'
                             +'<div style="margin-top: 15px;display: none" id="notice">'
-                                +'<div style="width: 60%;margin-top: 5px;margin-left: 17px" class="fl">'
+                                +'<div style="width: 100%;margin-top: 5px;margin-left: 17px" class="fl">'
                                 +'<span style="color:red;">请将带*选项填写完毕！</span>'
                                 +'</div>'
                                 +'<div class="clear"></div>'
@@ -581,6 +581,12 @@
                         if (game == '' || account == '' || t_value == '') {
                             $('#notice').show();
                             return false;
+                        } else {
+                            if (t_value > value) {
+                                $('#notice').children().children().html('输入积分已超过您当前积分，请核实！！');
+                                $('#notice').show();
+                                return false;
+                            }
                         }
 
                         $.ajax({

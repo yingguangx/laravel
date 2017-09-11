@@ -19,7 +19,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/common.js') }}"></script>
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('js/jquery-weui.js')}}"></script>
-<script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
     <style>body{font-size:14px;}</style>
     @yield('style')
 </head>

@@ -116,6 +116,7 @@ class UserController extends Controller
     public function newIntegrationOrder(Request $request)
     {
         $data = $request->all();
+        $integration = $data['value'];
         $obj = new Order();
         $rule = IntegrationRule::find(1);
         $rate = $rule->start_value;
@@ -123,16 +124,19 @@ class UserController extends Controller
         $data['value'] = $data['value']/$rate*$value;
 
         //获取用户信息
-//        $user = Auth::user()->toArray();
-//        $id = $user['id'];
-        $id = 1;
+        $user = Auth::user()->toArray();
+        $id = $user['id'];
         $data['user_id'] = $id;
-        $data['type'] = 1;
+        $data['type'] = 3;
+        $data['money'] = 0;
 
         foreach ($data as $k=> $v) {
             $obj -> $k = $v;
         }
 
+        $user = User::find($id);
+        $user -> integration = $user['integration'] - $integration;
+        $user -> save();
         return response()->json($obj->save());
     }
   
