@@ -26,42 +26,33 @@
                 </div>
 
                 <div class="panel-body m-t-15" style="background-color: white;">
+                <?php foreach ($game_value as $key => $game) {
+               ?>
                     <div class="row m-t-5">
                         <div class="col-md-2 text-right">
-                            <label >下分合计：</label>
+                            <label ><?php echo $game['gname'] ?>游戏金币增长情况：</label>
                         </div>
                         <div class="col-md-9">
-                            <span style="color: blue;">(集结号)</span>18483000
-                            &nbsp;&nbsp;&nbsp;
-                            <span style="color: blue;">(辰龙)</span>162000
+                            <span style="color: blue;"><?php echo $game['differ'] ?>万</span>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <div class="row m-t-15">
+                        <div class="col-md-2 text-right">
+                            <label >人民币收入增长情况：</label>
+                        </div>
+                        <div class="col-md-9">
+                            <span style="color: blue;"><?php echo $money_diff ?></span>
                         </div>
                     </div>
                     <div class="row m-t-15">
                         <div class="col-md-2 text-right">
-                            <label >上分合计：</label>
+                            <label >盈利情况：</label>
                         </div>
                         <div class="col-md-9">
-                            <span style="color: blue;">(集结号)</span>18483000
-                            &nbsp;&nbsp;&nbsp;
-                            <span style="color: blue;">(辰龙)</span>162000
+                            ￥<span><?php echo $gain ?></span>
                         </div>
                     </div>
-                    <div class="row m-t-15">
-                        <div class="col-md-2 text-right">
-                            <label >会员充值合计：</label>
-                        </div>
-                        <div class="col-md-9">
-                            ￥5000
-                        </div>
-                    </div>
-                    {{--<div class="row m-t-15">--}}
-                        {{--<div class="col-md-2 text-right">--}}
-                            {{--<label >总营业额合计：</label>--}}
-                        {{--</div>--}}
-                        {{--<div class="col-md-9">--}}
-                            {{--￥4575--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                 </div>
             </div>
         </div>

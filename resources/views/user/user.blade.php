@@ -176,6 +176,7 @@
       layui.use('layer',function(){
                window.layer = layui.layer;
         });
+      
         (function (doc, win) {
             var docEl = doc.documentElement,
                 resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
