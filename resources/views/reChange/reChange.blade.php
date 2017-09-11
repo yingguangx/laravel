@@ -34,9 +34,9 @@
     <div class="fl typeSel">
         <select id="selType" name="selType" class="form-control">
             <option value="">请选择游戏种类</option>
-            <option value="1">集结号捕鱼</option>
-            <option value="2">辰龙游戏</option>
-            <option value="3">跑得快</option>
+            @foreach($game as $value)
+                <option value="{{ $value->id }}"> {{ $value->name }}</option>
+            @endforeach
         </select>
     </div>
     <div class="clear"></div>

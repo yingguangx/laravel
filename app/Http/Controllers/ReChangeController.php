@@ -14,7 +14,14 @@ class ReChangeController extends Controller
     //上分充值页
     public function reChange()
     {
-        return view('reChange/reChange');
+        $game = DB::table('game')
+            ->where('status', 1)
+            ->select('id', 'name')
+            ->get();
+
+        return view('reChange/reChange',[
+            'game' => $game
+        ]);
     }
 
     //上分获取汇率
@@ -46,6 +53,9 @@ class ReChangeController extends Controller
             $this::userAddIntegration($data['user_id'], $data['money'], $rule);
         }
         $obj = new Order();
+
+        //获取用余额
+
         foreach ($data as $k => $v) {
             $obj -> $k = $v;
         }

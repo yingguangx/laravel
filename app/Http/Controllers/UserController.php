@@ -124,11 +124,11 @@ class UserController extends Controller
         $data['value'] = $data['value']/$rate*$value;
 
         //获取用户信息
-//        $user = Auth::user()->toArray();
-//        $id = $user['id'];
-        $id = 1;
+        $user = Auth::user()->toArray();
+        $id = $user['id'];
         $data['user_id'] = $id;
-        $data['type'] = 1;
+        $data['type'] = 3;
+        $data['money'] = 0;
 
         foreach ($data as $k=> $v) {
             $obj -> $k = $v;
