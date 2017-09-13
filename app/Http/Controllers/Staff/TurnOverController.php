@@ -9,13 +9,18 @@ use DB;
 class TurnOverController extends Controller
 {
     //经营状况首页
-    public function turnOver()
+    public function turnOver(Request $Request)
     {	
+        $all = $Request->all();
     	$game_arr = DB::table('game')->pluck('name','id')->toArray();
     	$chengben_arr = DB::table('game')->pluck('cost_price','id')->toArray();
 
     	$small_time = date('Y-m-d H:i:s',strtotime(date('Y-m-d',time())));
     	$big_time = date('Y-m-d H:i:s',strtotime(date('Y-m-d',time()))+60*60*24);
+        if ( isset($all['start_time']) && isset($all['end_time']) && $all['start_time'] != null && $all['end_time'] != null) {
+            $small_time = $all['start_time'];
+            $big_time = $all['end_time'];
+        }
     	$shangfen_real = DB::table('order')->select(DB::raw('SUM(value) as total_value'),DB::raw('SUM(money) as total_money'),'game_id')->where([['type','=',1],['created_at','>',$small_time],['created_at','<',$big_time]])->groupBy('game_id')->get()->toArray();
     	$send_real = DB::table('order')->select(DB::raw('SUM(value) as total_value'),DB::raw('SUM(money) as total_money'),'game_id')->where([['type','=',3],['created_at','>',$small_time],['created_at','<',$big_time]])->orwhere([['type','=',4],['created_at','>',$small_time],['created_at','<',$big_time]])->groupBy('game_id')->get()->toArray();
     	$xiafen_real = DB::table('order')->select(DB::raw('SUM(value) as total_value'),DB::raw('SUM(money) as total_money'),'game_id')->where([['type','=',2],['created_at','>',$small_time],['created_at','<',$big_time]])->groupBy('game_id')->get()->toArray();
@@ -104,7 +109,7 @@ class TurnOverController extends Controller
 
     	$xiafen_values = DB::table('order as o')
     	->leftjoin('game as g','o.game_id','=','g.id')
-    	->select(DB::raw('SUM(o.value) as total_values'),'o.game_id as gid','g.name as gname')->where('o.type',2)->groupBy('o.game_id','g.name')->get()->toArray();
+    	->select(DB::raw('SUM(o.value) as total_values'),'o.game_id as gid','g.name as gname')->where([['o.type','=',2],['o.created_at','>',$small_time],['o.created_at','<',$big_time]])->groupBy('o.game_id','g.name')->get()->toArray();
     
     	$arr_exists_shangfen = [];
     	$arr_exists_xiafen = [];
@@ -137,7 +142,7 @@ class TurnOverController extends Controller
     			}
     		}
     	}
-    	// dd($shangfen_values);
+    	// dd($xiafen_values);
 
     	$arr = [];
     	foreach ($xiafen_values as $key => &$value) {
@@ -147,7 +152,7 @@ class TurnOverController extends Controller
     			}
     		}
     	}
-    	// dd($arr);
-        return view('staff/turnOver/index',['game_value'=>$arr,'money_diff'=>$money_diff,'gain'=>$gain]);
+    	// dd($all);
+        return view('staff/turnOver/index',['game_value'=>$arr,'money_diff'=>$money_diff,'gain'=>$gain,'search_all'=>$all]);
     }
 }
