@@ -160,7 +160,7 @@
                             data:{
                                 game_account:gameAccount,
                                 game_id:type,
-                                money:money,
+                                money:inputDefined,
                                 value:data['value'],
                             },
                             success:function(data){

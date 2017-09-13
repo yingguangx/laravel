@@ -512,7 +512,6 @@
         $('.pt-line').click(function () {
             var _this = $(this);
             var value = $(this).children('span').html();
-
             //获取积分兑换规则 及游戏类目
             $.ajax({
                 url: "/getIntegrationInfo",
@@ -524,7 +523,7 @@
                 success: function (data) {
                     var content =
                         '<div>'
-                            +'<span>您当前积分余额<span class="blue">'+value+'</span>，<span class="blue">'+data['start_value']+'</span>积分起兑，每<span class="blue">'+data['start_value']+'</span>积分可兑换<span class="blue">'+data['get_value']+'万</span>游戏分值。祝您游戏愉快！</span>'
+                            +'<span><span style="color: black;font-size: 16px;">兑换准则:</span>您当前积分余额<span class="blue">'+value+'</span>，<span class="blue">'+data['start_value']+'</span>积分起兑，每<span class="blue">'+data['start_value']+'</span>积分可兑换<span class="blue">'+data['get_value']+'万</span>游戏分值。祝您游戏愉快！</span>'
                         +'</div>'
 
                         +'<div style="margin-left: 20px">'
@@ -581,13 +580,14 @@
                         if (game == '' || account == '' || t_value == '') {
                             $('#notice').show();
                             return false;
-                        } else {
-                            if (t_value > value) {
-                                $('#notice').children().children().html('输入积分已超过您当前积分，请核实！！');
-                                $('#notice').show();
-                                return false;
-                            }
                         }
+//                        else {
+//                            if (t_value < value) {
+//                                $('#notice').children().children().html('输入积分已超过您当前积分，请核实！！');
+//                                $('#notice').show();
+//                                return false;
+//                            }
+//                        }
 
                         $.ajax({
                             url: "/newIntegrationOrder",
@@ -602,9 +602,13 @@
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             success: function (data) {
-                                if (data) {
+                                if (data['status'] == 1) {
                                     _this.children('span').html(Number(value)-Number(t_value));
                                     layer.msg('兑换成功！');
+                                }else if (data['status'] == 2) {
+                                    layer.msg('兑换失败,'+data['msg']+'积分起兑！');
+                                } else {
+                                    layer.msg('兑换失败,当前积分不足请核实后再兑换！');
                                 }
                             }
                         });
