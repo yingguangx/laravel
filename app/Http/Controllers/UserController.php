@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\IntegrationRule;
 use App\Models\Order;
 use App\User;
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Models\UserPayCode;
-
+use Memcache;
 
 class UserController extends Controller
 {
@@ -119,25 +120,53 @@ class UserController extends Controller
         $integration = $data['value'];
         $obj = new Order();
         $rule = IntegrationRule::find(1);
-        $rate = $rule->start_value;
-        $value = $rule->get_value;
-        $data['value'] = $data['value']/$rate*$value;
+        $arr = Array();
+        //判断积分是否大于起兑分值
+        if ($data['value'] >= $rule['start_value']) {
+            //获取用户信息
+            $user = Auth::user()->toArray();
+            $id = $user['id'];
+            $data['user_id'] = $id;
+            $data['type'] = 3;
+            $data['money'] = 0;
+            //判断输入积分与拥有积分大小
+            if ($data['value'] <= $user['integration']) {
+                $rate = $rule->start_value;
+                $value = $rule->get_value;
+                $data['value'] = $data['value']/$rate*$value;
 
-        //获取用户信息
-        $user = Auth::user()->toArray();
-        $id = $user['id'];
-        $data['user_id'] = $id;
-        $data['type'] = 3;
-        $data['money'] = 0;
+                foreach ($data as $k=> $v) {
+                    $obj -> $k = $v;
+                }
+                $obj->save();
+                $insertId = $obj -> id;
 
-        foreach ($data as $k=> $v) {
-            $obj -> $k = $v;
+                //积分兑换订单存入memcache
+                $memArr = Array();
+                $memArr['name'] = $user['nickName'];
+                $memArr['type'] = $this::getGameName($data['game_id']);
+                $memArr['money'] = '积分订单';
+                $memArr['value'] = $data['value'];
+                $memArr['account'] = $obj->game_account;
+                $memArr['time'] = $obj->created_at;
+                get_memcache('shangfenkey', $insertId, $memArr);
+
+                $user = User::find($id);
+                $user -> integration = $user['integration'] - $integration;
+                $user -> save();
+
+                //返回数据类型
+                $arr['status'] = 1;
+                return response()->json($arr);
+            } else {
+                $arr['status'] = 3;
+                return response()->json($arr);
+            }
+        } else {
+            $arr['status'] = 2;
+            $arr['msg'] = $rule['start_value'];
+            return response()->json($arr);
         }
-
-        $user = User::find($id);
-        $user -> integration = $user['integration'] - $integration;
-        $user -> save();
-        return response()->json($obj->save());
     }
   
     public function getZfbCode()
@@ -150,6 +179,13 @@ class UserController extends Controller
     public function orderList()
     {
         return view('user.orderList');
+    }
+
+    //获取游戏名称
+    public static function getGameName($id)
+    {
+        $game = Game::find($id);
+        return $game -> name;
     }
 }
 
