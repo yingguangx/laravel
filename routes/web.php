@@ -122,7 +122,7 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->get('user/ztbCode','UserController@apiGetZtbCode');
     $router->post('money_insert','OrderController@money_insert');
 });
-Route::get('/wheel', 'pointsController@wheel');
+// Route::get('/wheel', 'pointsController@wheel');
 Route::post('/money_change', 'pointsController@money_change');
 Route::post('/judgewx', 'pointsController@judgewx');
 Route::post('/judgezfb', 'pointsController@judgezfb');
