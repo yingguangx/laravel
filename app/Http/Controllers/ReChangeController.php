@@ -2,18 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Game;
 use App\Models\Integration;
 use App\Models\IntegrationRule;
 use App\Models\Order;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Memcache;
+
 
 class ReChangeController extends Controller
 {
     //上分充值页
     public function reChange()
     {
-        return view('reChange/reChange');
+        $game = DB::table('game')
+            ->where('status', 1)
+            ->select('id', 'name')
+            ->get();
+
+        $rule = IntegrationRule::find(1);
+
+        return view('reChange/reChange',[
+            'game' => $game,
+            'rule' => $rule
+        ]);
     }
 
     //上分获取汇率
@@ -31,6 +46,9 @@ class ReChangeController extends Controller
         $array['name'] = $obj->name;
         $array['value'] = $money*$obj->up_rate;
 
+        $user = Auth::user()->toArray();
+        $array['nickName'] = $user['nickName'];
+
         return response()->json($array);
     }
 
@@ -38,18 +56,44 @@ class ReChangeController extends Controller
     public function newOrder(Request $request)
     {
         $data = $request->all();
+        $user = Auth::user()->toArray();
+
+        $id = $user['id'];
         $money = $data['money'];
+        $data['user_id'] = $id;
 
-        $rule = IntegrationRule::find(1);
-        if ($money >= $rule['limit_value']) {
-            $this::userAddIntegration($data['user_id'], $data['money'], $rule);
-        }
-        $obj = new Order();
-        foreach ($data as $k => $v) {
-            $obj -> $k = $v;
-        }
+        //获取用余额
+        $balance = $user['money'];
+        if ($data['money'] > $balance) {
+            return response()->json(false);
+        } else {
+            $rule = IntegrationRule::find(1);
+            if ($money >= $rule['limit_value']) {
+                $this::userAddIntegration($data['user_id'], $data['money'], $rule);
+            }
 
-        return response()->json($obj->save());
+            $obj = new Order();
+            foreach ($data as $k => $v) {
+                $obj -> $k = $v;
+            }
+            $obj -> type = 1;
+            $obj->save();
+            $insertId = $obj -> id;
+            $user = User::find($id);
+            $user -> money = $user['money'] - $data['money'];
+            $user -> save();
+
+            //上分订单存入memcache
+            $memArr = Array();
+            $memArr['name'] = $user -> nickName;
+            $memArr['type'] = $this::getGameName($data['game_id']);
+            $memArr['money'] = $money;
+            $memArr['value'] = $data['value'];
+            $memArr['account'] = $obj->game_account;
+            $memArr['time'] = $obj->created_at;
+            get_memcache('shangfenkey', $insertId, $memArr);
+            return response()->json(true);
+        }
     }
 
     //客户积分存储
@@ -58,10 +102,15 @@ class ReChangeController extends Controller
         $multiple = (int)floor($money/$obj['limit_value']);
         $integration = $multiple*$obj['integration'];
 
-        $newObj = new Integration();
-        $newObj -> user_id = $user_id;
-        $newObj -> integration = $integration;
+        $user = User::find($user_id);
+        $user -> integration = $user['integration'] + $integration;
+        $user -> save();
+    }
 
-        $newObj -> save();
+    //获取游戏名称
+    public static function getGameName($id)
+    {
+        $game = Game::find($id);
+        return $game -> name;
     }
 }

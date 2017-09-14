@@ -31,15 +31,15 @@
     {{--<link rel="stylesheet" href="{{asset(("web/css/about_us.css"))}}">--}}
 
     @yield('css')
+    <script src="{{url('js/jquery-2.1.4.js')}}"></script>
 </head>
 <body id="main">
 @yield('header')
 @yield('content')
 @yield('footer')
-
+<script type="text/javascript" src="{{ URL::asset('js/jquery.min.js')}}"></script>
 {{--<script src="{{ url('vendors/bower_components/jquery/dist/jquery.min.js') }}"></script>--}}
 {{--<script src="{{ url('web/js/swiper-3.4.0.jquery.min.js') }}"></script>--}}
-<script src="{{url('js/jquery-1.8.2.min.js')}}"></script>
 {{--<script src="{{url('web/js/index.js')}}"></script>--}}
 {{--<script src="{{url('web/js/current_location.js')}}"></script>--}}
 {{--<script src="{{url('web/js/article_list.js')}}"></script>--}}
@@ -52,5 +52,6 @@
 {{--<script src="{{url(elixir('js/app.src.js'))}}"></script>--}}
 
 @stack('js')
+@yield('jquery')
 </body>
 </html>

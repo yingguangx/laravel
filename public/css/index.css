@@ -276,6 +276,9 @@ body{padding: 0px;
 .m-t-15 {
     margin-top: 15px;
 }
+.m-t-5 {
+    margin-top: 5px;
+}
 .fl {
     float: left;
 }
@@ -306,7 +309,7 @@ body{padding: 0px;
     border-radius: 2px;
     border: 1px solid #eee;
     box-shadow: none;
-    height: 20px;
+    height: 30px;
     width: 70%;
 }
 .boxAdd {
@@ -316,9 +319,24 @@ body{padding: 0px;
     border-radius: 2px;
     border: 1px solid #eee;
     box-shadow: none;
-    height: 20px;
+    height: 30px;
     width: 70%;
     padding-left: 10px;
+}
+.tar {
+    text-align: right;
+}
+.tal {
+    text-align: left;
+}
+.clh {
+    line-height: 36px;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
 }
 body {
     font-family: "microsoft YaHei";

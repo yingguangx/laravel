@@ -1,8 +1,8 @@
 @extends('staffLayOut')
 
 @section('content')
-    <div class="row m-l-15 m-t-5">
-        <span class="font-title">系统设置-积分设置</span>
+    <div class="row m-l-15 m-t-15">
+        <span class="font-title m-l-15" style="font-size: 15px">系统设置-积分设置</span>
     </div>
 
     <div class="row m-l-15 m-t-15">
@@ -48,7 +48,7 @@
         //新增上分积分规则
         function addIntegration() {
             var content =
-                    '<div>'
+                    '<div class="m-t-5">'
                     +'<div class="fl" style="width: 40%;text-align: right;margin-left: 20px;"><span>充值金额:</span></div>'
                     +'<div class="fl" style="width: 40%;text-align: left;margin-left: 10px;"><input class="input-default m" type="text" value=""></div>'
                     +'<div class="clear"></div>'
