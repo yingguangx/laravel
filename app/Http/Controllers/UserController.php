@@ -57,6 +57,9 @@ class UserController extends Controller
 	    if($keygen == ''){
     		return \GuzzleHttp\json_encode(['success'=>false,'message'=>'缺少参数！']);
 	    }
+	    if(User::where('key',$keygen)->first()){
+	      return \GuzzleHttp\json_encode(['success'=>false,'message'=>'该密钥已被注册！']);
+	    }
 	    $user = User::find($userID);
 	    $user->key = $keygen;
 	    if($user->save())
