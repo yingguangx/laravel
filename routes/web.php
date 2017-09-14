@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 	//下分兑换
 	Route::get('/exChange', 'ExChangeController@exChange');
 	Route::get('/points', 'pointsController@index');
+    Route::post('/exChange/uploadFile', 'ExChangeController@uploadFile');
 	Route::post('/coupons/use_card','CouponsController@use_card');
     Route::get('/coupons/index','CouponsController@index');
 

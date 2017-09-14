@@ -11,7 +11,7 @@ $(function(){
 		layer.open({
             content: '请输入或选择金额',
             style: 'background:rgba(0,0,0,0.6); color:#fff; border:none;',
-            time:3
+            time:3000
            });
            return false;
 		}	
@@ -20,10 +20,13 @@ $(function(){
 				layer.open({
 	            content: '金额必须是100元以上',
 	            style: 'background:rgba(0,0,0,0.6); color:#fff; border:none;',
-	            time:3
+	            time:3000
 	           });
 	           return false;
 			} 
+		}
+		if(file_path==''){
+			return false;
 		}
 		$("#txt").val();
 		$(".f-overlay").show();

@@ -28,7 +28,6 @@
     }
     .demo-panel-files{
         position: relative;
-        height: 8rem;
     }
     .demo-panel-files img.demo-image-preview{
         width:6rem!important;
@@ -85,7 +84,6 @@
 
 
 <div class="panel-body demo-panel-files" id='demo-files1'>
-    示例图片:<img src="{{ asset('/images/fkm.png') }}" alt="" width="100%">
 </div>
 <div id="drag-and-drop-zone" class="uploader" style="border:0;padding:0;text-align: left;">
     <div class="browser" style="position:relative;text-align: center">
@@ -119,7 +117,7 @@
 <div class="person_wallet_recharge">
  
     <div class="pic"><input type="text" placeholder="分值必须为10万分以上" id="txt" oninput="inputfor($(this).val(),$('#selType').val())" /><span>万</span>&nbsp&nbsp&nbsp&nbsp<span class="xiafenjine appendjine">对应金额为：0元</span></div>
-    <div class="botton wantxiafen">我要下分</div>
+    <div class="botton wantxiafen1">我要下分</div>
     <div class="agreement"><p>点击我要下分，即您已经表示同意<a>《下分活动协议》</a></p></div>
     <div class="f-overlay"></div>
 
@@ -139,8 +137,9 @@
 <script type="text/javascript" src="{{asset('/js/uploader/dmuploader.js')}}"></script>
 <script src="{{ asset('js/viewer/viewer.min.js') }}"></script>
 <script type="text/javascript">
+    var file_path = '';
     $('#drag-and-drop-zone').dmUploader({
-        url: '/user/fileUpload',
+        url: '/exChange/uploadFile',
         extraData: {
             userID: '{{ \Illuminate\Support\Facades\Auth::user()->id }}',
             _token:'{{csrf_token()}}'
@@ -155,7 +154,7 @@
             $.danidemo.updateFileStatus(id, 'default', '正在上传...');
         },
         onNewFile: function(id, file){
-
+            $('.demo-panel-files').css('height','8rem');
             $.danidemo.addSingleFile('#demo-files1', id, file);
             /*** Begins Image preview loader ***/
             if (typeof FileReader !== "undefined"){
@@ -189,11 +188,9 @@
             $.danidemo.updateFileProgress(id, percentStr);
         },
         onUploadSuccess: function(id, data){
-            // $.danidemo.addLog('#demo-debug', 'success', 'Upload of file #' + id + ' completed');
-            // $.danidemo.addLog('#demo-debug', 'info', 'Server Response for file #' + id + ': ' + JSON.stringify(data));
-            // $.danidemo.addLog('#demo-debug', 'info', 'HouseID #' + data.houseImageID);
-            // $.danidemo.updateFileStatus(id, 'success', '上传完成');
-            // $.danidemo.updateFileProgress(id, '100%');
+           if(data.code==200){
+               file_path = data.data;
+           }
         },
         onUploadError: function(id, message){
             $.danidemo.updateFileStatus(id, 'error', message);
@@ -211,10 +208,6 @@
         }
     });
 
-    $('.submit').on('click',function () {
-        layer.alert('提交成功', {icon: 1});
-        setTimeout("location.href = '/user'",1500);
-    })
 
 </script>
 <script>
@@ -251,12 +244,16 @@ window.onload = function(){
 
     }
 
-    $('.wantxiafen').click(function(){
+    $('.wantxiafen1').click(function(e){
+        e.preventDefault();
         var play_sort = $('#selType').val();
         var play_id = $('input[name="play_id"]').val();
         var txt = $('#txt').val();
-        var hhwx_rate = obj1[$('#selType').val()]['hhwx_rate'];
-        if (play_sort != '' && play_id != '' && txt != '') {
+        var hhwx_rate = '';
+        if($('#selType').val()){
+             hhwx_rate = obj1[$('#selType').val()]['hhwx_rate'] || '';
+        }
+        if (hhwx_rate!='' && play_sort != '' && play_id != '' && txt != '' && file_path!='') {
              $.ajax({
                 url: "/xiafensubmit",
                 type: "POST",
@@ -269,6 +266,7 @@ window.onload = function(){
                     'play_id':play_id,
                     'txt':txt,
                     'hhwx_rate':hhwx_rate,
+                    'file_path':file_path,
                 },
                 success: function (data) {
                     console.log(data);
@@ -277,12 +275,12 @@ window.onload = function(){
                         }
                     }
             });
-        }else if(play_sort == '') {
-            alert('请选择游戏种类');
+        }else if(play_sort == '' || hhwx_rate=='') {
+            layer.alert('请选择游戏种类');
         } else if(play_id == ''){
-            alert('请输入游戏ID');
-        } else if(txt == ''){
-            alert('请输入你要下分总分');
+            layer.alert('请输入游戏ID');
+        } else if(file_path == ''){
+            layer.alert('请上传交易截图!');
         }
     })
     function userDefined() {

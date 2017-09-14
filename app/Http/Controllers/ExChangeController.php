@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MyWoker;
 use Illuminate\Cache\MemcacheConnector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -62,6 +63,16 @@ class ExChangeController extends Controller
         $str_arr = serialize($all);
     	$bool = $mem->set("xiafenkey".$id,$str_arr,MEMCACHE_COMPRESSED,0);
     	return response()->json(['result1'=>true]);
+    }
+
+    /**文件上传
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uploadFile(Request $request)
+    {
+        $path = $request->file('file')->store('capture');
+        return MyWoker::jsonSuccess($path,'','上传成功');
     }
 
     public function test()
