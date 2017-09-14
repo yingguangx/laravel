@@ -5,9 +5,11 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <meta name="_token" content="{{ csrf_token() }}"/>
     <link rel="stylesheet" href="{{ asset('css/new_file.css') }}" />
+    <link rel="stylesheet" href="{{asset(("css/bootstrap.min.css"))}}">
     <script type="text/javascript" src="{{ asset('js/jquery-1.8.2.min.js') }}" ></script>
     <script type="text/javascript" src="{{ asset('js/new_file.js') }}" ></script>
     <link rel="stylesheet" href="{{ asset('css/layer.css') }}" />
+    <link rel="stylesheet" href="{{ asset('js/viewer/viewer.min.css') }}" />
     <!-- <script type="text/javascript" src="{{ asset('js/layer.js') }}" ></script> -->
     <!-- <link rel="stylesheet" href="{{ asset('css/weui.min.css') }}">
 <link rel="stylesheet" href="{{ asset('css/query-weui.css') }}">
@@ -21,6 +23,23 @@
     .xiafenjine{
         color:red;
     }
+    #drag-and-drop-zone{
+        margin-top: 10px;
+    }
+    .demo-panel-files{
+        position: relative;
+        height: 8rem;
+    }
+    .demo-panel-files img.demo-image-preview{
+        width:6rem!important;
+        height:6rem!important;
+    }
+    .demo-panel-files>div{
+        position: absolute;
+        margin-left: -4rem;
+        left: 50%;
+    }
+
 </style>
 <body>
 <!--头部  star-->
@@ -63,13 +82,17 @@
     <div class="clear"></div>
 </div>
 
+
+
+<div class="panel-body demo-panel-files" id='demo-files1'>
+    示例图片:<img src="{{ asset('/images/fkm.png') }}" alt="" width="100%">
+</div>
 <div id="drag-and-drop-zone" class="uploader" style="border:0;padding:0;text-align: left;">
     <div class="browser" style="position:relative;text-align: center">
         <img src="{{ asset('/images/upload.png') }}" alt="">
         <input style="border: 0;" type="file" name="files[]"  accept="" multiple="multiple" title='Click to add Images'>
     </div>
 </div>
-
 <!--每种游戏商家对应的id-->
 <div class="sel_type xiafenid">
         <p class="xiafenjine"></p>
@@ -111,6 +134,89 @@
     {{--</div>--}}
 </div>
 </body>
+<script type="text/javascript" src="{{asset('/js/layui/layui.all.js')}}"></script>
+<script type="text/javascript" src="{{asset('/js/uploader/demo-preview.js')}}"></script>
+<script type="text/javascript" src="{{asset('/js/uploader/dmuploader.js')}}"></script>
+<script src="{{ asset('js/viewer/viewer.min.js') }}"></script>
+<script type="text/javascript">
+    $('#drag-and-drop-zone').dmUploader({
+        url: '/user/fileUpload',
+        extraData: {
+            userID: '{{ \Illuminate\Support\Facades\Auth::user()->id }}',
+            _token:'{{csrf_token()}}'
+        },
+        maxFileSize: 209712500,
+        dataType: 'json',
+        allowedTypes: 'image/*',
+        onInit: function(){
+            // $.danidemo.addLog('#demo-debug', 'default', 'Plugin initialized correctly');
+        },
+        onBeforeUpload: function(id){
+            $.danidemo.updateFileStatus(id, 'default', '正在上传...');
+        },
+        onNewFile: function(id, file){
+
+            $.danidemo.addSingleFile('#demo-files1', id, file);
+            /*** Begins Image preview loader ***/
+            if (typeof FileReader !== "undefined"){
+
+                var reader = new FileReader();
+
+                // Last image added
+                var img = $('#demo-files1').find('.demo-image-preview').eq(0);
+
+                reader.onload = function (e) {
+                    img.attr('src', e.target.result);
+                    img.attr('style', 'width:4rem;height:4rem');
+                    $(".demo-image-preview").viewer();
+                }
+
+                reader.readAsDataURL(file);
+
+            } else {
+                // Hide/Remove all Images if FileReader isn't supported
+                $('#demo-files1').find('.demo-image-preview').remove();
+            }
+            /*** Ends Image preview loader ***/
+
+        },
+        onComplete: function(){
+            // $.danidemo.addLog('#demo-debug', 'default', 'All pending tranfers completed');
+        },
+        onUploadProgress: function(id, percent){
+            var percentStr = percent + '%';
+
+            $.danidemo.updateFileProgress(id, percentStr);
+        },
+        onUploadSuccess: function(id, data){
+            // $.danidemo.addLog('#demo-debug', 'success', 'Upload of file #' + id + ' completed');
+            // $.danidemo.addLog('#demo-debug', 'info', 'Server Response for file #' + id + ': ' + JSON.stringify(data));
+            // $.danidemo.addLog('#demo-debug', 'info', 'HouseID #' + data.houseImageID);
+            // $.danidemo.updateFileStatus(id, 'success', '上传完成');
+            // $.danidemo.updateFileProgress(id, '100%');
+        },
+        onUploadError: function(id, message){
+            $.danidemo.updateFileStatus(id, 'error', message);
+
+            // $.danidemo.addLog('#demo-debug', 'error', 'Failed to Upload file #' + id + ': ' + message);
+        },
+        onFileTypeError: function(file){
+             layer.alert(file.name+'不是一个有效的图片文件!');
+        },
+        onFileSizeError: function(file){
+            layer.alert(file.name+'超出了'+this.maxFileSize+'的大小限制');
+        },
+        onFallbackMode: function(message){
+            // $.danidemo.addLog('#demo-debug', 'info', 'Browser not supported(do something else here!): ' + message);
+        }
+    });
+
+    $('.submit').on('click',function () {
+        layer.alert('提交成功', {icon: 1});
+        setTimeout("location.href = '/user'",1500);
+    })
+
+</script>
 <script>
 window.onload = function(){ 
      obj1 = [];
