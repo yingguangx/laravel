@@ -23,7 +23,7 @@ if (!function_exists('getUserAgent')) {
 
 	    return $result;
     }
-
+    //$key_name上分、积分、卡卷填shangfenkey，$id,存到数据库的那条数据返回的id，$str_arr后台要什么字段这里放什么，然后unserialize一下，序列化后
     function get_memcache($key_name,$id,$str_arr)
     {
     	$mem = new Memcache;
