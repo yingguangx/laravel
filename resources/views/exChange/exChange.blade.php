@@ -201,7 +201,7 @@
              layer.alert(file.name+'不是一个有效的图片文件!');
         },
         onFileSizeError: function(file){
-            layer.alert(file.name+'超出了'+this.maxFileSize+'的大小限制');
+            layer.alert(file.name+'文件大小超出了限制');
         },
         onFallbackMode: function(message){
             // $.danidemo.addLog('#demo-debug', 'info', 'Browser not supported(do something else here!): ' + message);
