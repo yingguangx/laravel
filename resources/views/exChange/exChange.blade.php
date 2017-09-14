@@ -15,6 +15,7 @@
 <script src="../lib/fastclick.js"></script>
 <script src="../js/jquery-weui.js"></script> -->
     <title>集结号下分兑换</title>
+    <link rel="stylesheet" href="{{url(elixir('css/uploader/uploader.css'))}}" type="text/css"/>
 </head>
 <style>
     .xiafenjine{
@@ -61,6 +62,14 @@
     </div>
     <div class="clear"></div>
 </div>
+
+<div id="drag-and-drop-zone" class="uploader" style="border:0;padding:0;text-align: left;">
+    <div class="browser" style="position:relative;text-align: center">
+        <img src="{{ asset('/images/upload.png') }}" alt="">
+        <input style="border: 0;" type="file" name="files[]"  accept="" multiple="multiple" title='Click to add Images'>
+    </div>
+</div>
+
 <!--每种游戏商家对应的id-->
 <div class="sel_type xiafenid">
         <p class="xiafenjine"></p>
