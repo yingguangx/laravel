@@ -253,11 +253,19 @@ window.onload = function(){
         if($('#selType').val()){
              hhwx_rate = obj1[$('#selType').val()]['hhwx_rate'] || '';
         }
+        if(!check_money()){
+            return false;
+        }
         if (hhwx_rate!='' && play_sort != '' && play_id != '' && txt != '' && file_path!='') {
              $.ajax({
                 url: "/xiafensubmit",
                 type: "POST",
                 dataType: "json",
+                beforeSend:function(){
+                    $("#txt").val();
+                    $(".f-overlay").show();
+                    $(".addvideo").show();
+                },
                 headers: {
                 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 },
