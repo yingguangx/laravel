@@ -7,6 +7,7 @@
 
     <link rel="stylesheet" href="{{ URL::asset('css/index.css') }}" type="text/css" media="screen" />
     <link href="{{URL::asset('css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{URL::asset('css/bootstrap-reset.css')}}" rel="stylesheet">
 
     <link href="{{URL::asset('/layui/css/layui.css')}}" rel="stylesheet">
 
@@ -18,6 +19,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/common.js') }}"></script>
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('js/jquery-weui.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
     <style>body{font-size:14px;}</style>
     @yield('style')
 </head>
@@ -66,12 +68,14 @@
                 <li><a href="{{ URL('staff/balanceIndex') }}"><i class="glyph-icon icon-chevron-right"></i>余额兑换<span style="color:red;" class="moneychangeorder"></span></a></li>
             </ul>
         </li>
-
+         <li class="childUlLi">
+            <a href="{{ URL('staff/balance_into') }}"> <i class="glyph-icon  icon-reorder"></i>余额充值</a>
+        </li>
         <li class="childUlLi">
             <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>系统设置</a>
             <ul>
                 <li><a href="{{ URL('staff/gameSetting') }}"><i class="glyph-icon icon-chevron-right"></i>游戏类目设置</a></li>
-                <li><a href="#"><i class="glyph-icon icon-chevron-right"></i>优惠券设置</a></li>
+                <li><a href="{{URL('staff/coupons/index')}}"><i class="glyph-icon icon-chevron-right"></i>优惠券设置</a></li>
                 <li><a href="{{ URL('staff/wheel/index') }}"><i class="glyph-icon icon-chevron-right"></i>大转盘设置</a></li>
                 <li><a href="{{ URL::asset('staff/integrationSetting') }}"><i class="glyph-icon icon-chevron-right"></i>积分设置</a></li>
             </ul>
@@ -114,7 +118,6 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                },
                success: function (data) {
-               
                         // $('.ordernum').text('');
                         $('.xiafenorder').text('');
                         $('.xiafenorderappend').html('');
@@ -180,5 +183,5 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                    }
            });
        }
-//       setInterval(getmessage,2000);
+      // setInterval(getmessage,2000);
 </script>

@@ -34,9 +34,9 @@
     <div class="fl typeSel">
         <select id="selType" name="selType" class="form-control">
             <option value="">请选择游戏种类</option>
-            <option value="1">集结号捕鱼</option>
-            <option value="2">辰龙游戏</option>
-            <option value="3">跑得快</option>
+            @foreach($game as $value)
+                <option value="{{ $value->id }}"> {{ $value->name }}</option>
+            @endforeach
         </select>
     </div>
     <div class="clear"></div>
@@ -65,7 +65,7 @@
 <!--充值列表-->
 <div class="person_wallet_recharge">
     <div class="pic">
-        <span>小提示: 每上分200元可获得20积分！！</span>
+        <span>小提示: 每上分{{ $rule['limit_value'] }}元可获得{{ $rule['integration'] }}积分！！</span>
     </div>
     <div class="botton">我要充值</div>
     <div class="agreement"><p>点击我要充值，即您已经表示同意<a>《充返活动协议》</a></p></div>
@@ -93,7 +93,6 @@
         var type = $('#selType').val();
         var gameAccount = $('#gameAccount').val();
         var inputDefined = $('#inputDefined').val();
-        var inputSel = $('.current').children().eq(0).html();
         if (type == '') {
             layer.msg('请选择游戏种类！', {time:1500});
             return false;
@@ -102,17 +101,9 @@
             layer.msg('请输入上分游戏ID！', {time:1500});
             return false;
         }
-        if (!$(".person_wallet_recharge .ul .mark").hasClass('current') && inputDefined == '') {
-            layer.msg('请选择或者输入金额！', {time:1500});
-            return false;
-        }
-
-        var money = '';
-
         if (inputDefined == '') {
-            money = inputSel;
-        } else {
-            money = inputDefined;
+            layer.msg('请输入上分金额！', {time:1500});
+            return false;
         }
 
         $.ajax({
@@ -121,14 +112,14 @@
             url:'/getRate',
             data:{
                 'game_id':type,
-                'money':money
+                'money':inputDefined
             },
             success:function(data){
                 if (data) {
                     var content =
                             '<div>'
                             +'<div class="fl" style="width: 40%;text-align: right;margin-left: 20px;"><span>客户姓名:</span></div>'
-                            +'<div class="fl" style="width: 40%;text-align: left;margin-left: 10px;"><span>胡老三</span></div>'
+                            +'<div class="fl" style="width: 40%;text-align: left;margin-left: 10px;"><span>'+data['nickName']+'</span></div>'
                             +'<div class="clear"></div>'
                             +'</div>'
                             +'<div>'
@@ -167,15 +158,16 @@
                             type: 'post',
                             dataType: 'json',
                             data:{
-                                user_id:1,
                                 game_account:gameAccount,
                                 game_id:type,
-                                money:money,
+                                money:inputDefined,
                                 value:data['value'],
                             },
                             success:function(data){
                                 if (data) {
-                                    layer.msg('下单成功!!工作人员正在上分,请稍等大约一分钟后,前往个人中心查看余额。');
+                                    layer.msg('下单成功!!工作人员正在上分,请稍等大约一分钟后,即可进行游戏！！');
+                                } else {
+                                    layer.msg('下单失败，请前往个人中心查看余额是否足够！！');
                                 }
                             }
                         })

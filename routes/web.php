@@ -53,6 +53,11 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/user/userInfo', 'UserController@userInfo');
 	Route::post('/user/fileUpload', 'UserController@fileUpload');
 	Route::get('/user/wechatCode', 'UserController@getWechatCode');
+    //获取积分兑换规则
+  Route::get('getIntegrationInfo', 'UserController@getIntegrationInfo');
+  Route::post('newIntegrationOrder', 'UserController@newIntegrationOrder');
+  
+  Route::get('/wheel', 'pointsController@wheel');
 	Route::get('/user/zfbCode', 'UserController@getZfbCode');
 	Route::get('/user/order', 'UserController@orderList');
 	Route::get('/wheel', 'pointsController@wheel');
@@ -102,16 +107,22 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
 
     //大转盘设置
     $router->get('wheel/index', 'WheelController@index');
+    $router->get('balance_into', 'OrderController@balance_into');
     $router->post('wheel/base_setting','WheelController@base_setting');
     $router->post('wheel/award_save','WheelController@award_add_save');
     $router->post('wheel/award_delete','WheelController@award_delete');
+
+    //卡券设置
+    $router->get('coupons/index','CouponsController@index');
+    $router->post('coupons/setting','CouponsController@setting');
     //用户管理
     $router->get('user','UserController@index');
     $router->post('user/apiGetUser','UserController@apiGetUser');
     $router->get('user/wechatCode','UserController@apiGetWechatCode');
     $router->get('user/ztbCode','UserController@apiGetZtbCode');
+    $router->post('money_insert','OrderController@money_insert');
 });
-Route::get('/wheel', 'pointsController@wheel');
+// Route::get('/wheel', 'pointsController@wheel');
 Route::post('/money_change', 'pointsController@money_change');
 Route::post('/judgewx', 'pointsController@judgewx');
 Route::post('/judgezfb', 'pointsController@judgezfb');

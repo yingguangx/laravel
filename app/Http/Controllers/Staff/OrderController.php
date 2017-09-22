@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use Memcache;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -45,7 +46,7 @@ class OrderController extends Controller
         ->leftJoin('game as g','o.game_id','=','g.id')
         ->leftJoin('users as u','o.user_id','=','u.id')
         ->select('o.money','o.value','o.created_at','u.name as uname','g.name as gname','o.id')
-        ->where('o.status',1)
+        ->where(['o.status'=>1,'type'=>2])
         ->get();
     	return view('staff.order.xiafen',['orders'=>$order]);
     }
@@ -59,7 +60,7 @@ class OrderController extends Controller
     public function saveGame(Request $request)
     {
     	$all = $request->all();
-    	DB::table('game')->insert( ['name' =>$all['game_name'], 'hhwx_rate' => $all['down_rate'],'business_id' => $all['business_id'], 'up_rate' => $all['up_rate'],'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time())]);
+    	DB::table('game')->insert( ['name' =>$all['game_name'], 'hhwx_rate' => $all['down_rate'],'business_id' => $all['business_id'], 'up_rate' => $all['up_rate'],'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time()),'cost_price'=>$all['cost_price']]);
     	return Redirect::route('staff.gameSetting');
     }
 
@@ -72,7 +73,7 @@ class OrderController extends Controller
     public function saveupGame(Request $request)
     {
     	$all = $request->all();
-    	DB::table('game')->where('id',$all['gameid'])->update(['name' => $all['game_name_up'],'up_rate' => $all['up_rate_up'],'hhwx_rate' => $all['down_rate_up'],'business_id' => $all['business_id_up']]);
+    	DB::table('game')->where('id',$all['gameid'])->update(['name' => $all['game_name_up'],'up_rate' => $all['up_rate_up'],'hhwx_rate' => $all['down_rate_up'],'business_id' => $all['business_id_up'],'cost_price'=>$all['price_cost_up']]);
     	return Redirect::route('staff.gameSetting');
     }
 
@@ -124,5 +125,30 @@ class OrderController extends Controller
         
         $bool2 = DB::table('money_change')->where('id',$id)->update(['status'=>0]);
         return response()->json(['result'=>true]);
+    }
+
+    public function balance_into()
+    {
+        return view('staff.order.balance_into');
+    }
+
+    public function money_insert(Request $request)
+    {
+        $all = $request->all();
+        $user = Auth::user()->toArray();
+        $money_before_arr = DB::table('users')->where('key',$all['key'])->select('money')->first();
+        if ($money_before_arr != null) {
+            $money_before =  $money_before_arr->money;
+        } else {
+            return response()->json(['result'=>false,'error'=>'交易码不存在']); 
+        }
+        $money_now = (int)$money_before+(int)$all['money'];
+        DB::table('money_insert')->insert(['money'=>$all['money'],'user_id'=>$user['id'],'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time())]);
+        $bool = DB::table('users')->where('key',$all['key'])->update(['money'=> $money_now]);
+        if ($bool) {
+            return response()->json(['result'=>true]); 
+        } else {
+            return response()->json(['result'=>false,'error'=>'意外错误']); 
+        }
     }
 }

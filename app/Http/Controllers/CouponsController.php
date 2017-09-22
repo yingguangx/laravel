@@ -42,6 +42,7 @@ class CouponsController extends Controller
             return MyWoker::jsonFail('','','不是有效的卡券码！');
         }
 
+        //判断卡券的充值类型是否满足
         //生成订单
         $order = new Order(array_merge($request->input(),['user_id'=>Auth::user()->id]));
         if($order->save()>0){

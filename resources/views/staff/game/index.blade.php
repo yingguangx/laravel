@@ -48,6 +48,10 @@
 				    <label for="exampleInputFile">商家游戏ID</label>
 				    <input type="text" class="form-control" placeholder="商家游戏ID" name="business_id">
 				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputFile">游戏币每亿成本价</label>
+				    <input type="text" class="form-control" placeholder="游戏币每亿成本价" name="cost_price">
+				  </div>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -85,6 +89,10 @@
 				  <div class="form-group">
 				    <label for="exampleInputFile">商家游戏ID</label>
 				    <input type="text" class="form-control" placeholder="商家游戏ID" name="business_id_up">
+				  </div>
+				   <div class="form-group">
+				    <label for="exampleInputFile">游戏币每亿成本价</label>
+				    <input type="text" class="form-control" placeholder="游戏币每亿成本价" name="price_cost_up">
 				  </div>
 		      </div>
 		      <div class="modal-footer">
@@ -125,6 +133,10 @@
                                                         rowspan="1" colspan="1"
                                                         aria-label="Age: activate to sort column ascending">商家的游戏ID（用于下分）
                                                     </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Age: activate to sort column ascending">游戏币每亿成本价
+                                                    </th>
                                                      <th class="sorting" tabindex="0" aria-controls="datatable"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Age: activate to sort column ascending">操作
@@ -140,6 +152,7 @@
                                                     <td class="game_up_rate"><?php echo $game->up_rate ?></td>
                                                     <td class="game_hhwx_rate"><?php echo $game->hhwx_rate ?></td>
                                                     <td class="game_business_id"><?php echo $game->business_id ?></td>
+                                                    <td class="price_cost_up"><?php echo $game->cost_price ?></td>
                                                     <td><a class="btn btn-danger" href='{{ URL("staff/delGame/$game->id") }}'>删除</a><button class="btn btn-primary upgamesort" data-toggle="modal" data-target="#upgamesort">修改</button></td>
                                                 </tr>
                                                 <?php } ?>
@@ -171,11 +184,13 @@ $(document).ready(function(){
 		var game_up_rate = $(this).parent().parent().find('.game_up_rate').text();
 		var game_hhwx_rate = $(this).parent().parent().find('.game_hhwx_rate').text();
 		var game_business_id = $(this).parent().parent().find('.game_business_id').text();
+		var price_cost_up = $(this).parent().parent().find('.price_cost_up').text();
 		$('input[name="game_name_up"]').val(game_name);
 		$('input[name="down_rate_up"]').val(game_hhwx_rate);
 		$('input[name="business_id_up"]').val(game_business_id);
 		$('input[name="up_rate_up"]').val(game_up_rate);
 		$('input[name="gameid"]').val(gameid);
+		$('input[name="price_cost_up"]').val(price_cost_up);
 	})
 })
 </script>
