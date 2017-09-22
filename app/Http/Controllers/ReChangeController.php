@@ -91,6 +91,8 @@ class ReChangeController extends Controller
             $memArr['value'] = $data['value'];
             $memArr['account'] = $obj->game_account;
             $memArr['time'] = $obj->created_at;
+            $memArr['id'] = $insertId;
+            $memArr = serialize($memArr);
             get_memcache('shangfenkey', $insertId, $memArr);
             return response()->json(true);
         }

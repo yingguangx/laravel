@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MyWoker;
 use Illuminate\Cache\MemcacheConnector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -64,6 +65,16 @@ class ExChangeController extends Controller
     	return response()->json(['result1'=>true]);
     }
 
+    /**文件上传
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uploadFile(Request $request)
+    {
+        $path = $request->file('file')->store('capture');
+        return MyWoker::jsonSuccess($path,'','上传成功');
+    }
+
     public function test()
     {
     	$mem = new Memcache;
@@ -76,10 +87,12 @@ class ExChangeController extends Controller
         // dd($mem->get('moneyChangekey')); 
         // dd($mem->get('xiafenkey41')); 
         // $mem = $mem->set('xiafenkey',['xiafenkey40','xiafenkey41']);
-        // dd($mem->get(['a1','a2']));
+        // dd($mem->get($mem->get('shangfenkey')));
+        dd($mem->get('shangfenkey'));
     	// dd($mem->get('aa1'));
-        // $mem->delete('xiafenkey6',0);
-        // $mem->delete('xiafenkey'); 
+        // $mem->delete('shangfenkey',0);
+        // $mem->delete('shangfenkey63',0); 
+        // $mem->delete('shangfenkey64',0); 
     }
     public function test2()
     {
