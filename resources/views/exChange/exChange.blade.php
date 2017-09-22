@@ -85,7 +85,7 @@
 
 <!--充值列表-->
 <div class="person_wallet_recharge">
- 
+
     <div class="pic"><input type="text" placeholder="分值必须为10万分以上" id="txt" oninput="inputfor($(this).val(),$('#selType').val())" /><span>万</span>&nbsp&nbsp&nbsp&nbsp<span class="xiafenjine appendjine">对应金额为：0元</span></div>
     <div class="botton wantxiafen">我要下分</div>
     <div class="agreement"><p>点击我要下分，即您已经表示同意<a>《下分活动协议》</a></p></div>
