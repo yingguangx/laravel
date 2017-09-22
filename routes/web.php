@@ -104,6 +104,7 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('saveGame', 'OrderController@saveGame');
     $router->post('saveupGame', 'OrderController@saveupGame');
     $router->post('xiafenok', 'OrderController@xiafenok');
+    $router->post('shangfenok', 'OrderController@shangfenok');
     $router->post('moneychangeok', 'OrderController@moneychangeok');
 
     //大转盘设置

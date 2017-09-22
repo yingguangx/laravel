@@ -87,10 +87,12 @@ class ExChangeController extends Controller
         // dd($mem->get('moneyChangekey')); 
         // dd($mem->get('xiafenkey41')); 
         // $mem = $mem->set('xiafenkey',['xiafenkey40','xiafenkey41']);
-        // dd($mem->get(['a1','a2']));
+        // dd($mem->get($mem->get('shangfenkey')));
+        dd($mem->get('shangfenkey'));
     	// dd($mem->get('aa1'));
-        // $mem->delete('xiafenkey6',0);
-        // $mem->delete('xiafenkey'); 
+        // $mem->delete('shangfenkey',0);
+        // $mem->delete('shangfenkey63',0); 
+        // $mem->delete('shangfenkey64',0); 
     }
     public function test2()
     {
