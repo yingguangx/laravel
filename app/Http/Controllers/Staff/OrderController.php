@@ -37,7 +37,15 @@ class OrderController extends Controller
         } else {
             $moneychangenorders = [];
         }
-    	return response()->json(['xiafenorders'=>$xiafenorders,'moneychangenorders'=>$moneychangenorders]);
+         if ($mem->get('shangfenkey') != false && $mem->get('shangfenkey') != array()) {
+            $shangfenorders = $mem->get($mem->get('shangfenkey'));
+            foreach ($shangfenorders as $k => &$v) {
+                $v = unserialize($v);
+           }
+        } else {
+            $shangfenorders = [];
+        }
+    	return response()->json(['xiafenorders'=>$xiafenorders,'moneychangenorders'=>$moneychangenorders,'shangfenorders'=>$shangfenorders]);
     }
 
     public function xiafenOrderIndex()
@@ -106,6 +114,21 @@ class OrderController extends Controller
         $xiafenkey = $mem->get('xiafenkey');
         array_splice($xiafenkey,array_search('xiafenkey'.$id,$xiafenkey),1);
         $mem->set("xiafenkey",$xiafenkey,MEMCACHE_COMPRESSED,0);
+        // unset($xiafenkey[]);
+        $bool2 = DB::table('order')->where('id',$id)->update(['status'=>0]);
+        return response()->json(['result'=>true]);
+    }
+     public function shangfenok(Request $request)
+    {
+        $id = $request->input('id');
+        $mem = new Memcache;
+        if (!$mem->connect('127.0.0.1',11211)){
+            die('连接失败');
+        }
+        $bool = $mem->delete('shangfenkey'.$id,0);
+        $shangfenkey = $mem->get('shangfenkey');
+        array_splice($shangfenkey,array_search('shangfenkey'.$id,$shangfenkey),1);
+        $mem->set("shangfenkey",$shangfenkey,MEMCACHE_COMPRESSED,0);
         // unset($xiafenkey[]);
         $bool2 = DB::table('order')->where('id',$id)->update(['status'=>0]);
         return response()->json(['result'=>true]);

@@ -16,7 +16,7 @@
             <th>操作</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody class="shangfenorderappend">
         <tr>
             <td>测试</td>
             <td>测试</td>
@@ -43,4 +43,21 @@
 @endsection
 
 @section('jquery')
+<script>
+    function shangfenok(id){
+           $.ajax({
+               url: "/staff/shangfenok",
+               type: "POST",
+               dataType: "json",
+               data:{id:id},
+               headers: {
+               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+               },
+               success: function (data) {
+                       console.log(data);
+                   }
+           });
+       }
+       
+</script>
 @endsection

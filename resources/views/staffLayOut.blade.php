@@ -62,7 +62,7 @@
         <li class="childUlLi">
             <a href="#"  target="menuFrame"> <i class="glyph-icon icon-reorder"></i>订单管理<span style="color:red;" class="ordernum"></span></a>
             <ul>
-                <li><a href="{{ URL('staff/shafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>上分订单</a></li>
+                <li><a href="{{ URL('staff/shafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>上分订单<span style="color:red;" class="shangfenorder"></span></a></li>
                 <li><a href="{{ URL('staff/xiafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>下分订单<span style="color:red;" class="xiafenorder"></span></a></li>
                 <li><a href="{{ URL('staff/jifenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>积分订单</a></li>
                 <li><a href="{{ URL('staff/balanceIndex') }}"><i class="glyph-icon icon-chevron-right"></i>余额兑换<span style="color:red;" class="moneychangeorder"></span></a></li>
@@ -118,17 +118,29 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                },
                success: function (data) {
-                        // $('.ordernum').text('');
                         $('.xiafenorder').text('');
                         $('.xiafenorderappend').html('');
                         $('.moneychangeorder').text('');
                         $('.moneychangeorderappend').html('');
+                        $('.shangfenorder').text('');
+                        $('.shangfenorderappend').html('');
                             var num = 0;
                             var num2 = 0;
+                            var num3 = 0;
+                        if (data.shangfenorders.length != 0) {
+                            console.log(data.shangfenorders);
+                            var html="";
+                            $.each(data.shangfenorders, function (i, item) {
+                                num3++;
+                                html = html+"<tr><td>"+item.name+"</td><td>"+item.type+"</td><td>"+item.money+"</td><td>"+item.value+"</td><td>"+item.account+'</td><td>'+item.time.date+'</td><td><button onclick="shangfenok('+item.id+')">下分完成点击</button></td></tr>';
+                            })
+                           $('.shangfenorder').text('+'+num3);
+                           $('.shangfenorderappend').html(html);
+                       }
                        if (data.xiafenorders.length != 0) {
                             var html="";
                             $.each(data.xiafenorders, function (i, item) {
-                                console.log(item.user_name);
+                                // console.log(item.user_name);
                                 num++;
                                 html = html+"<tr><td>"+item.user_name+"</td><td>"+item.game_name+"</td><td>"+item.money+"</td><td>"+item.txt+"</td><td>"+item.created_at+'</td><td><button onclick="xiafenok('+item.id+')">下分完成点击</button></td></tr>';
                             })
@@ -136,9 +148,6 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                            $('.xiafenorderappend').html(html);
                        }
                        if (data.moneychangenorders.length != 0) {
-                        // console.log(data.moneychangenorders);
-                        // return false;
-                        
                             var html2="";
                             $.each(data.moneychangenorders, function (i, item) {
                                 var gather_sort = item.gather_sort;
@@ -169,10 +178,9 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                             })
                            $('.moneychangeorder').text('+'+num2);
                            $('.moneychangeorderappend').html(html2);
-                       }
+                       }//if end
                             var ordernum_has = $('.ordernum').text();
-                            // console.log(ordernum_has);
-                            var num_all = num+num2;
+                            var num_all = num+num2+num3;
                             if (ordernum_has != '') {
                                 if (num_all > parseInt(ordernum_has)) {
                                      $('#chatAudio')[0].play();
@@ -183,5 +191,5 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                    }
            });
        }
-      // setInterval(getmessage,2000);
+      setInterval(getmessage,2000);
 </script>
