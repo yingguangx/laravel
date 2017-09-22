@@ -81,10 +81,10 @@
                     <p>积分</p>
                     <span>{{ Auth::user()->integration}}</span>
                 </li>
-                <li>
+                <li class="coupons">
                     <i class="rcm"></i>
                     <p>卡劵</p>
-                    <span>0</span>
+                    <span><?= $coupon_count ?></span>
                 </li>
             </ul>
         </div>
@@ -396,7 +396,9 @@
 
     }
 
-    
+    $('.coupons').click(function(){
+        location.href = '<?= \Illuminate\Support\Facades\URL::to('/coupons/index')?>';
+    })
     $('#money_hare').click(function(){
         layer.confirm('<div class="row"><input type="text" class="form-control" placeholder="请输入兑换金额数" name="money_for"></div><div class="row" style="margin-top: 10px;color: #777;">请选择收款类型</div><div class="row" style="margin-top:10px"><input type="radio" name="zfname" value="微信" / onclick="zfselect()"><img src="{{URL::asset("images/wx.jpg")}}" width="" height="29vh"  style="margin-left: 2px;"/><input type="radio" name="zfname" value="支付宝" onclick="zfselect()"/>&nbsp;&nbsp<img src="{{URL::asset("images/zfb.jpg")}}" width="" height="25vh" style="margin-left: 9px;margin-top: -5px;" />&nbsp;&nbsp<input type="radio" name="zfname" value="银行卡" onclick="zfselect()" /><img src="{{URL::asset("images/yhk.png")}}" width="" height="39vh"  style="margin-top: -13px;margin-left: 1px;"/></div><div class="row zhifuappend" style="margin-top:10px"></div>', {
               btn: ['确认兑换','取消'] //按钮

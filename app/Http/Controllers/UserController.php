@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\IntegrationRule;
 use App\Models\Order;
+use App\Models\user_coupon;
 use App\User;
 use Illuminate\Console\Application;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -32,8 +33,12 @@ class UserController extends Controller
 //	      $user->save();
 //	      dd($user);
 	    }
+
+	    //统计卡券数量
+        $coupons_count = user_coupon::coupons_list($user->id)['un_used']['count'];
     	return view('user.user',[
     			'user'=>$user,
+                'coupon_count' => $coupons_count
 	    ]);
 //	    $wechat = new \EasyWeChat\Foundation\Application(config('wechat'));
 //	    $oauth = $wechat->oauth;
