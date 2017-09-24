@@ -50,7 +50,7 @@
                                  aria-live="polite">显示 {{ $data->firstItem() }} 到 {{ $data->lastItem() }} 共 {{ $data->total() }} 条
                             </div>
                         </div>
-                        <div class="col-sm-6 text-right">
+                        <div  class="col-sm-6 text-right">
                             <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
                                 {!! $data->links() !!}
                             </div>
