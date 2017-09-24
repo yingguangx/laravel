@@ -121,8 +121,8 @@ class OrderController extends Controller
     {
         $order = DB::table('money_change')
         ->where('status',1)
-        ->get();
-        return view('staff.order.balance',['orders'=>$order]);
+        ->paginate(10);
+        return view('staff.order.balance',['data'=>$order]);
     }
 
     public function xiafenok(Request $request)
