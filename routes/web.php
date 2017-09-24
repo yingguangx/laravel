@@ -74,12 +74,15 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 //员工端
-Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
+    Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
 {
-    $router->get('', 'LoginController@login')->name('staff.index');
     $router->get('login', 'LoginController@login')->name('staff.login');
     $router->post('dologin', 'LoginController@dologin')->name('staff.dologin');
     $router->get('loginOut', 'LoginController@loginOut')->name('staff.loginOut');
+});
+Route::group(['prefix' => 'staff','namespace' => 'Staff','middleware' => 'auth.beforeStaff'],function ($router)
+{
+    $router->get('', 'LoginController@login')->name('staff.index');
     $router->get('index', 'LoginController@staffIndex')->name('staff.index');
     //积分设置
     $router->get('integrationSetting', 'IntegrationController@integrationSetting');

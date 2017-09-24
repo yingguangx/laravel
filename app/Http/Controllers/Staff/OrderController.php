@@ -86,8 +86,15 @@ class OrderController extends Controller
     }
 
     public function shafenOrderIndex()
-    {
-        return view('staff.order.shafen');
+    {   
+
+         $order = DB::table('order as o')
+        ->leftJoin('game as g','o.game_id','=','g.id')
+        ->leftJoin('users as u','o.user_id','=','u.id')
+        ->select('o.money','o.value','o.created_at','u.name as uname','g.name as gname','o.id','o.game_account')
+        ->where(['o.status'=>1,'type'=>1])
+        ->get();
+        return view('staff.order.shafen',['orders'=>$order]);
     }
 
     public function jifenOrderIndex()
