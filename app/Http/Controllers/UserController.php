@@ -87,9 +87,9 @@ class UserController extends Controller
             $userPayCode = new UserPayCode;
             $userPayCode->user_id = Auth::user()->id;
             $userPayCode->imgUrl = '/fkm/'.$randFileName;
-            $userPayCode->type = $request->input('type');//付款码
+            $userPayCode->type = 0;//付款码 未提交
             if($userPayCode->save())
-                return \GuzzleHttp\json_encode(array('success'=>true));
+                return \GuzzleHttp\json_encode(array('success'=>true,'img_id'=>$userPayCode->id));
             return \GuzzleHttp\json_encode(array('success'=>false,'message'=>'上传失败！'));
 
         }
@@ -189,6 +189,22 @@ class UserController extends Controller
     public function orderList()
     {
         return view('user.orderList');
+    }
+
+    public function submitFile(Request $request)
+    {
+        $file = userPayCode::find($request->input('img_id'));
+        if($file){
+            $file->type = $request->input('type');
+            if($file->save()){
+                $data['message'] = 'success';
+                return response()->json($data);
+            }else{
+                $data['message'] = 'false';
+                return response()->json($data);
+            }
+
+        }
     }
 
     //获取游戏名称

@@ -151,22 +151,22 @@
 
 
 
-	<div class="mune">
-    	<img src="images/1.png">
-      <a href="/"><p>首页</p></a>
-    </div>
-	<div class="mune">
-    	<img src="images/2.png">
-        <p>商家</p>
-    </div>
-	<div class="mune">
-    	<img src="images/3.png">
-        <p>申请加盟</p>
-    </div>
-	<div class="mune">
-    	<img src="images/4.png">
-        <p>个人中心</p>
-    </div>
+	{{--<div class="mune">--}}
+    	{{--<img src="images/1.png">--}}
+      {{--<a href="/"><p>首页</p></a>--}}
+    {{--</div>--}}
+	{{--<div class="mune">--}}
+    	{{--<img src="images/2.png">--}}
+        {{--<p>商家</p>--}}
+    {{--</div>--}}
+	{{--<div class="mune">--}}
+    	{{--<img src="images/3.png">--}}
+        {{--<p>申请加盟</p>--}}
+    {{--</div>--}}
+	{{--<div class="mune">--}}
+    	{{--<img src="images/4.png">--}}
+        {{--<p>个人中心</p>--}}
+    {{--</div>--}}
 @endsection
 
 @section('jquery')
