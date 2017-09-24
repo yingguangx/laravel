@@ -17,24 +17,18 @@
         </tr>
         </thead>
         <tbody class="shangfenorderappend">
+        <?php foreach ($orders as $key => $order) {
+        ?>
         <tr>
-            <td>测试</td>
-            <td>测试</td>
-            <td>测试</td>
-            <td>测试</td>
-            <td>测试</td>
-            <td>测试</td>
-            <td>测试</td>
+            <td><?php echo $order->uname ?></td>
+            <td><?php echo $order->gname ?></td>
+            <td><?php echo $order->money ?></td>
+            <td><?php echo $order->value ?></td>
+            <td><?php echo $order->game_account ?></td>
+            <td><?php echo $order->created_at ?></td>
+            <td><button class="xiafenok" onclick="shangfenok(<?php echo $order->id ?>)">上分完成点击</button></td>
         </tr>
-        <tr>
-            <td>测试</td>
-            <td>测试</td>
-            <td>测试</td>
-            <td>测试</td>
-            <td>测试</td>
-            <td>测试</td>
-            <td>测试</td>
-        </tr>
+        <?php } ?>
         </tbody>
         <tfoot>
         <td colspan="6" class="text-center">分页</td>
