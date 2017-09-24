@@ -26,7 +26,7 @@
             <td><?php echo $order->payeesort ?></td>
             <td><?php echo $order->payeeaccount ?></td>
             <td><?php echo $order->payeename ?></td>
-            <td><?php echo $order->payeecode ?></td>
+            <td><?php echo $order->payeecode ?><img src="" alt=""></td>
             <td><?php echo $order->created_at ?></td>
             <td><button class="moneychangeok" onclick="moneychangeok(<?php echo $order->id ?>)">下分完成点击</button></td>
         </tr>

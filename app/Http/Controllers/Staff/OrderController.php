@@ -53,7 +53,7 @@ class OrderController extends Controller
         $order = DB::table('order as o')
         ->leftJoin('game as g','o.game_id','=','g.id')
         ->leftJoin('users as u','o.user_id','=','u.id')
-        ->select('o.money','o.value','o.created_at','u.name as uname','g.name as gname','o.id')
+        ->select('o.money','o.value','o.created_at','u.name as uname','g.name as gname','o.id','o.xiafen_picture')
         ->where(['o.status'=>1,'type'=>2])
         ->get();
     	return view('staff.order.xiafen',['orders'=>$order]);
