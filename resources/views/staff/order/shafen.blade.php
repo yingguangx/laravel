@@ -1,57 +1,91 @@
 @extends('staffLayOut')
 
 @section('content')
-    <table class="table-responsive table-hover table-striped table table-bordered">
-        <caption>
-            上分订单
-        </caption>
-        <thead>
-        <tr>
-            <th>微信名称</th>
-            <th>游戏种类</th>
-            <th>上分金额</th>
-            <th>上分分数 </th>
-            <th>游戏id</th>
-            <th>时间</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody class="shangfenorderappend">
-        <?php foreach ($orders as $key => $order) {
-        ?>
-        <tr>
-            <td><?php echo $order->uname ?></td>
-            <td><?php echo $order->gname ?></td>
-            <td><?php echo $order->money ?></td>
-            <td><?php echo $order->value ?></td>
-            <td><?php echo $order->game_account ?></td>
-            <td><?php echo $order->created_at ?></td>
-            <td><button class="xiafenok" onclick="shangfenok(<?php echo $order->id ?>)">上分完成点击</button></td>
-        </tr>
-        <?php } ?>
-        </tbody>
-        <tfoot>
-        <td colspan="6" class="text-center">分页</td>
-        </tfoot>
-    </table>
+    <div class="row m-l-15 m-t-15">
+        <span class="font-title m-l-15" style="font-size: 15px">订单管理--上分订单</span>
+    </div>
+
+    <div class="row m-l-15 m-t-15">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-md-11">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                            <tr>
+                                <th>序</th>
+                                <th>微信用户</th>
+                                <th>游戏种类</th>
+                                <th>上分金额</th>
+                                <th>上分分值(万)</th>
+                                <th>上分账号</th>
+                                <th>创建时间</th>
+                                <td>操作</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($data as $v)
+                                <tr>
+                                <td>{{ $v->id }}</td>
+                                <td>{{ $v->uname }}</td>
+                                <td>{{ $v->gname }}</td>
+                                <td>{{ $v->money }}</td>
+                                <td>{{ $v->value }}</td>
+                                <td>{{ $v->game_account }}</td>
+                                <td>{{ $v->created_at }}</td>
+                                <td>
+                                    <button class="btn btn-info" onclick="shangfenok({{ $v->id }})">设置完成</button>
+                                </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row m-t-15">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="dataTables_info" id="datatable_info" role="status"
+                                 aria-live="polite">显示 {{ $data->firstItem() }} 到 {{ $data->lastItem() }} 共 {{ $data->total() }} 条
+                            </div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
+                                {!! $data->links() !!}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('jquery')
-<script>
-    function shangfenok(id){
-           $.ajax({
-               url: "/staff/shangfenok",
-               type: "POST",
-               dataType: "json",
-               data:{id:id},
-               headers: {
-               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-               },
-               success: function (data) {
-                       console.log(data);
+    <script type="text/javascript" src="{{asset('/js/layui/layui.js')}}"></script>
+
+    <script>
+        //初始化layui
+        layui.use('layer',function(){
+            window.layer = layui.layer;
+        })
+
+        function shangfenok(id){
+               $.ajax({
+                   url: "/staff/shangfenok",
+                   type: "POST",
+                   dataType: "json",
+                   data:{id:id},
+                   headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                   },
+                   success: function (data) {
+                       layer.msg('该订单已完成!!', {time:1000});
                    }
-           });
-       }
+               });
+           }
        
-</script>
+    </script>
 @endsection

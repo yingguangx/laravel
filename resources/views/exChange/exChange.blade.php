@@ -59,7 +59,7 @@
         <p>选择游戏种类:</p>
     </div>
     <div class="fl typeSel">
-        <select id="selType" name="selType" class="form-control" onchange="appendfor($(this).val())">
+        <select id="selType" name="selType" class="form-input" onchange="appendfor($(this).val())">
             <option value=""  >请选择游戏种类</option>
             <?php foreach ($games as $key => $game) {
            ?>
@@ -70,18 +70,39 @@
     <div class="clear"></div>
 </div>
 
+<div class="sel_type">
+    <div class="fl typeP">
+        <p>输入下分分值:</p>
+    </div>
+    <div class="fl typeSel">
+        <input type="text" class="form-input" placeholder="请输入分值" name="play_id" oninput="inputfor($(this).val(),$('#selType').val())">
+    </div>
+    <div class="clear"></div>
+</div>
 <!--游戏ID-->
 <div class="sel_type">
     <div class="fl typeP">
         <p>输入游戏ID:</p>
     </div>
     <div class="fl typeSel">
-        <input type="text" class="form-input" placeholder="请输入游戏ID" name="play_id">
+        <input type="text" class="form-input" placeholder="请输入游戏ID" id="txt">
     </div>
     <div class="clear"></div>
 </div>
 
-
+<div class="sel_type hiddenBox" style="display: none">
+    <div class="fl typeP">
+        <p>上分详情:</p>
+    </div>
+    <div class="fl typeSel" style="border: 1px solid #eee;background-color: #fafafa;width: 63%;">
+        <div style="padding-left: 18px;">
+            <span><span class="gameName">集结号</span>下分ID <span style="color:blue;" id="exChangeID">67286328</span></span><br>
+            <span><span class="gameName">集结号</span>下分比例 <span style="color:blue;" id="exChangeRate">1.8</span></span><br>
+            <span>本次下分对应金额 <span style="color:blue;" id="thisMoney">0</span>元</span>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
 
 <div class="panel-body demo-panel-files" id='demo-files1'>
 </div>
@@ -116,20 +137,12 @@
 <!--充值列表-->
 <div class="person_wallet_recharge">
 
-    <div class="pic"><input type="text" placeholder="分值必须为10万分以上" id="txt" oninput="inputfor($(this).val(),$('#selType').val())" /><span>万</span>&nbsp&nbsp&nbsp&nbsp<span class="xiafenjine appendjine">对应金额为：0元</span></div>
+    {{--<div class="pic"><input type="text" placeholder="分值必须为10万分以上" id="txt" oninput="inputfor($(this).val(),$('#selType').val())" /><span>万</span>--}}
+        {{--&nbsp;&nbsp;&nbsp;&nbsp;<span class="xiafenjine appendjine">对应金额为：0元</span>--}}
+    {{--</div>--}}
     <div class="botton wantxiafen1">我要下分</div>
     <div class="agreement"><p>点击我要下分，即您已经表示同意<a>《下分活动协议》</a></p></div>
     <div class="f-overlay"></div>
-
-    <!--支付选择-->
-    {{--<div class="addvideo" style="display: none;">--}}
-        {{--<h3>本次充值<span>2000</span>元</h3>--}}
-        {{--<ul>--}}
-            {{--<li><a>微信支付</a></li>--}}
-            {{--<li><a>支付宝支付</a></li>--}}
-            {{--<li class="cal">取消</li>--}}
-        {{--</ul>--}}
-    {{--</div>--}}
 </div>
 </body>
 <script type="text/javascript" src="{{asset('/js/layui/layui.all.js')}}"></script>
@@ -229,9 +242,16 @@ window.onload = function(){
     function appendfor(id) {
         // console.log(obj1[id]['name']);
         // return false;
-         $('.xiafenid').find('.xiafenjine').text(obj1[id]['name']+'下分id为'+obj1[id]['business_id']);  
-         $('.xiafenrate').find('.xiafenjine').text(obj1[id]['name']+'下分比例为'+obj1[id]['hhwx_rate']);  
-         inputfor($('#txt').val(),id)
+        $('#exChangeID').html(obj1[id]['business_id']);
+        $('#exChangeRate').html(obj1[id]['hhwx_rate']);
+        $('.gameName').html(obj1[id]['name']);
+        $('.hiddenBox').show();
+//        var rate = obj1[id]['hhwx_rate'];
+//        var money = parseInt(value/rate);
+//        $('#thisMoney').html(money);
+//         $('.xiafenid').find('.xiafenjine').text(obj1[id]['name']+'下分id为'+obj1[id]['business_id']);
+//         $('.xiafenrate').find('.xiafenjine').text(obj1[id]['name']+'下分比例为'+obj1[id]['hhwx_rate']);
+//         inputfor($('#txt').val(),id)
 
     }
 
@@ -240,15 +260,15 @@ window.onload = function(){
         var rate = obj1[id]['hhwx_rate'];
         var money = parseInt(value/rate);
      
-        $('.appendjine').text('对应金额为'+money+'元');
+        $('#thisMoney').html(money);
 
     }
 
     $('.wantxiafen1').click(function(e){
         e.preventDefault();
         var play_sort = $('#selType').val();
-        var play_id = $('input[name="play_id"]').val();
-        var txt = $('#txt').val();
+        var txt = $('input[name="play_id"]').val();
+        var play_id = $('#txt').val();
         var hhwx_rate = '';
         if($('#selType').val()){
              hhwx_rate = obj1[$('#selType').val()]['hhwx_rate'] || '';
