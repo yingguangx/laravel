@@ -54,6 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/user/userInfo', 'UserController@userInfo');
 	Route::post('/user/fileUpload', 'UserController@fileUpload');
 	Route::get('/user/wechatCode', 'UserController@getWechatCode');
+	Route::post('/user/submitFile', 'UserController@submitFile');
     //获取积分兑换规则
   Route::get('getIntegrationInfo', 'UserController@getIntegrationInfo');
   Route::post('newIntegrationOrder', 'UserController@newIntegrationOrder');
