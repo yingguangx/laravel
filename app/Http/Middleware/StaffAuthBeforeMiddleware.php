@@ -22,9 +22,11 @@ class StaffAuthBeforeMiddleware
      //    if(!isset($token)){
      //        return Redirect::route('staff.login');
      //    }
-     // if (Auth::guard($guard)->check()) {
+     $session = $request->session()->all();
+     // dd(Auth::guard($guard)->guest());
+     if (isset($session['staff_id'])) {
         return $next($request);
-     // } 
-     //    return redirect()->guest('staff/login');
+     } 
+        return redirect()->guest('staff/login');
     }
 }
