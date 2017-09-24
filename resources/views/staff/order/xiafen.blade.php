@@ -11,6 +11,7 @@
             <th>游戏种类</th>
             <th>下分金额（单位元）</th>
             <th>下分分数（单位万） </th>
+            <th>下分截图</th>
             <th>时间</th>
             <th>操作</th>
         </tr>
@@ -23,6 +24,7 @@
             <td><?php echo $order->gname ?></td>
             <td><?php echo $order->money ?></td>
             <td><?php echo $order->value ?></td>
+            <td><?php echo $order->xiafen_picture ?></td>
             <td><?php echo $order->created_at ?></td>
             <td><button class="xiafenok" onclick="xiafenok(<?php echo $order->id ?>)">下分完成点击</button></td>
         </tr>
