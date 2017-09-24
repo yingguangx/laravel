@@ -1,7 +1,6 @@
 @extends('staffLayOut')
 
 @section('content')
-
     <div class="row m-l-15 m-t-15">
         <span class="font-title m-l-15" style="font-size: 15px">订单管理--下分订单</span>
     </div>

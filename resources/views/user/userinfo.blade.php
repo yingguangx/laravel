@@ -29,7 +29,7 @@
         <div id="drag-and-drop-zone" class="uploader" style="border:0;padding:0;text-align: left;">
             <div class="browser" style="position:relative;text-align: center">
                 <img src="{{ asset('/images/upload.png') }}" alt="">
-                <input style="border: 0;" type="file" name="files[]"  accept="" multiple="multiple" title='Click to add Images'>
+                <input style="border: 0;" type="file" name="files[]"  accept="" title='Click to add Images'>
             </div>
         </div>
     </div>
@@ -76,8 +76,7 @@
           $.danidemo.updateFileStatus(id, 'default', '正在上传...');
         },
         onNewFile: function(id, file){
-
-          $.danidemo.addFile('#demo-files1', id, file);
+            $.danidemo.addFile('#demo-files1', id, file);
           /*** Begins Image preview loader ***/
           if (typeof FileReader !== "undefined"){
 
@@ -109,11 +108,13 @@
           $.danidemo.updateFileProgress(id, percentStr);
         },
         onUploadSuccess: function(id, data){
+            $('#demo-file'+parseInt(id-1)).remove();
+            $('#demo-file'+id).children().filter('img').attr('data-id',data.img_id);
           // $.danidemo.addLog('#demo-debug', 'success', 'Upload of file #' + id + ' completed');
           // $.danidemo.addLog('#demo-debug', 'info', 'Server Response for file #' + id + ': ' + JSON.stringify(data));
           // $.danidemo.addLog('#demo-debug', 'info', 'HouseID #' + data.houseImageID);
-          // $.danidemo.updateFileStatus(id, 'success', '上传完成');
-          // $.danidemo.updateFileProgress(id, '100%');
+//           $.danidemo.updateFileStatus(id, 'success', '上传完成');
+//           $.danidemo.updateFileProgress(id, '100%');
         },
         onUploadError: function(id, message){
           $.danidemo.updateFileStatus(id, 'error', message);
@@ -134,8 +135,24 @@
           window.layer = layui.layer;
       });
       $('.submit').on('click',function () {
-          layer.alert('提交成功', {icon: 1});
-          setTimeout("location.href = '/user'",1500);
+          if($('.demo-image-preview').length == 0){
+            layer.alert('请上传收款码！');
+            return false;
+          }
+          $.ajax({
+            type:'post',
+            dataType:'json',
+            url:'/user/submitFile',
+            data:{'img_id':$('.demo-image-preview').attr('data-id'),
+                  'type':'{{ $_GET['type'] }}',
+                  '_token':'{{csrf_token()}}'
+            },
+            success:function () {
+              layer.alert('提交成功', {icon: 1});
+              setTimeout("location.href = '/user'",1500);
+            }
+          })
+
       })
 
 </script>
