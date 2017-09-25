@@ -23,8 +23,8 @@
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
-                            </thead class="moneychangeorderappend">
-                            <tbody>
+                            </thead >
+                            <tbody class="moneychangeorderappend">
                             @foreach($data as $v)
                                 <tr>
                                     <td>{{ $v->name }}</td>
