@@ -139,6 +139,11 @@
             $('.n').val('');
             $('#appendBox').html('');
             $('#addBox').show();
+
+            $('#buttonChange').html('');
+            $('#buttonChange').append(
+                    '<button class="btn btn-info" onclick="addStaffInfo()">确定</button>'
+            );
         }
 
         //账号验证
@@ -160,20 +165,6 @@
                 }
             })
         })
-
-        //验证密码
-        $('.q').blur(function () {
-            var password = $('.p').val();
-            var repassword = $('.q').val();
-
-            if (password != repassword) {
-                layer.tips('两次密码不一致!', '.q', {
-                    tips: ['2','red']
-                });
-                $('.p').val('');
-                $('.q').val('');
-            }
-        })
         
         //员工新增或修改
         function addStaffInfo(type) {
@@ -183,7 +174,42 @@
             var role = $('.w').val();
             var account = $('.n').val();
             var password = $('.p').val();
+            var repassword = $('.q').val();
+
             if (type == 1) {
+                if (name == '') {
+                    layer.tips('姓名不能为空!', '.m', {
+                        tips: ['2','red']
+                    });
+                    return false;
+                }
+                if (role == '') {
+                    layer.tips('角色不能为空!', '.w', {
+                        tips: ['2','red']
+                    });
+                    return false;
+                }
+                if (account == '') {
+                    layer.tips('账号不能为空!', '.n', {
+                        tips: ['2','red']
+                    });
+                    return false;
+                }
+                if (password == '') {
+                    layer.tips('密码不能为空!', '.p', {
+                        tips: ['2','red']
+                    });
+                    return false;
+                } else {
+                    if (password != repassword) {
+                        layer.tips('两次密码不一致!', '.p', {
+                            tips: ['2','red']
+                        });
+                        $('.p').val('');
+                        $('.q').val('');
+                        return false;
+                    }
+                }
                 $.ajax({
                     url:'addAccount',
                     type: 'post',
