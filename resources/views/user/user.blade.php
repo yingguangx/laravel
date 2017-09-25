@@ -523,92 +523,96 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (data) {
-                    var content =
-                        '<div>'
-                            +'<span><span style="color: black;font-size: 16px;">兑换准则:</span>您当前积分余额<span class="blue">'+value+'</span>，<span class="blue">'+data['start_value']+'</span>积分起兑，每<span class="blue">'+data['start_value']+'</span>积分可兑换<span class="blue">'+data['get_value']+'万</span>游戏分值。祝您游戏愉快！</span>'
-                        +'</div>'
+                    if (data) {
+                        var content =
+                                '<div>'
+                                +'<span><span style="color: black;font-size: 16px;">兑换准则:</span>您当前积分余额<span class="blue">'+value+'</span>，<span class="blue">'+data['start_value']+'</span>积分起兑，每<span class="blue">'+data['start_value']+'</span>积分可兑换<span class="blue">'+data['get_value']+'万</span>游戏分值。祝您游戏愉快！</span>'
+                                +'</div>'
 
-                        +'<div style="margin-left: 20px">'
-                            +'<div style="margin-top: 10px;">'
-                                 +'<div style="width: 40%;text-align: right" class="fl">'
-                                    +'<span>游戏类目选择<span style="color:red;">*</span>：</span>'
+                                +'<div style="margin-left: 20px">'
+                                +'<div style="margin-top: 10px;">'
+                                +'<div style="width: 40%;text-align: right" class="fl">'
+                                +'<span>游戏类目选择<span style="color:red;">*</span>：</span>'
                                 +'</div>'
                                 +'<div style="width: 60%;" class="fl">'
-                                    +'<select id="gameId" class="select-default demo">'
-                                        +'<option value="">请选择游戏种类</option>';
-                    $.each(data['game'], function (i, item) {
-                        content+= '<option value="'+item['id']+'">'+item['name']+'</option>';
-                    })
+                                +'<select id="gameId" class="select-default demo">'
+                                +'<option value="">请选择游戏种类</option>';
+                        $.each(data['game'], function (i, item) {
+                            content+= '<option value="'+item['id']+'">'+item['name']+'</option>';
+                        })
 
-                            content+= '</select>'
+                        content+= '</select>'
                                 +'</div>'
                                 +'<div class="clear"></div>'
-                            +'</div>'
-                            +'<div style="margin-top: 15px;">'
+                                +'</div>'
+                                +'<div style="margin-top: 15px;">'
                                 +'<div style="width: 40%;margin-top: 5px;text-align: right" class="fl">'
-                                    +'<span>游戏账号填写<span style="color:red;">*</span>：</span>'
+                                +'<span>游戏账号填写<span style="color:red;">*</span>：</span>'
                                 +'</div>'
                                 +'<div style="width: 60%;margin-top: 5px;" class="fl">'
-                                    +'<input class="input-default demo" type="text" id="account" placeholder="请填写游戏账号">'
+                                +'<input class="input-default demo" type="text" id="account" placeholder="请填写游戏账号">'
                                 +'</div>'
                                 +'<div class="clear"></div>'
-                            +'</div>'
-                            +'<div style="margin-top: 15px;">'
+                                +'</div>'
+                                +'<div style="margin-top: 15px;">'
                                 +'<div style="width: 40%;margin-top: 5px;text-align: right" class="fl">'
-                                    +'<span>积分数额填写<span style="color:red;">*</span>：</span>'
+                                +'<span>积分数额填写<span style="color:red;">*</span>：</span>'
                                 +'</div>'
                                 +'<div style="width: 60%;margin-top: 5px;" class="fl">'
-                                    +'<input class="input-default demo" type="text"  id="value" placeholder="积分数额">'
+                                +'<input class="input-default demo" type="text"  id="value" placeholder="积分数额">'
                                 +'</div>'
                                 +'<div class="clear"></div>'
-                            +'</div>'
-                            +'<div style="margin-top: 15px;display: none" id="notice">'
+                                +'</div>'
+                                +'<div style="margin-top: 15px;display: none" id="notice">'
                                 +'<div style="width: 100%;margin-top: 5px;margin-left: 17px" class="fl">'
                                 +'<span style="color:red;">请将带*选项填写完毕！</span>'
                                 +'</div>'
                                 +'<div class="clear"></div>'
-                            +'</div>'
-                        +'</div>';
+                                +'</div>'
+                                +'</div>';
 
-                    layer.confirm(content, {
-                        btn: ['取消','确定兑换']
-                    }, function(){
-                        layer.closeAll('dialog');
-                    }, function(){
-                        var game = $('#gameId').val();
-                        var account = $('#account').val();
-                        var t_value = $('#value').val();
+                        layer.confirm(content, {
+                            btn: ['取消','确定兑换']
+                        }, function(){
+                            layer.closeAll('dialog');
+                        }, function(){
+                            var game = $('#gameId').val();
+                            var account = $('#account').val();
+                            var t_value = $('#value').val();
 
-                        if (game == '' || account == '' || t_value == '') {
-                            $('#notice').show();
-                            return false;
-                        }
-                        $.ajax({
-                            url: "/newIntegrationOrder",
-                            type: "POST",
-                            dataType: "json",
-                            data: {
-                                'game_id':game,
-                                'game_account':account,
-                                'value':t_value
-                            },
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function (data) {
-                                if (data['status'] == 1) {
-                                    _this.children('span').html(Number(value)-Number(t_value));
-                                    layer.msg('兑换成功！');
-                                }else if (data['status'] == 2) {
-                                    layer.msg('兑换失败,'+data['msg']+'积分起兑！');
-                                }else if(data['status'] == 4){
-                                    layer.msg('兑换失败，您的积分不足！');
-                                }else {
-                                    layer.msg('兑换失败,当前积分不足请核实后再兑换！');
-                                }
+                            if (game == '' || account == '' || t_value == '') {
+                                $('#notice').show();
+                                return false;
                             }
+                            $.ajax({
+                                url: "/newIntegrationOrder",
+                                type: "POST",
+                                dataType: "json",
+                                data: {
+                                    'game_id':game,
+                                    'game_account':account,
+                                    'value':t_value
+                                },
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                success: function (data) {
+                                    if (data['status'] == 1) {
+                                        _this.children('span').html(Number(value)-Number(t_value));
+                                        layer.msg('兑换成功！');
+                                    }else if (data['status'] == 2) {
+                                        layer.msg('兑换失败,'+data['msg']+'积分起兑！');
+                                    }else if(data['status'] == 4){
+                                        layer.msg('兑换失败，您的积分不足！');
+                                    }else {
+                                        layer.msg('兑换失败,当前积分不足请核实后再兑换！');
+                                    }
+                                }
+                            });
                         });
-                    });
+                    } else {
+                        layer.msg('系统参数暂未设置！');
+                    }
                 }
             });
         })
