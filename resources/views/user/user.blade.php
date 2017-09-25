@@ -179,8 +179,33 @@
     <script type="text/javascript">
       layui.use('layer',function(){
                window.layer = layui.layer;
+               if ('{{ $user->key }}' == ''){
+                  layer.open({
+                      offset:'40%',
+                      area:'70%',
+                      title:'余额',
+                      content: '余额可以提现可以上分下分'
+                      ,btn: ['确定']
+                      ,yes: function(index){
+                          layer.open({
+                              title:'积分',
+                              content: '积分可以提现可以上分下分'
+                              ,btn: ['确定']
+                              ,yes: function(index){
+                                  layer.open({
+                                      title:'卡卷',
+                                      content: '可以使用卡卷'
+                                      ,btn: ['确定']
+                                      ,yes: function(index){
+                                          layer.close(index)
+                                      }
+                                  });
+                              }
+                          });
+                      }
+                  });
+          }
         });
-      
         (function (doc, win) {
             var docEl = doc.documentElement,
                 resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
@@ -200,8 +225,7 @@
         })
         $('.lt-order').on('click',function () {
             $('.ps-xl').slideToggle();
-        })
-      
+        });
       $('.keyGen').on('click',function () {
         if('{{ $user->key }}' == ''){
           layer.open({
@@ -619,6 +643,6 @@
                     }
                 }
             });
-        })
+        });
     </script>
 @endsection
