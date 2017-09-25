@@ -204,7 +204,7 @@
             transform: scale(1) translate(-50%, -50%)!important;
         }
         .coupons-card-div{
-            margin-top:63px;
+            margin-top:72px;
         }
     </style>
 @endsection
@@ -212,6 +212,16 @@
 {{--主题内容--}}
 @section('content')
     <ul class="coupons-div clearfix">
+        <header>
+            <div class="rt-bk clearfix">
+                <i class="bk"></i>
+                <a href="javascript:window.history.go(-1)" style="font-size: 12px;
+    color: black;">
+                    返回
+                </a>
+            </div>
+            <div class="top-name"><p>我的卡券</p></div>
+        </header>
         <li class="clearfix active">
             <img class="fl " src="{{URL::asset('image/coupons/award_bg0.png')}}" alt="">
             <span class="fl">待使用</span>
