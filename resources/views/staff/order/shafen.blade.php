@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-md-11">
                         <table class="table table-striped table-bordered">
-                            <thead class="shangfenorderappend">
+                            <thead >
                             <tr>
                                 <th>序</th>
                                 <th>微信用户</th>
@@ -23,7 +23,7 @@
                                 <td>操作</td>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="shangfenorderappend">
                             @foreach($data as $v)
                                 <tr>
                                 <td>{{ $v->id }}</td>
