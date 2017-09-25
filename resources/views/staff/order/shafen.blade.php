@@ -86,7 +86,6 @@
                    },
                    success: function (data) {
                        layer.msg('该订单已完成!!', {time:1000});
-                       window.location.reload();
                    }
                });
            }
