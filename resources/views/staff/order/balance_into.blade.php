@@ -71,7 +71,8 @@ $('#save').click(function(){
                success: function (data) {
 	               if (data.result) {
 	               		layer.msg('充值成功',{time:1500});
-	               		window.location.reload();
+                       $('#key').val('');
+                       $('#money').val('');
 	               } else {
                        layer.msg('对不起您输入的交易码不存在！');
                    }

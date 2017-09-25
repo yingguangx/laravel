@@ -1,6 +1,11 @@
 @extends('staffLayOut')
 
 @section('content')
+    <style>
+        .pagination {
+            display: inline-flex !important;
+        }
+    </style>
     <div class="row m-l-15 m-t-15">
         <span class="font-title m-l-15" style="font-size: 15px">订单管理--下分订单</span>
     </div>
@@ -9,9 +14,9 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-md-11">
+                    <div class="col-md-12">
                         <table class="table table-striped table-bordered">
-                            <thead>
+                            <thead >
                             <tr>
                                 <th>序</th>
                                 <th>微信名称</th>
@@ -19,10 +24,11 @@
                                 <th>下分金额</th>
                                 <th>下分分值(万)</th>
                                 <th>创建时间</th>
+                                <th>下分截图</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="xiafenorderappend">
                             @foreach($data as $v)
                                 <tr>
                                     <td>{{ $v->id }}</td>
@@ -31,8 +37,9 @@
                                     <td>{{ $v->money }}</td>
                                     <td>{{ $v->value }}</td>
                                     <td>{{ $v->created_at }}</td>
+                                    <td></td>
                                     <td>
-                                        <button class="btn btn-info" onclick="xiafenok({{ $v->id }})">设置完成</button>
+                                        <button class="btn btn-info" onclick="xiafenok({{ $v->id }})">下分完成</button>
                                     </td>
                                 </tr>
                             @endforeach

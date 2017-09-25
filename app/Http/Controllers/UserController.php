@@ -135,41 +135,46 @@ class UserController extends Controller
             $user = Auth::user()->toArray();
             $id = $user['id'];
             $data['user_id'] = $id;
-            $data['type'] = 3;
-            $data['money'] = 0;
+            $data['type'] = 1;
+            $data['money'] = '积分订单';
             //判断输入积分与拥有积分大小
-            if ($data['value'] <= $user['integration']) {
-                $rate = $rule->start_value;
-                $value = $rule->get_value;
-                $data['value'] = $data['value']/$rate*$value;
+            if ($user['integration'] != '') {
+                if ($data['value'] <= $user['integration']) {
+                    $rate = $rule->start_value;
+                    $value = $rule->get_value;
+                    $data['value'] = $data['value']/$rate*$value;
 
-                foreach ($data as $k=> $v) {
-                    $obj -> $k = $v;
+                    foreach ($data as $k=> $v) {
+                        $obj -> $k = $v;
+                    }
+                    $obj->save();
+                    $insertId = $obj -> id;
+
+                    //积分兑换订单存入memcache
+                    $memArr = Array();
+                    $memArr['name'] = $user['nickName'];
+                    $memArr['type'] = $this::getGameName($data['game_id']);
+                    $memArr['money'] = '积分订单';
+                    $memArr['value'] = $data['value'];
+                    $memArr['account'] = $obj->game_account;
+                    $memArr['time'] = $obj->created_at;
+                    $memArr['id'] = $insertId;
+                    $memArr = serialize($memArr);
+                    get_memcache('shangfenkey', $insertId, $memArr);
+
+                    $user = User::find($id);
+                    $user -> integration = $user['integration'] - $integration;
+                    $user -> save();
+
+                    //返回数据类型
+                    $arr['status'] = 1;
+                    return response()->json($arr);
+                } else {
+                    $arr['status'] = 3;
+                    return response()->json($arr);
                 }
-                $obj->save();
-                $insertId = $obj -> id;
-
-                //积分兑换订单存入memcache
-                $memArr = Array();
-                $memArr['name'] = $user['nickName'];
-                $memArr['type'] = $this::getGameName($data['game_id']);
-                $memArr['money'] = '积分订单';
-                $memArr['value'] = $data['value'];
-                $memArr['account'] = $obj->game_account;
-                $memArr['time'] = $obj->created_at;
-                $memArr['id'] = $insertId;
-                $memArr = serialize($memArr);
-                get_memcache('shangfenkey', $insertId, $memArr);
-
-                $user = User::find($id);
-                $user -> integration = $user['integration'] - $integration;
-                $user -> save();
-
-                //返回数据类型
-                $arr['status'] = 1;
-                return response()->json($arr);
             } else {
-                $arr['status'] = 3;
+                $arr['status'] = 4;
                 return response()->json($arr);
             }
         } else {
