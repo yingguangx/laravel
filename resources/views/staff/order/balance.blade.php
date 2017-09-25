@@ -1,6 +1,11 @@
 @extends('staffLayOut')
 
 @section('content')
+    <style>
+        .pagination {
+            display: inline-flex !important;
+        }
+    </style>
     <div class="row m-l-15 m-t-15">
         <span class="font-title m-l-15" style="font-size: 15px">订单管理--余额兑换</span>
     </div>
@@ -9,7 +14,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-md-11">
+                    <div class="col-md-12">
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
@@ -27,6 +32,7 @@
                             <tbody>
                             @foreach($data as $v)
                                 <tr>
+                                    <td>{{ $v->id }}</td>
                                     <td>{{ $v->name }}</td>
                                     <td>{{ $v->money }}</td>
                                     <td>{{ $v->payeesort }}</td>
