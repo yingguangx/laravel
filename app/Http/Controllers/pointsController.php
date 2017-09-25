@@ -144,7 +144,7 @@ class pointsController extends Controller
         $all_arr['nickName'] = $nickName;
         $all_arr['id'] = $id;
          if (isset($imgUrl) && !isset($gather_account) && !isset($gather_name)) {
-            $all_arr['imgUrl'] = $imgUrl;
+            $all_arr['imgUrl'] = storage_path().$imgUrl;
         } else if(!isset($imgUrl) && isset($gather_account) && isset($gather_name)) {
             $all_arr['gather_account'] = $gather_account;
             $all_arr['gather_name'] = $gather_name;

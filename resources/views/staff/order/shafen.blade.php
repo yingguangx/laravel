@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-md-11">
                         <table class="table table-striped table-bordered">
-                            <thead>
+                            <thead class="shangfenorderappend">
                             <tr>
                                 <th>序</th>
                                 <th>微信用户</th>
@@ -34,7 +34,7 @@
                                 <td>{{ $v->game_account }}</td>
                                 <td>{{ $v->created_at }}</td>
                                 <td>
-                                    <button class="btn btn-info" onclick="shangfenok({{ $v->id }})">设置完成</button>
+                                    <button class="btn btn-info" onclick="shangfenok({{ $v->id }})">上分完成</button>
                                 </td>
                                 </tr>
                             @endforeach
