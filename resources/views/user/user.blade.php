@@ -583,14 +583,6 @@
                             $('#notice').show();
                             return false;
                         }
-//                        else {
-//                            if (t_value < value) {
-//                                $('#notice').children().children().html('输入积分已超过您当前积分，请核实！！');
-//                                $('#notice').show();
-//                                return false;
-//                            }
-//                        }
-
                         $.ajax({
                             url: "/newIntegrationOrder",
                             type: "POST",
@@ -609,7 +601,9 @@
                                     layer.msg('兑换成功！');
                                 }else if (data['status'] == 2) {
                                     layer.msg('兑换失败,'+data['msg']+'积分起兑！');
-                                } else {
+                                }else if(data['status'] == 4){
+                                    layer.msg('兑换失败，您的积分不足！');
+                                }else {
                                     layer.msg('兑换失败,当前积分不足请核实后再兑换！');
                                 }
                             }
