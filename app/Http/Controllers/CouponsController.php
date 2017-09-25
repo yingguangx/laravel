@@ -71,7 +71,7 @@ class CouponsController extends Controller
             //存入memcache
             $memArr = Array();
             $memArr['name'] = Auth::user() -> nickName;
-            $memArr['type'] = Game::where('game_id','=',$request->input('game_id'))->first()->name;
+            $memArr['type'] = Game::where('id','=',$request->input('game_id'))->first()->name;
             $memArr['money'] = '卡券';
             $memArr['value'] = $prize;
             $memArr['account'] = $request->input('game_account');
