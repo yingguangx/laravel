@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 	//下分兑换
 	Route::get('/exChange', 'ExChangeController@exChange');
 	Route::get('/points', 'pointsController@index');
+    Route::post('/exChange/uploadFile', 'ExChangeController@uploadFile');
 	Route::post('/coupons/use_card','CouponsController@use_card');
     Route::get('/coupons/index','CouponsController@index');
 
@@ -53,6 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('/user/userInfo', 'UserController@userInfo');
 	Route::post('/user/fileUpload', 'UserController@fileUpload');
 	Route::get('/user/wechatCode', 'UserController@getWechatCode');
+	Route::post('/user/submitFile', 'UserController@submitFile');
     //获取积分兑换规则
   Route::get('getIntegrationInfo', 'UserController@getIntegrationInfo');
   Route::post('newIntegrationOrder', 'UserController@newIntegrationOrder');
@@ -73,12 +75,15 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 //员工端
-Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
+    Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
 {
-    $router->get('', 'LoginController@login')->name('staff.index');
     $router->get('login', 'LoginController@login')->name('staff.login');
     $router->post('dologin', 'LoginController@dologin')->name('staff.dologin');
     $router->get('loginOut', 'LoginController@loginOut')->name('staff.loginOut');
+});
+Route::group(['prefix' => 'staff','namespace' => 'Staff','middleware' => 'auth.beforeStaff'],function ($router)
+{
+    $router->get('', 'LoginController@login')->name('staff.index');
     $router->get('index', 'LoginController@staffIndex')->name('staff.index');
     //积分设置
     $router->get('integrationSetting', 'IntegrationController@integrationSetting');
@@ -103,6 +108,7 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff'],function ($router)
     $router->post('saveGame', 'OrderController@saveGame');
     $router->post('saveupGame', 'OrderController@saveupGame');
     $router->post('xiafenok', 'OrderController@xiafenok');
+    $router->post('shangfenok', 'OrderController@shangfenok');
     $router->post('moneychangeok', 'OrderController@moneychangeok');
 
     //大转盘设置

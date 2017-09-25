@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\MyWoker;
 use Illuminate\Cache\MemcacheConnector;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,7 @@ class ExChangeController extends Controller
     public function xiafensubmit(Request $request)
     {
     	$all = $request->all();
+        // dd($all);
     	$mem = new Memcache;
     	if (!$mem->connect('127.0.0.1',11211)){
     		die('连接失败');
@@ -42,7 +44,7 @@ class ExChangeController extends Controller
     	$money = (int)($all['txt']/$all['hhwx_rate']);
     	$money = round($money);
     	$id = DB::table('order')->insertGetId(
-		    ['game_id' => $all['play_sort'], 'game_account' => $all['play_id'],'value'=>$all['txt'],'money'=>$money,'user_id'=>1,'created_at'=>date('Y-m-d H:i:s',time()),'type'=>2]
+		    ['game_id' => $all['play_sort'], 'game_account' => $all['play_id'],'value'=>$all['txt'],'money'=>$money,'xiafen_picture'=>$all['file_path'],'user_id'=>1,'created_at'=>date('Y-m-d H:i:s',time()),'type'=>2]
 		);
         $game_name = DB::table('game')->where('id',$all['play_sort'])->pluck('name')->toArray()[0];
         $user_name = DB::table('users')->where('id',1)->pluck('name')->toArray()[0];
@@ -58,10 +60,21 @@ class ExChangeController extends Controller
         $all['xiafenmark'] = $all['hhwx_rate']*$money;
         $all['game_name'] = $game_name;
         $all['user_name'] = $user_name;
+        $all['path'] = $all['file_path'];
     	$all['id'] = $id;
         $str_arr = serialize($all);
     	$bool = $mem->set("xiafenkey".$id,$str_arr,MEMCACHE_COMPRESSED,0);
     	return response()->json(['result1'=>true]);
+    }
+
+    /**文件上传
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function uploadFile(Request $request)
+    {
+        $path = $request->file('file')->store('capture');
+        return MyWoker::jsonSuccess($path,'','上传成功');
     }
 
     public function test()
@@ -76,10 +89,13 @@ class ExChangeController extends Controller
         // dd($mem->get('moneyChangekey')); 
         // dd($mem->get('xiafenkey41')); 
         // $mem = $mem->set('xiafenkey',['xiafenkey40','xiafenkey41']);
-        // dd($mem->get(['a1','a2']));
+        // dd($mem->get($mem->get('shangfenkey')));
+        // dd($mem->get('xiafenkey'));
     	// dd($mem->get('aa1'));
-        // $mem->delete('xiafenkey6',0);
-        // $mem->delete('xiafenkey'); 
+        // $mem->delete('xiafenkey13',0);
+        // $mem->delete('xiafenkey',0);
+        // $mem->delete('xiafenkey14',0); 
+        // $mem->delete('xiafenkey17',0); 
     }
     public function test2()
     {

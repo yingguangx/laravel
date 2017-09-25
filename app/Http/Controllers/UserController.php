@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Game;
 use App\Models\IntegrationRule;
 use App\Models\Order;
+use App\Models\user_coupon;
 use App\User;
 use Illuminate\Console\Application;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -32,8 +33,12 @@ class UserController extends Controller
 //	      $user->save();
 //	      dd($user);
 	    }
+
+	    //统计卡券数量
+        $coupons_count = user_coupon::coupons_list($user->id)['un_used']['count'];
     	return view('user.user',[
     			'user'=>$user,
+                'coupon_count' => $coupons_count
 	    ]);
 //	    $wechat = new \EasyWeChat\Foundation\Application(config('wechat'));
 //	    $oauth = $wechat->oauth;
@@ -82,9 +87,9 @@ class UserController extends Controller
             $userPayCode = new UserPayCode;
             $userPayCode->user_id = Auth::user()->id;
             $userPayCode->imgUrl = '/fkm/'.$randFileName;
-            $userPayCode->type = $request->input('type');//付款码
+            $userPayCode->type = 0;//付款码 未提交
             if($userPayCode->save())
-                return \GuzzleHttp\json_encode(array('success'=>true));
+                return \GuzzleHttp\json_encode(array('success'=>true,'img_id'=>$userPayCode->id));
             return \GuzzleHttp\json_encode(array('success'=>false,'message'=>'上传失败！'));
 
         }
@@ -152,6 +157,8 @@ class UserController extends Controller
                 $memArr['value'] = $data['value'];
                 $memArr['account'] = $obj->game_account;
                 $memArr['time'] = $obj->created_at;
+                $memArr['id'] = $insertId;
+                $memArr = serialize($memArr);
                 get_memcache('shangfenkey', $insertId, $memArr);
 
                 $user = User::find($id);
@@ -182,6 +189,22 @@ class UserController extends Controller
     public function orderList()
     {
         return view('user.orderList');
+    }
+
+    public function submitFile(Request $request)
+    {
+        $file = userPayCode::find($request->input('img_id'));
+        if($file){
+            $file->type = $request->input('type');
+            if($file->save()){
+                $data['message'] = 'success';
+                return response()->json($data);
+            }else{
+                $data['message'] = 'false';
+                return response()->json($data);
+            }
+
+        }
     }
 
     //获取游戏名称

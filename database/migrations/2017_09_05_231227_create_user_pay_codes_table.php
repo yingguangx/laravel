@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserPayCodeTable extends Migration
+class CreateUserPayCodesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUserPayCodeTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_pay_code', function (Blueprint $table) {
+        Schema::create('user_pay_codes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->comment('userID');
             $table->string('imgUrl')->comment('图片链接地址');
@@ -29,6 +29,6 @@ class CreateUserPayCodeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_pay_code');
+        Schema::dropIfExists('user_pay_codes');
     }
 }
