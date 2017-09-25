@@ -23,7 +23,7 @@
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
-                            </thead>
+                            </thead class="moneychangeorderappend">
                             <tbody>
                             @foreach($data as $v)
                                 <tr>
