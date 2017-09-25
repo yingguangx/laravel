@@ -112,13 +112,16 @@ class UserController extends Controller
             ->select('id', 'name')
             ->get()->toArray();
         $rule = IntegrationRule::find(1);
+        if ($rule) {
+            $array = Array();
+            $array['game'] = $game;
+            $array['start_value'] = $rule->start_value;
+            $array['get_value'] = $rule->get_value;
 
-        $array = Array();
-        $array['game'] = $game;
-        $array['start_value'] = $rule->start_value;
-        $array['get_value'] = $rule->get_value;
-
-        return response()->json($array);
+            return response()->json($array);
+        } else {
+            return response()->json(false);
+        }
     }
 
     //积分订单添加
