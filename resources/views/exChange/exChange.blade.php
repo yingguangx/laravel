@@ -26,19 +26,22 @@
     #drag-and-drop-zone{
         margin-top: 10px;
     }
-    .demo-panel-files{
-        position: relative;
+    /*.demo-panel-files{*/
+        /*position: relative;*/
+    /*}*/
+    /*.demo-panel-files img.demo-image-preview{*/
+        /*width:6rem!important;*/
+        /*height:6rem!important;*/
+    /*}*/
+    /*.demo-panel-files>div{*/
+        /*position: absolute;*/
+        /*margin-left: -4rem;*/
+        /*left: 50%;*/
+    /*}*/
+    .demo-panel-files img{
+        width: 6rem !important;
+        height:5rem !important;
     }
-    .demo-panel-files img.demo-image-preview{
-        width:6rem!important;
-        height:6rem!important;
-    }
-    .demo-panel-files>div{
-        position: absolute;
-        margin-left: -4rem;
-        left: 50%;
-    }
-
 </style>
 <body>
 <!--头部  star-->
@@ -104,14 +107,26 @@
     <div class="clear"></div>
 </div>
 
-<div class="panel-body demo-panel-files" id='demo-files1'>
-</div>
-<div id="drag-and-drop-zone" class="uploader" style="border:0;padding:0;text-align: left;">
-    <div class="browser" style="position:relative;text-align: center">
-        <img src="{{ asset('/images/upload.png') }}" alt="">
-        <input style="border: 0;" type="file" name="files[]"  accept="" multiple="multiple" title='Click to add Images'>
+
+<div class="sel_type" style="margin-top:-1px">
+    <div class="fl typeP">
+        <div id="drag-and-drop-zone" class="uploader" style="border:0;padding:0;text-align: left;">
+            <div class="browser" style="position:relative;text-align: center">
+                <img width="100px" src="{{ asset('/images/upload.png') }}" alt="">
+                <input style="width:100px;border: 0;" type="file" name="files[]"  accept="" multiple="multiple" title='Click to add Images'>
+            </div>
+        </div>
     </div>
+    <div class="fl typeSel">
+        <div class="panel-body demo-panel-files" id='demo-files1'>
+        </div>
+    </div>
+    <div class="clear"></div>
 </div>
+
+
+
+
 <!--每种游戏商家对应的id-->
 <div class="sel_type xiafenid">
         <p class="xiafenjine"></p>
