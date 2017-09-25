@@ -199,5 +199,5 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                    }
            });
        }
-      setInterval(getmessage,20000);
+      setInterval(getmessage,2000);
 </script>
