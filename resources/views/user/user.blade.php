@@ -99,7 +99,11 @@
                 @break($loop->index == 3)
                 <div class="ps-lt ps-xl" style="display: none;">
                     <div class="lt-dsb">
-                        <p>{{ $order->game_account }}：{{ $order->money }}</p>
+                        @if($order->type == 1)
+                        <p>{{ $order->user->name }}为账号{{ $order->game_account }}上分了{{ $order->money }}元</p>
+                        @else
+                        <p>{{ $order->user->name }}为账号{{ $order->game_account }}下分了{{ $order->money }}元</p>
+                        @endif
                     </div>
                 </div>
             @endforeach
