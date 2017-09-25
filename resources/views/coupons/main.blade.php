@@ -19,17 +19,16 @@
         }
         .top-name {
             text-align: center;
-            font-size: 12px;
-            line-height: 0.84rem;
+            font-size: 18px;
         }
         .bk {
             display: block;
             margin: 0.045rem 0.25rem 0 0;
             float: left;
-            width: 0.15rem;
-            height: 0.24rem;
+            width: 15px;
+            height: 20px;
             background: url(../images/rt-bk.png) no-repeat;
-            background-size: 0.15rem 0.24rem;
+            background-size: 13px 14px;
         }
         .rt-bk a{
             float: left;

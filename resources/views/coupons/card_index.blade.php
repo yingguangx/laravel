@@ -204,7 +204,7 @@
             transform: scale(1) translate(-50%, -50%)!important;
         }
         .coupons-card-div{
-            margin-top: 75px;
+            margin-top: 83px;
         }
     </style>
 @endsection
@@ -215,7 +215,7 @@
         <header>
             <div class="rt-bk clearfix">
                 <i class="bk"></i>
-                <a href="javascript:window.history.go(-1)" style="font-size: 12px;
+                <a href="javascript:window.history.go(-1)" style="    font-size: 16px;
     color: black;">
                     返回
                 </a>
