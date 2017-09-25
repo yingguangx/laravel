@@ -204,7 +204,7 @@
             transform: scale(1) translate(-50%, -50%)!important;
         }
         .coupons-card-div{
-            margin-top:72px;
+            margin-top: 75px;
         }
     </style>
 @endsection
