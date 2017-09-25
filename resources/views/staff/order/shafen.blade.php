@@ -1,6 +1,11 @@
 @extends('staffLayOut')
 
 @section('content')
+    <style>
+        .pagination {
+            display: inline-flex !important;
+        }
+    </style>
     <div class="row m-l-15 m-t-15">
         <span class="font-title m-l-15" style="font-size: 15px">订单管理--上分订单</span>
     </div>
@@ -9,7 +14,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row">
-                    <div class="col-md-11">
+                    <div class="col-md-12">
                         <table class="table table-striped table-bordered">
                             <thead >
                             <tr>
@@ -43,17 +48,15 @@
                     </div>
                 </div>
 
-                <div class="row m-t-15">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="dataTables_info" id="datatable_info" role="status"
-                                 aria-live="polite">显示 {{ $data->firstItem() }} 到 {{ $data->lastItem() }} 共 {{ $data->total() }} 条
-                            </div>
+                <div class="row">
+                    <div class="col-sm-6 m-t-15">
+                        <div class="dataTables_info" id="datatable_info" role="status"
+                             aria-live="polite">显示 {{ $data->firstItem() }} 到 {{ $data->lastItem() }} 共 {{ $data->total() }} 条
                         </div>
-                        <div  class="col-sm-6 text-right">
-                            <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
-                                {!! $data->links() !!}
-                            </div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <div class="dataTables_paginate paging_simple_numbers" id="datatable_paginate">
+                            {!! $data->links() !!}
                         </div>
                     </div>
                 </div>
@@ -83,6 +86,7 @@
                    },
                    success: function (data) {
                        layer.msg('该订单已完成!!', {time:1000});
+                       window.location.reload();
                    }
                });
            }
