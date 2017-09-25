@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Staff;
 use App\Models\StaffInfo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Routing\Route;
 
 class LoginController extends Controller
 {
