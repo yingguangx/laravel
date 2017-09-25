@@ -19,7 +19,7 @@
         }
         .top-name {
             text-align: center;
-            font-size: 0.34rem;
+            font-size: 12px;
             line-height: 0.84rem;
         }
         .bk {
