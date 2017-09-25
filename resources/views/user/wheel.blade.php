@@ -12,6 +12,37 @@
         -webkit-transform: scale(2) translate(-50%, -50%)!important;
         transform: scale(2) translate(-50%, -50%)!important;
     }
+    /*header {*/
+      /*position: relative;*/
+      /*width: 7.5rem;*/
+      /*height: 0.84rem;*/
+      /*border-bottom: 1px solid #d4d4d8;*/
+      /*background-color: #fff;*/
+    /*}*/
+    .rt-bk {
+      position: absolute;
+      top: 0.27rem;
+      left: 0.15rem;
+      float: left;
+    }
+    .top-name {
+      text-align: center;
+      font-size: 0.34rem;
+      line-height: 0.84rem;
+    }
+    .bk {
+      display: block;
+      margin: 0.045rem 0.25rem 0 0;
+      float: left;
+      width: 0.15rem;
+      height: 0.24rem;
+      background: url(../images/rt-bk.png) no-repeat;
+      background-size: 0.15rem 0.24rem;
+    }
+    .rt-bk a{
+      float: left;
+      margin-top: -5px;
+    }
   </style>
 <script type="text/javascript" src="{{URL::asset('js/jquery-1.8.0.min.js')}}"></script>
 <script type="text/javascript" src="{{URL::asset('js/jQueryRotate.2.2.js')}}"></script>
@@ -45,9 +76,16 @@ $(function(){
 </script>
 </head>
 <body>
-<!--<div class="letter_mian">
-  <p class="ban_date"><span>活动时间</span><strong>：</strong>2014年10月15日-2014年11月10日</p>
-</div>-->
+
+<header>
+  <div class="rt-bk clearfix">
+    <i class="bk"></i>
+    <a href="javascript:window.history.go(-1)">
+      返回
+    </a>
+  </div>
+  <div class="top-name"><p>优惠抽奖</p></div>
+</header>
 <div class="con_chouj">
   <div class="chou_box">
     <img src="{{URL::asset('image/coupons/1.png')}}" id="shan-img" style="display:none;" />
