@@ -39,5 +39,10 @@ if (!function_exists('getUserAgent')) {
         }
         $bool = $mem->set($key_name.$id,$str_arr,MEMCACHE_COMPRESSED,0);
     }
+
+    function getimg($path)
+    {
+        return response()->file(storage_path().$path);
+    }
 }
 
