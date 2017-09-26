@@ -150,7 +150,7 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                             $.each(data.xiafenorders, function (i, item) {
                                 // console.log(item.user_name);
                                 num++;
-                                html = html+"<tr><td>"+item.id+"</td><td>"+item.user_name+"</td><td>"+item.game_name+"</td><td>"+item.money+"</td><td>"+item.txt+"</td><td>"+item.created_at+'</td><td><img src="{{ getimg('+item.path+') }}" alt=""></td><td><button class="btn btn-info" onclick="xiafenok('+item.id+')">下分完成</button></td></tr>';
+                                html = html+"<tr><td>"+item.id+"</td><td>"+item.user_name+"</td><td>"+item.game_name+"</td><td>"+item.money+"</td><td>"+item.txt+"</td><td>"+item.created_at+'</td><td>'+item.path+'</td><td><button class="btn btn-info" onclick="xiafenok('+item.id+')">下分完成</button></td></tr>';
                             })
                            $('.xiafenorder').text('+'+num);
                            $('.xiafenorderappend').html(html);
@@ -182,7 +182,7 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                                     var gather_name = '';
                                 }
                                 num2++;
-                                html2 = html2+"<tr><td>"+item.id+"</td><td>"+nickName+"</td><td>"+money+"</td><td>"+gather_sort+"</td><td>"+gather_account+"</td><td>"+gather_name+'</td><td><img src="'+imgUrl+'" alt="" /></td><td>'+time+'</td><td><button class="btn btn-info" onclick="moneychangeok('+item.id+')">兑换完成</button></td></tr>';
+                                html2 = html2+"<tr><td>"+item.id+"</td><td>"+nickName+"</td><td>"+money+"</td><td>"+gather_sort+"</td><td>"+gather_account+"</td><td>"+gather_name+'</td><td></td>'+imgUrl+'<td>'+time+'</td><td><button class="btn btn-info" onclick="moneychangeok('+item.id+')">兑换完成</button></td></tr>';
                             })
                            $('.moneychangeorder').text('+'+num2);
                            $('.moneychangeorderappend').html(html2);
