@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/new_file.css') }}" />
     <link rel="stylesheet" href="{{asset(("css/bootstrap.min.css"))}}">
     <script type="text/javascript" src="{{ asset('js/jquery-1.8.2.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('js/new_file.js') }}" ></script>
+    {{--<script type="text/javascript" src="{{ asset('js/new_file.js') }}" ></script>--}}
     <link rel="stylesheet" href="{{ asset('css/layer.css') }}" />
     <link rel="stylesheet" href="{{ asset('js/viewer/viewer.min.css') }}" />
     <!-- <script type="text/javascript" src="{{ asset('js/layer.js') }}" ></script> -->
@@ -95,7 +95,7 @@
 
 <div class="sel_type hiddenBox" style="display: none">
     <div class="fl typeP">
-        <p>上分详情:</p>
+        <p>下分详情:</p>
     </div>
     <div class="fl typeSel" style="border: 1px solid #eee;background-color: #fafafa;width: 63%;">
         <div style="padding-left: 18px;">
@@ -288,10 +288,8 @@ window.onload = function(){
         if($('#selType').val()){
              hhwx_rate = obj1[$('#selType').val()]['hhwx_rate'] || '';
         }
-        if(!check_money()){
-            return false;
-        }
-        if (hhwx_rate!='' && play_sort != '' && play_id != '' && txt != '' && file_path!='') {
+    
+        if (hhwx_rate!='' && play_sort != '' && play_id != '' && txt != '' ) {
              $.ajax({
                 url: "/xiafensubmit",
                 type: "POST",
@@ -312,7 +310,6 @@ window.onload = function(){
                     'file_path':file_path,
                 },
                 success: function (data) {
-                    console.log(data);
                         if(data.result1){
                            window.location.reload();
                         }
@@ -322,9 +319,10 @@ window.onload = function(){
             layer.alert('请选择游戏种类');
         } else if(play_id == ''){
             layer.alert('请输入游戏ID');
-        } else if(file_path == ''){
-            layer.alert('请上传交易截图!');
-        }
+        } 
+        // else if(file_path == ''){
+        //     layer.alert('请上传交易截图!');
+        // }
     })
     function userDefined() {
         $('#user_defined').show();
