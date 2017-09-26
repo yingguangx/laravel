@@ -37,7 +37,7 @@
                                     <td>{{ $v->money }}</td>
                                     <td>{{ $v->value }}</td>
                                     <td>{{ $v->created_at }}</td>
-                                    <td><img src="{{ getimg($v->xiafen_picture) }}" alt=""></td>
+                                    <td></td>
                                     <td>
                                         <button class="btn btn-info" onclick="xiafenok({{ $v->id }})">下分完成</button>
                                     </td>
