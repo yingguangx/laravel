@@ -126,7 +126,7 @@
             </div>
             <div class="ps-lt">
                 <div class="lt-dsb">
-                    <p>领取积分</p>
+                    <p>我的消息</p>
                     <i class="arr-right"></i>
                 </div>
             </div>

@@ -20,7 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
 });
 Route::get('/hello', 'helloController@index');
 //上分充值
-Route::get('/reChange', 'ReChangeController@reChange');
+// Route::get('/reChange', 'ReChangeController@reChange');
 
 
 //下分兑换
