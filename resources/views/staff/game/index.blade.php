@@ -52,6 +52,14 @@
 				    <label for="exampleInputFile">游戏币每亿成本价</label>
 				    <input type="text" class="form-control" placeholder="游戏币每亿成本价" name="cost_price">
 				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputFile">上分房间号</label>
+				    <input type="text" class="form-control" placeholder="上分房间号" name="up_room">
+				  </div>
+				  <div class="form-group">
+				    <label for="exampleInputFile">下分房间号</label>
+				    <input type="text" class="form-control" placeholder="下分房间号" name="down_room">
+				  </div>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -93,6 +101,14 @@
 				   <div class="form-group">
 				    <label for="exampleInputFile">游戏币每亿成本价</label>
 				    <input type="text" class="form-control" placeholder="游戏币每亿成本价" name="price_cost_up">
+				  </div>
+				   <div class="form-group">
+				    <label for="exampleInputFile">上分房间号</label>
+				    <input type="text" class="form-control" placeholder="上分房间号" name="up_game_room">
+				  </div>
+				   <div class="form-group">
+				    <label for="exampleInputFile">下分房间号</label>
+				    <input type="text" class="form-control" placeholder="下分房间号" name="down_game_room">
 				  </div>
 		      </div>
 		      <div class="modal-footer">
@@ -137,6 +153,14 @@
                                                         rowspan="1" colspan="1"
                                                         aria-label="Age: activate to sort column ascending">游戏币每亿成本价
                                                     </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Age: activate to sort column ascending">上分房间号
+                                                    </th>
+                                                    <th class="sorting" tabindex="0" aria-controls="datatable"
+                                                        rowspan="1" colspan="1"
+                                                        aria-label="Age: activate to sort column ascending">下分房间号
+                                                    </th>
                                                      <th class="sorting" tabindex="0" aria-controls="datatable"
                                                         rowspan="1" colspan="1"
                                                         aria-label="Age: activate to sort column ascending">操作
@@ -153,6 +177,8 @@
                                                     <td class="game_hhwx_rate"><?php echo $game->hhwx_rate ?></td>
                                                     <td class="game_business_id"><?php echo $game->business_id ?></td>
                                                     <td class="price_cost_up"><?php echo $game->cost_price ?></td>
+                                                    <td class="up_game_room"><?php echo $game->up_game_room ?></td>
+                                                    <td class="down_game_room"><?php echo $game->down_game_room ?></td>
                                                     <td><a class="btn btn-danger" href='{{ URL("staff/delGame/$game->id") }}'>删除</a><button class="btn btn-primary upgamesort" data-toggle="modal" data-target="#upgamesort">修改</button></td>
                                                 </tr>
                                                 <?php } ?>
@@ -186,12 +212,16 @@ $(document).ready(function(){
 		var game_hhwx_rate = $(this).parent().parent().find('.game_hhwx_rate').text();
 		var game_business_id = $(this).parent().parent().find('.game_business_id').text();
 		var price_cost_up = $(this).parent().parent().find('.price_cost_up').text();
+		var up_game_room = $(this).parent().parent().find('.up_game_room').text();
+		var down_game_room = $(this).parent().parent().find('.down_game_room').text();
 		$('input[name="game_name_up"]').val(game_name);
 		$('input[name="down_rate_up"]').val(game_hhwx_rate);
 		$('input[name="business_id_up"]').val(game_business_id);
 		$('input[name="up_rate_up"]').val(game_up_rate);
 		$('input[name="gameid"]').val(gameid);
 		$('input[name="price_cost_up"]').val(price_cost_up);
+		$('input[name="up_game_room"]').val(up_game_room);
+		$('input[name="down_game_room"]').val(down_game_room);
 	})
 })
 </script>
