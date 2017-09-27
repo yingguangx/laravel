@@ -12,7 +12,7 @@
         }
     </style>
 
-    <span style="font-size: 20px;margin-left: 10px;"><b>欢迎光临！</b></span>
+    <span style="font-size: 20px;margin-left: 27px;"><b>欢迎光临！</b></span>
 
     <div class="row headerStyle m-t-15">
         <span style="margin-left: 20px;margin-top: 20px;display: block;">

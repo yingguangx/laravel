@@ -20,7 +20,17 @@
     <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
     <script src="{{URL::asset('js/jquery-weui.js')}}"></script>
     <script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
-    <style>body{font-size:14px;}</style>
+    <style>
+        body{font-size:14px;}
+
+        .active{
+            display: block !important;
+        }
+
+        .colorChange {
+            background-color: rgba(128, 128, 128, 0.18);
+        }
+    </style>
     @yield('style')
 </head>
 <body>
@@ -61,10 +71,10 @@
         @endif
         <li class="childUlLi">
             <a href="#"  target="menuFrame"> <i class="glyph-icon icon-reorder"></i>订单管理<span style="color:red;" class="ordernum"></span></a>
-            <ul>
-                <li><a href="{{ URL('staff/shafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>上分订单<span style="color:red;" class="shangfenorder"></span></a></li>
-                <li><a href="{{ URL('staff/xiafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>下分订单<span style="color:red;" class="xiafenorder"></span></a></li>
-                <li><a href="{{ URL('staff/balanceIndex') }}"><i class="glyph-icon icon-chevron-right"></i>余额兑换<span style="color:red;" class="moneychangeorder"></span></a></li>
+            <ul class="selUl {!!(Request::is('staff/shafenOrderIndex', 'staff/xiafenOrderIndex','staff/balanceIndex')? 'active' : '') !!}">
+                <li class="{!!(Request::is('staff/shafenOrderIndex')? 'colorChange' : '') !!}"><a href="{{ URL('staff/shafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>上分订单<span style="color:red;" class="shangfenorder"></span></a></li>
+                <li class="{!!(Request::is('staff/xiafenOrderIndex')? 'colorChange' : '') !!}"><a href="{{ URL('staff/xiafenOrderIndex') }}"><i class="glyph-icon icon-chevron-right"></i>下分订单<span style="color:red;" class="xiafenorder"></span></a></li>
+                <li class="{!!(Request::is('staff/balanceIndex')? 'colorChange' : '') !!}"><a href="{{ URL('staff/balanceIndex') }}"><i class="glyph-icon icon-chevron-right"></i>余额兑换<span style="color:red;" class="moneychangeorder"></span></a></li>
             </ul>
         </li>
          <li class="childUlLi">
@@ -72,25 +82,22 @@
         </li>
         <li class="childUlLi">
             <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>系统设置</a>
-            <ul>
-                <li><a href="{{ URL('staff/gameSetting') }}"><i class="glyph-icon icon-chevron-right"></i>游戏类目设置</a></li>
-                <li><a href="{{URL('staff/coupons/index')}}"><i class="glyph-icon icon-chevron-right"></i>优惠券设置</a></li>
-                <li><a href="{{ URL('staff/wheel/index') }}"><i class="glyph-icon icon-chevron-right"></i>大转盘设置</a></li>
-                <li><a href="{{ URL::asset('staff/integrationSetting') }}"><i class="glyph-icon icon-chevron-right"></i>积分设置</a></li>
+            <ul class="selUl {!!(Request::is('staff/gameSetting', 'staff/coupons/index','staff/wheel/index', 'staff/integrationSetting')? 'active' : '') !!}">
+                <li class="{!!(Request::is('staff/gameSetting')? 'colorChange' : '') !!}"><a href="{{ URL('staff/gameSetting') }}"><i class="glyph-icon icon-chevron-right"></i>游戏类目设置</a></li>
+                <li class="{!!(Request::is('staff/coupons/index')? 'colorChange' : '') !!}"><a href="{{ URL('staff/coupons/index')}}"><i class="glyph-icon icon-chevron-right"></i>优惠券设置</a></li>
+                <li class="{!!(Request::is('staff/wheel/index')? 'colorChange' : '') !!}"><a href="{{ URL('staff/wheel/index') }}"><i class="glyph-icon icon-chevron-right"></i>大转盘设置</a></li>
+                <li class="{!!(Request::is('staff/integrationSetting')? 'colorChange' : '') !!}"><a href="{{ URL::asset('staff/integrationSetting') }}"><i class="glyph-icon icon-chevron-right"></i>积分设置</a></li>
             </ul>
         </li>
         <li class="childUlLi">
             <a href="#" target="menuFrame"> <i class="glyph-icon icon-reorder"></i>用户管理</a>
-            <ul>
-                <li><a href="{{ URL('staff/user') }}"><i class="glyph-icon icon-chevron-right"></i>用户列表</a></li>
+            <ul class="selUl {!!(Request::is('staff/user')? 'active' : '') !!}">
+                <li class="{!!(Request::is('staff/user')? 'colorChange' : '') !!}"><a href="{{ URL('staff/user') }}"><i class="glyph-icon icon-chevron-right"></i>用户列表</a></li>
             </ul>
         </li>
         @if(session('staff_role') == 1)
         <li class="childUlLi">
-            <a href="#"> <i class="glyph-icon  icon-reorder"></i>员工管理</a>
-            <ul>
-                <li><a href="{{ URL::asset('staff/staffList') }}"><i class="glyph-icon icon-chevron-right"></i>员工列表</a></li>
-            </ul>
+            <a href="{{ URL::asset('staff/staffList') }}"> <i class="glyph-icon  icon-reorder"></i>员工管理</a>
         </li>
         @else
         @endif
@@ -107,6 +114,9 @@
     @yield('jquery')
 </html>
 <script>
+    $('.childUlLi').click(function () {
+        $('.selUl').removeClass('active');
+    })
 $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="audio/mpeg"></audio>').appendTo('body');
        function getmessage(){
            $.ajax({
@@ -172,7 +182,7 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                                     var gather_name = '';
                                 }
                                 num2++;
-                                html2 = html2+"<tr><td>"+item.id+"</td><td>"+nickName+"</td><td>"+money+"</td><td>"+gather_sort+"</td><td>"+gather_account+"</td><td>"+gather_name+'</td><td><img src="'+imgUrl+'" alt="" /></td><td>'+time+'</td><td><button class="btn btn-info" onclick="moneychangeok('+item.id+')">兑换完成</button></td></tr>';
+                                html2 = html2+"<tr><td>"+item.id+"</td><td>"+nickName+"</td><td>"+money+"</td><td>"+gather_sort+"</td><td>"+gather_account+"</td><td>"+gather_name+'</td><td></td>'+imgUrl+'<td>'+time+'</td><td><button class="btn btn-info" onclick="moneychangeok('+item.id+')">兑换完成</button></td></tr>';
                             })
                            $('.moneychangeorder').text('+'+num2);
                            $('.moneychangeorderappend').html(html2);
@@ -189,5 +199,5 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                    }
            });
        }
-      setInterval(getmessage,20000);
+      setInterval(getmessage,2000);
 </script>

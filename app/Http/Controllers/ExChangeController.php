@@ -36,7 +36,6 @@ class ExChangeController extends Controller
     public function xiafensubmit(Request $request)
     {
     	$all = $request->all();
-        // dd($all);
     	$mem = new Memcache;
     	if (!$mem->connect('127.0.0.1',11211)){
     		die('连接失败');

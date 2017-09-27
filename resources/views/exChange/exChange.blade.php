@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/new_file.css') }}" />
     <link rel="stylesheet" href="{{asset(("css/bootstrap.min.css"))}}">
     <script type="text/javascript" src="{{ asset('js/jquery-1.8.2.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('js/new_file.js') }}" ></script>
+    {{--<script type="text/javascript" src="{{ asset('js/new_file.js') }}" ></script>--}}
     <link rel="stylesheet" href="{{ asset('css/layer.css') }}" />
     <link rel="stylesheet" href="{{ asset('js/viewer/viewer.min.css') }}" />
     <!-- <script type="text/javascript" src="{{ asset('js/layer.js') }}" ></script> -->
@@ -26,19 +26,22 @@
     #drag-and-drop-zone{
         margin-top: 10px;
     }
-    .demo-panel-files{
-        position: relative;
+    /*.demo-panel-files{*/
+        /*position: relative;*/
+    /*}*/
+    /*.demo-panel-files img.demo-image-preview{*/
+        /*width:6rem!important;*/
+        /*height:6rem!important;*/
+    /*}*/
+    /*.demo-panel-files>div{*/
+        /*position: absolute;*/
+        /*margin-left: -4rem;*/
+        /*left: 50%;*/
+    /*}*/
+    .demo-panel-files img{
+        width: 6rem !important;
+        height:5rem !important;
     }
-    .demo-panel-files img.demo-image-preview{
-        width:6rem!important;
-        height:6rem!important;
-    }
-    .demo-panel-files>div{
-        position: absolute;
-        margin-left: -4rem;
-        left: 50%;
-    }
-
 </style>
 <body>
 <!--头部  star-->
@@ -92,7 +95,7 @@
 
 <div class="sel_type hiddenBox" style="display: none">
     <div class="fl typeP">
-        <p>上分详情:</p>
+        <p>下分详情:</p>
     </div>
     <div class="fl typeSel" style="border: 1px solid #eee;background-color: #fafafa;width: 63%;">
         <div style="padding-left: 18px;">
@@ -104,14 +107,26 @@
     <div class="clear"></div>
 </div>
 
-<div class="panel-body demo-panel-files" id='demo-files1'>
-</div>
-<div id="drag-and-drop-zone" class="uploader" style="border:0;padding:0;text-align: left;">
-    <div class="browser" style="position:relative;text-align: center">
-        <img src="{{ asset('/images/upload.png') }}" alt="">
-        <input style="border: 0;" type="file" name="files[]"  accept="" multiple="multiple" title='Click to add Images'>
+
+<div class="sel_type" style="margin-top:-1px">
+    <div class="fl typeP">
+        <div id="drag-and-drop-zone" class="uploader" style="border:0;padding:0;text-align: left;">
+            <div class="browser" style="position:relative;text-align: center">
+                <img width="100px" src="{{ asset('/images/upload.png') }}" alt="">
+                <input style="width:100px;border: 0;" type="file" name="files[]"  accept="" multiple="multiple" title='Click to add Images'>
+            </div>
+        </div>
     </div>
+    <div class="fl typeSel">
+        <div class="panel-body demo-panel-files" id='demo-files1'>
+        </div>
+    </div>
+    <div class="clear"></div>
 </div>
+
+
+
+
 <!--每种游戏商家对应的id-->
 <div class="sel_type xiafenid">
         <p class="xiafenjine"></p>
@@ -273,10 +288,8 @@ window.onload = function(){
         if($('#selType').val()){
              hhwx_rate = obj1[$('#selType').val()]['hhwx_rate'] || '';
         }
-        if(!check_money()){
-            return false;
-        }
-        if (hhwx_rate!='' && play_sort != '' && play_id != '' && txt != '' && file_path!='') {
+    
+        if (hhwx_rate!='' && play_sort != '' && play_id != '' && txt != '' ) {
              $.ajax({
                 url: "/xiafensubmit",
                 type: "POST",
@@ -297,7 +310,6 @@ window.onload = function(){
                     'file_path':file_path,
                 },
                 success: function (data) {
-                    console.log(data);
                         if(data.result1){
                            window.location.reload();
                         }
@@ -307,9 +319,10 @@ window.onload = function(){
             layer.alert('请选择游戏种类');
         } else if(play_id == ''){
             layer.alert('请输入游戏ID');
-        } else if(file_path == ''){
-            layer.alert('请上传交易截图!');
-        }
+        } 
+        // else if(file_path == ''){
+        //     layer.alert('请上传交易截图!');
+        // }
     })
     function userDefined() {
         $('#user_defined').show();
