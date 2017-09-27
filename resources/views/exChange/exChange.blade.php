@@ -101,7 +101,8 @@
         <div style="padding-left: 18px;">
             <span><span class="gameName">集结号</span>下分ID <span style="color:blue;" id="exChangeID">67286328</span></span><br>
             <span><span class="gameName">集结号</span>下分比例 <span style="color:blue;" id="exChangeRate">1.8</span></span><br>
-            <span>本次下分对应金额 <span style="color:blue;" id="thisMoney">0</span>元</span>
+            <span>本次下分对应金额 <span style="color:blue;" id="thisMoney">0</span>元</span><br>
+            <span style="color:blue;" id="thisRoom"></span>
         </div>
     </div>
     <div class="clear"></div>
@@ -249,17 +250,20 @@ window.onload = function(){
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             },
             success: function (data) {
+                console.log(data);
                 obj1 = data.result1;
                 }
         });
 } 
 
     function appendfor(id) {
-        // console.log(obj1[id]['name']);
-        // return false;
+        $('#thisRoom').html('');
         $('#exChangeID').html(obj1[id]['business_id']);
         $('#exChangeRate').html(obj1[id]['hhwx_rate']);
         $('.gameName').html(obj1[id]['name']);
+        if(typeof(obj1[id]['down_game_room']) != 'undefined') {
+            $('#thisRoom').html('<span>下分请进</span>'+obj1[id]['down_game_room']);
+        }
         $('.hiddenBox').show();
 //        var rate = obj1[id]['hhwx_rate'];
 //        var money = parseInt(value/rate);

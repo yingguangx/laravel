@@ -117,7 +117,7 @@ class pointsController extends Controller
            $gather_account = $all['gather_account']; 
            $gather_name = $all['gather_name']; 
         }
-        $insert_arr = array('name'=>$nickName,'money'=>$money,'payeesort'=>$gather_sort,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time()));
+        $insert_arr = array('name'=>$nickName,'money'=>$money,'payeesort'=>$gather_sort,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time()),'user_id'=>$user['id']);
         if (isset($imgUrl) && !isset($gather_account) && !isset($gather_name)) {
             $insert_arr['payeecode'] = $imgUrl;
         } else if(!isset($imgUrl) && isset($gather_account) && isset($gather_name)) {
