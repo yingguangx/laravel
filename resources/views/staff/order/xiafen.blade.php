@@ -37,7 +37,7 @@
                                     <td>{{ $v->money }}</td>
                                     <td>{{ $v->value }}</td>
                                     <td>{{ $v->created_at }}</td>
-                                    <td></td>
+                                    <td><button class="btn btn-success" picName="{{ $v->xiafen_picture }}" onclick="showPic(this)">查看截图</button></td>
                                     <td>
                                         <button class="btn btn-info" onclick="xiafenok({{ $v->id }})">设置完成</button>
                                     </td>
@@ -68,20 +68,39 @@
 @endsection
 
 @section('jquery')
-<script>
-    function xiafenok(id){
-           $.ajax({
-               url: "/staff/xiafenok",
-               type: "POST",
-               dataType: "json",
-               data:{id:id},
-               headers: {
-               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-               },
-               success: function (data) {
-                       console.log(data);
-               }
-           });
-       }
+    <script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
+    <script>
+        layui.use('layer',function(){
+            window.layer = layui.layer;
+        });
+
+        function xiafenok(id){
+               $.ajax({
+                   url: "/staff/xiafenok",
+                   type: "POST",
+                   dataType: "json",
+                   data:{id:id},
+                   headers: {
+                   'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                   },
+                   success: function (data) {
+                           console.log(data);
+                   }
+               });
+           }
+
+       //查看下分截图
+        function showPic(obj) {
+            layer.open({
+                type: 1,
+                title: '查看下分截图',
+                closeBtn: 0,
+                area: ['480px', '350px'],
+                offset: '200px',
+                skin: 'layui-layer-nobg',
+                shadeClose: true,
+                content: '<img src="/staff/getPicPath/'+$(obj).attr('picName')+'"/>'
+            });
+        }
 </script>
 @endsection
