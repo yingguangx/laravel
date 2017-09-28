@@ -83,7 +83,7 @@ $(function(){
     {{--<a href="javascript:window.history.go(-1)">--}}
       {{--返回--}}
     {{--</a>--}}
-    <a href="location.href='<?php echo URL::to('/user')?>'">
+    <a onclick="location.href='<?php echo URL::to('/user')?>'">
       返回
     </a>
   </div>
