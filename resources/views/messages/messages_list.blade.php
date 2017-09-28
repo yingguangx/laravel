@@ -11,7 +11,7 @@
 	<div style="display: none;" class="public_path"><?php echo public_path() ?></div>
 		<!--头部-->
 	    <header>
-	    	交易有问题？<span class="fr"><a href="#" style="color:blue;">联系客服</a>&nbsp&nbsp<a style="color:blue;" onclick="reflesh() ">刷新试试</a>&nbsp&nbsp<a style="color:blue;" onclick="reflesh() ">返回</a></span>
+	    	交易有问题？<span class="fr"><a href="#" style="color:blue;">联系客服</a>&nbsp&nbsp<a style="color:blue;" onclick="reflesh() ">刷新试试</a>&nbsp&nbsp<a style="color:blue;"  href="/user">个人中心</a></span>
 	    </header>
 	    <!--头部-->
 	    <!--主题-->
