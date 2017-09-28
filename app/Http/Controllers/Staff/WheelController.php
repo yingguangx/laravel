@@ -41,7 +41,8 @@ class WheelController extends Controller
     {
         $wheel_model = Wheel_setting::first();
         if(empty($wheel_model)){
-            $res = (new Wheel_setting(self::format_time($request->all())))->save();
+            $insert = arrary_merge($request->all(),['valid_time'=>10]);
+            $res = (new Wheel_setting(self::format_time($insert)))->save();
         }else{
             $res = $wheel_model->update(self::format_time($request->all()));
         }
