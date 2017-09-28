@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/new_file.css') }}" />
     <link rel="stylesheet" href="{{asset(("css/bootstrap.min.css"))}}">
     <script type="text/javascript" src="{{ asset('js/jquery-1.8.2.min.js') }}" ></script>
-    <script type="text/javascript" src="{{ asset('js/new_file.js') }}" ></script>
+    {{--<script type="text/javascript" src="{{ asset('js/new_file.js') }}" ></script>--}}
     <link rel="stylesheet" href="{{ asset('css/layer.css') }}" />
     <link rel="stylesheet" href="{{ asset('js/viewer/viewer.min.css') }}" />
     <!-- <script type="text/javascript" src="{{ asset('js/layer.js') }}" ></script> -->
@@ -95,13 +95,14 @@
 
 <div class="sel_type hiddenBox" style="display: none">
     <div class="fl typeP">
-        <p>上分详情:</p>
+        <p>下分详情:</p>
     </div>
     <div class="fl typeSel" style="border: 1px solid #eee;background-color: #fafafa;width: 63%;">
         <div style="padding-left: 18px;">
             <span><span class="gameName">集结号</span>下分ID <span style="color:blue;" id="exChangeID">67286328</span></span><br>
             <span><span class="gameName">集结号</span>下分比例 <span style="color:blue;" id="exChangeRate">1.8</span></span><br>
-            <span>本次下分对应金额 <span style="color:blue;" id="thisMoney">0</span>元</span>
+            <span>本次下分对应金额 <span style="color:blue;" id="thisMoney">0</span>元</span><br>
+            <span style="color:blue;" id="thisRoom"></span>
         </div>
     </div>
     <div class="clear"></div>
@@ -249,17 +250,20 @@ window.onload = function(){
             'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
             },
             success: function (data) {
+                console.log(data);
                 obj1 = data.result1;
                 }
         });
 } 
 
     function appendfor(id) {
-        // console.log(obj1[id]['name']);
-        // return false;
+        $('#thisRoom').html('');
         $('#exChangeID').html(obj1[id]['business_id']);
         $('#exChangeRate').html(obj1[id]['hhwx_rate']);
         $('.gameName').html(obj1[id]['name']);
+        if(typeof(obj1[id]['down_game_room']) != 'undefined') {
+            $('#thisRoom').html('<span>下分请进</span>'+obj1[id]['down_game_room']);
+        }
         $('.hiddenBox').show();
 //        var rate = obj1[id]['hhwx_rate'];
 //        var money = parseInt(value/rate);
@@ -288,10 +292,8 @@ window.onload = function(){
         if($('#selType').val()){
              hhwx_rate = obj1[$('#selType').val()]['hhwx_rate'] || '';
         }
-        if(!check_money()){
-            return false;
-        }
-        if (hhwx_rate!='' && play_sort != '' && play_id != '' && txt != '' && file_path!='') {
+    
+        if (hhwx_rate!='' && play_sort != '' && play_id != '' && txt != '' ) {
              $.ajax({
                 url: "/xiafensubmit",
                 type: "POST",
@@ -312,7 +314,6 @@ window.onload = function(){
                     'file_path':file_path,
                 },
                 success: function (data) {
-                    console.log(data);
                         if(data.result1){
                            window.location.reload();
                         }
@@ -322,9 +323,10 @@ window.onload = function(){
             layer.alert('请选择游戏种类');
         } else if(play_id == ''){
             layer.alert('请输入游戏ID');
-        } else if(file_path == ''){
-            layer.alert('请上传交易截图!');
-        }
+        } 
+        // else if(file_path == ''){
+        //     layer.alert('请上传交易截图!');
+        // }
     })
     function userDefined() {
         $('#user_defined').show();

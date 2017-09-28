@@ -20,12 +20,12 @@ Route::group(['middleware' => 'auth'], function () {
 });
 Route::get('/hello', 'helloController@index');
 //上分充值
-Route::get('/reChange', 'ReChangeController@reChange');
+// Route::get('/reChange', 'ReChangeController@reChange');
 
 
 //下分兑换
-Route::get('/exChange', 'ExChangeController@exChange');
-Route::get('/points', 'pointsController@index');
+// Route::get('/exChange', 'ExChangeController@exChange');
+// Route::get('/points', 'pointsController@index');
 Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
 	$action = empty($action)?'index':$action;
 	if(method_exists($controller,$action)){
@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/exChange/uploadFile', 'ExChangeController@uploadFile');
 	Route::post('/coupons/use_card','CouponsController@use_card');
     Route::get('/coupons/index','CouponsController@index');
+    Route::get('/user/messages_list','pointsController@messages_list');
 
 
 	//	Route::get('/user', 'UserController@index');
@@ -110,6 +111,8 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff','middleware' => 'auth.b
     $router->post('xiafenok', 'OrderController@xiafenok');
     $router->post('shangfenok', 'OrderController@shangfenok');
     $router->post('moneychangeok', 'OrderController@moneychangeok');
+    $router->get('getPicPath/{name}', 'OrderController@getPicPath');
+    $router->post('getPayPic/{name}', 'OrderController@getPayPic');
 
     //大转盘设置
     $router->get('wheel/index', 'WheelController@index');

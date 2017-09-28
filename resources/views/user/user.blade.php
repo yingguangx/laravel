@@ -126,7 +126,9 @@
             </div>
             <div class="ps-lt">
                 <div class="lt-dsb">
-                    <p>领取积分</p>
+                 <a href="/user/messages_list">
+                    <p>我的消息</p>
+                  </a>
                     <i class="arr-right"></i>
                 </div>
             </div>
@@ -356,7 +358,7 @@
     }
     function shuruzhanghu()
     {
-        var html = '<span style="color:red;">确认兑换后工作人员将在5分钟内汇款到该支付宝账户，可在个人中心->我的消息列表中查看</span><span style="color:blue;" onclick="morenfangshi()">使用收款码方式</span>';
+        var html = '<span style="color:red;">确认兑换后，可在个人中心->我的消息列表中查看</span><span style="color:blue;" onclick="morenfangshi()">使用收款码方式</span>';
         var html2 = '<div class="row zfbafter"><input type="text" class="form-control" placeholder="请输入您的支付宝账号" name="zfb_number"><input type="text" class="form-control" placeholder="请输入您的支付宝姓名" name="zfb_name"></div>';
          $('.zhifuappend').html(html);
          $('.zhifuappend').after(html2);
@@ -379,10 +381,10 @@
                },
                success: function (data) {
                    if (data.wxewm == null) {
-                    var html = '<span style="color:red;" class="wechatsubmitjudge" judge="no">小提示：请到个人中心我的收款码下上传你的微信收款码，方便工作人员以后打钱到您的微信，或选择其它收款方式</span>';
+                    var html = '<span style="color:red;" class="wechatsubmitjudge" judge="no">小提示：个人中心上传您的微信收款码，收钱更方便</span>';
                     $('.zhifuappend').html(html);
                    } else {
-                     var html = '<span style="color:red;" class="wechatsubmitjudge" judge="yes">小提示：余额兑换后工作人员将对照您个人中心微信收款码，在5分钟内汇款，并在您个人中心我的消息列表中提示</span>';
+                     var html = '<span style="color:red;" class="wechatsubmitjudge" judge="yes">小提示：微信收款码已上传，兑换后请注意查</span>';
                     $('.zhifuappend').html(html);
                    }
                 }
@@ -401,12 +403,12 @@
                },
                success: function (data) {
                    if (data.zfbewm == null) {
-                    var html = '<span style="color:red;" class="zfbsubmitjudge" judge="no">小提示：在个人中心上传支付宝收款码收钱更方便哦！</span>';
+                    var html = '<span style="color:red;" class="zfbsubmitjudge" judge="no">小提示：到个人中心上传支付宝收款码收钱更方便哦！</span>';
                     var html2 = '<div class="row zfbafter"><input type="text" class="form-control" placeholder="请输入您的支付宝账号" name="zfb_number"><input type="text" class="form-control" placeholder="请输入您的支付宝姓名" name="zfb_name"></div>';
                     $('.zhifuappend').html(html);
                     $('.zhifuappend').after(html2);
                    } else {
-                     var html = '<span style="color:red;" class="zfbsubmitjudge" judge="yes">小提示：您可以直接点击确认兑换，工作人员会在5分钟内转钱到您的支付宝账户，也可以选择手动输入账户</span><span onclick="shuruzhanghu()" style="color:blue;">手动输入账户</span>';
+                     var html = '<span style="color:red;" class="zfbsubmitjudge" judge="yes">小提示：支付宝收款码已上传,用其它账号收款请手动输入账户</span><span onclick="shuruzhanghu()" style="color:blue;">手动输入账户</span>';
 
                     $('.zhifuappend').html(html);
                    }

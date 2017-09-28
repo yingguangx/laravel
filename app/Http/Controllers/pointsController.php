@@ -117,7 +117,7 @@ class pointsController extends Controller
            $gather_account = $all['gather_account']; 
            $gather_name = $all['gather_name']; 
         }
-        $insert_arr = array('name'=>$nickName,'money'=>$money,'payeesort'=>$gather_sort,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time()));
+        $insert_arr = array('name'=>$nickName,'money'=>$money,'payeesort'=>$gather_sort,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time()),'user_id'=>$user['id']);
         if (isset($imgUrl) && !isset($gather_account) && !isset($gather_name)) {
             $insert_arr['payeecode'] = $imgUrl;
         } else if(!isset($imgUrl) && isset($gather_account) && isset($gather_name)) {
@@ -177,5 +177,49 @@ class pointsController extends Controller
         ['type','=',2],
         ])->first();
        return response()->json(['zfbewm'=>$zfbewm]);
+    }
+
+    public function messages_list()
+    {
+        $user = Auth::user()->toArray();
+        $messages = DB::table('messages')->where('user_id',$user['id'])->get();
+        $orders = DB::table('order as o')
+        ->leftjoin('game as g','o.game_id','=','g.id')
+        ->where([
+            ['o.status','=',1],
+            ['o.created_at','>=',date('Y-m-d H:i:s',strtotime(date('Y-m-d',time())))],
+            ['o.created_at','<=',date('Y-m-d H:i:s',strtotime(date('Y-m-d',time()))+3600*24)],
+            ['o.user_id','=',$user['id']]
+            ])
+        ->select('g.name as gname','o.type','o.value','o.created_at','o.money')
+        ->get()->toArray();
+        $orders2 = DB::table('money_change')->where([
+            ['user_id','=',$user['id']],
+            ['status','=',1],
+            ['created_at','>=',date('Y-m-d H:i:s',strtotime(date('Y-m-d',time())))],
+            ['created_at','<=',date('Y-m-d H:i:s',strtotime(date('Y-m-d',time()))+3600*24)]
+            ])->select('money','payeesort','created_at')->get()->toArray();
+        $messages_unfinish = array();
+        $num = count($messages_unfinish);
+        foreach ($orders as $key => $order) {
+            if ($order->type == 1) {
+               $messages_unfinish[$num]['content'] = $order->gname.'充值'.$order->value.'万';
+            } else if(($order->type == 2)) {
+                $messages_unfinish[$num]['content'] = $order->gname.'下分'.$order->value.'万';
+            }
+            $messages_unfinish[$num]['order_time'] = $order->created_at;
+            $messages_unfinish[$num]['money'] = $order->money;
+            $messages_unfinish[$num]['type'] =1;
+            $num++;
+        }
+        foreach ($orders2 as $key => $order) {
+            $messages_unfinish[$num]['content'] = '兑换人民币'.$order->money.'元';
+            $messages_unfinish[$num]['order_time'] = $order->created_at;
+            $messages_unfinish[$num]['money'] = $order->payeesort;
+            $messages_unfinish[$num]['type'] =2;
+            $num++;
+        }
+        // dd($messages);
+        return view('messages.messages_list',['messages'=>$messages,'messages_unfinish'=>$messages_unfinish]);
     }
 }
