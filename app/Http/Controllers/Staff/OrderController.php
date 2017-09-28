@@ -135,7 +135,7 @@ class OrderController extends Controller
         $order = DB::table('order')
         ->leftjoin('game','order.game_id','=','game.id')
         ->where('order.id',$id)
-        ->select('order.created_at','game.name as gname','order.value','order.user_id')
+        ->select('order.created_at','game.name as gname','order.value','order.user_id','order.money')
         ->first();
         $bool = $mem->delete('xiafenkey'.$id,0);
         $xiafenkey = $mem->get('xiafenkey');
@@ -143,7 +143,7 @@ class OrderController extends Controller
         $mem->set("xiafenkey",$xiafenkey,MEMCACHE_COMPRESSED,0);
         // unset($xiafenkey[]);
         $bool2 = DB::table('order')->where('id',$id)->update(['status'=>0]);
-        DB::table('messages')->insert(['content'=>'您在'.$order->created_at.$order->gname.'下分'.$order->value.'万订单已完成','user_id'=>$order->user_id,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time())]);
+        DB::table('messages')->insert(['content'=>$order->gname.'下分'.$order->value.'万','user_id'=>$order->user_id,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time()),'money'=>$order->money,'order_time'=>$order->created_at,'type'=>1]);
         return response()->json(['result'=>true]);
     }
      public function shangfenok(Request $request)
@@ -156,7 +156,7 @@ class OrderController extends Controller
         $order = DB::table('order')
         ->leftjoin('game','order.game_id','=','game.id')
         ->where('order.id',$id)
-        ->select('order.created_at','game.name as gname','order.value','order.user_id')
+        ->select('order.created_at','game.name as gname','order.value','order.user_id','order.money')
         ->first();
         $bool = $mem->delete('shangfenkey'.$id,0);
         $shangfenkey = $mem->get('shangfenkey');
@@ -164,7 +164,7 @@ class OrderController extends Controller
         $mem->set("shangfenkey",$shangfenkey,MEMCACHE_COMPRESSED,0);
         // unset($xiafenkey[]);
         $bool2 = DB::table('order')->where('id',$id)->update(['status'=>0]);
-        DB::table('messages')->insert(['content'=>'您在'.$order->created_at.$order->gname.'充值'.$order->value.'万订单已完成','user_id'=>$order->user_id,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time())]);
+        DB::table('messages')->insert(['content'=>$order->gname.'充值'.$order->value.'万','user_id'=>$order->user_id,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time()),'money'=>$order->money,'order_time'=>$order->created_at,'type'=>1]);
         return response()->json(['result'=>true]);
     }
 
@@ -180,7 +180,7 @@ class OrderController extends Controller
         $moneyChangekey = $mem->get('moneyChangekey');
         array_splice($moneyChangekey,array_search('moneyChange'.$id,$moneyChangekey),1);
         $mem->set("moneyChangekey",$moneyChangekey,MEMCACHE_COMPRESSED,0);
-        DB::table('messages')->insert(['content'=>'您在'.$order->created_at.'兑换人民币'.$order->money.'元已转入您微信,请查收','user_id'=>$order->user_id,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time())]);
+        DB::table('messages')->insert(['content'=>'兑换人民币'.$order->money.'元','user_id'=>$order->user_id,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time()),'money'=>$order->payeesort,'order_time'=>$order->created_at,'type'=>2]);
         $bool2 = DB::table('money_change')->where('id',$id)->update(['status'=>0]);
         return response()->json(['result'=>true]);
     }
