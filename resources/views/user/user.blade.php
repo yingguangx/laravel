@@ -126,7 +126,9 @@
             </div>
             <div class="ps-lt">
                 <div class="lt-dsb">
+                 <a href="/user/messages_list">
                     <p>我的消息</p>
+                  </a>
                     <i class="arr-right"></i>
                 </div>
             </div>

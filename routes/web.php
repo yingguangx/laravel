@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/exChange/uploadFile', 'ExChangeController@uploadFile');
 	Route::post('/coupons/use_card','CouponsController@use_card');
     Route::get('/coupons/index','CouponsController@index');
+    Route::get('/user/messages_list','pointsController@messages_list');
 
 
 	//	Route::get('/user', 'UserController@index');
