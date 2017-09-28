@@ -80,7 +80,7 @@
 		    	<?php }}}else{ ?>
 		    	 <li class="clearfix">
 		    			<label>
-			    			没有订单哦！
+			    			没有订单哦，去逛逛吧！
 			    		</label>
 		    	</li>
 		    	<?php } ?>
