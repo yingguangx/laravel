@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Memcache;
 use Illuminate\Support\Facades\Auth;
 
@@ -208,5 +209,19 @@ class OrderController extends Controller
         } else {
             return response()->json(['result'=>false,'error'=>'意外错误']); 
         }
+    }
+
+    //获取图片url
+    public function getPicPath($name)
+    {
+        $path = storage_path().'/app/capture/'.$name;
+        return response()->file($path);
+    }
+
+    //获取付款码
+    public function getPayPic($name)
+    {
+        $path = storage_path().'/fkm/'.$name;
+        return response()->file($path);
     }
 }

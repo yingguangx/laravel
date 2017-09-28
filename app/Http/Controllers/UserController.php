@@ -7,17 +7,10 @@ use App\Models\IntegrationRule;
 use App\Models\Order;
 use App\Models\user_coupon;
 use App\User;
-use Illuminate\Console\Application;
-use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use App\Models\UserPayCode;
-use Memcache;
 
 class UserController extends Controller
 {
@@ -211,7 +204,6 @@ class UserController extends Controller
                 $data['message'] = 'false';
                 return response()->json($data);
             }
-
         }
     }
 

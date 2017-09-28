@@ -38,7 +38,9 @@
                                     <td>{{ $v->payeesort }}</td>
                                     <td>{{ $v->payeeaccount }}</td>
                                     <td>{{ $v->payeename }}</td>
-                                    <td>{{ $v->payeecode }}</td>
+                                    <td>
+                                        <button class="btn btn-success" picName="{{ $v->payeecode }}" onclick="showPic(this)">查看收款码</button>
+                                    </td>
                                     <td>{{ $v->created_at }}</td>
                                     <td>
                                         <button class="btn btn-info moneychangeok" onclick="moneychangeok({{ $v->id }})">设置完成</button>
@@ -70,7 +72,12 @@
 @endsection
 
 @section('jquery')
-<script>
+    <script type="text/javascript" src="{{URL::asset('/js/layui/layui.js')}}"></script>
+
+    <script>
+        layui.use('layer',function(){
+            window.layer = layui.layer;
+        });
      function moneychangeok(id){
            $.ajax({
                url: "/staff/moneychangeok",
@@ -81,9 +88,25 @@
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                },
                success: function (data) {
-                       console.log(data);
-                   }
+                   console.log(data);
+               }
            });
-       }
+     }
+
+     //显示收款码
+    function showPic(obj) {
+        var name = $(obj).attr('picName');
+
+        layer.open({
+            type: 1,
+            title: '查看收款码',
+            closeBtn: 0,
+            area: ['480px', '350px'],
+            offset: '200px',
+            skin: 'layui-layer-nobg',
+            shadeClose: true,
+            content: '<img src="/staff/getPayPic/'+name+'"/>'
+        });
+    }
 </script>
 @endsection
