@@ -79,7 +79,9 @@ class ExChangeController extends Controller
     public function uploadFile(Request $request)
     {
         $path = $request->file('file')->store('capture');
-        return MyWoker::jsonSuccess($path,'','上传成功');
+        $arr = explode('/',$path);
+        $file_name = array_pop($arr);
+        return MyWoker::jsonSuccess($file_name,'','上传成功');
     }
 
     public function test()
