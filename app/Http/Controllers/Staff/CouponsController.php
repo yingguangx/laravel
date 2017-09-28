@@ -21,7 +21,7 @@ class CouponsController extends Controller
     {
         $wheel_model = Wheel_setting::first();
         if(empty($wheel_model)){
-            $wheel_model = ['valid_time'] = '';
+            $wheel_model = ['valid_time'=> ''];
         }
         return view('staff.coupons.index',[
             'wheel_model' => $wheel_model
