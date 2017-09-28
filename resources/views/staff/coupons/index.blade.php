@@ -29,7 +29,7 @@
             <div class="form-group has-feedback">
                 <label for="begintime" class="col-sm-2 control-label"><span class="required"></span>卡券有效时间(天)</label>
                 <div class="col-sm-4">
-                    <input name="valid_time" value="" style="" type="text" class="form-control input-date" id="begintime" placeholder="活动开始时间">
+                    <input name="valid_time" value="<?= $wheel_model['valid_time']?>" style="" type="text" class="form-control input-date" id="begintime" placeholder="活动开始时间">
                     <i class="error form-control-feedback glyphicon glyphicon-remove" data-bv-icon-for="start_time" style="display: none"></i>
                     <small  style="display: none" class="error help-block" data-bv-validator="notEmpty" data-bv-for="start_time" data-bv-result="INVALID" style="">有效时间必须是数字</small>
                 </div>
