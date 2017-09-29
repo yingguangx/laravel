@@ -34,10 +34,10 @@
       display: block;
       margin: 0.045rem 0.25rem 0 0;
       float: left;
-      width: 20px;
-      height: 23px;
+      width: 35px;
+      height: 35px;
       background: url(../images/rt-bk.png) no-repeat;
-      background-size: 24px 23px;
+      background-size: 35px 35px;
     }
     .rt-bk a{
       float: left;
@@ -86,7 +86,7 @@ $(function(){
     {{--<a href="javascript:window.history.go(-1)">--}}
       {{--返回--}}
     {{--</a>--}}
-    <a class="back" style="font-size: 23px;">
+    <a class="back" style="font-size: 35px;">
       返回
     </a>
     <script>
@@ -95,7 +95,7 @@ $(function(){
        })
     </script>
   </div>
-  <div class="top-name"><p style="font-size: 22px;margin-top: 8px;">优惠抽奖</p></div>
+  <div class="top-name"><p style="font-size: 35px;margin-top: 20px;">优惠抽奖</p></div>
 </header>
 <div class="con_chouj">
   <div class="chou_box">
