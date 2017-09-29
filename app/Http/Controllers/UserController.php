@@ -153,7 +153,7 @@ class UserController extends Controller
                     $memArr['money'] = '积分订单';
                     $memArr['value'] = $data['value'];
                     $memArr['account'] = $obj->game_account;
-                    $memArr['time'] = $obj->created_at;
+                    $memArr['time'] =date('Y-m-d H:i:s');
                     $memArr['id'] = $insertId;
                     $memArr = serialize($memArr);
                     get_memcache('shangfenkey', $insertId, $memArr);
