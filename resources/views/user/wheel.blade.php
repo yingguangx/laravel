@@ -194,7 +194,7 @@ $(function(){
         var new_luck_list ;
         $.get("<?= Route('wheel.award')?>",{},function(data){
             if(data.code==400){
-                $.alert(data.msg);
+                custom_dialog(data.msg);
                 return false;
             }
             turnplate.restaraunts = data.data.restaraunts;
@@ -252,9 +252,8 @@ $(function(){
                 success:function(data){
                     item = data.data.item;
                     if(data.code==400){
-                        $.alert(data.msg,function(){
-                            turnplate.bRotate=false;
-                        });
+                        turnplate.bRotate=false;
+                        custom_dialog(data.msg);
                         return false;
                     }
                     new_luck_list = data.data.new_luck_list;
