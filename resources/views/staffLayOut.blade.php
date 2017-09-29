@@ -149,9 +149,14 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                        if (data.xiafenorders.length != 0) {
                             var html="";
                             $.each(data.xiafenorders, function (i, item) {
+                                if (item.path == null) {
+                                    var path_html = '';
+                                } else {
+                                    var path_html = '<button class="btn btn-success" picName="'+item.path+'" onclick="showPic(this)">查看截图</button>';
+                                }
                                 // console.log(item.user_name);
                                 num++;
-                                html = html+"<tr><td>"+item.id+"</td><td>"+item.user_name+"</td><td>"+item.game_name+"</td><td>"+item.money+"</td><td>"+item.txt+"</td><td>"+item.created_at+'</td><td><button class="btn btn-success" picName="'+item.path+'" onclick="showPic(this)">查看截图</button></td><td><button class="btn btn-info" onclick="xiafenok('+item.id+')">下分完成</button></td></tr>';
+                                html = html+"<tr><td>"+item.id+"</td><td>"+item.user_name+"</td><td>"+item.game_name+"</td><td>"+item.money+"</td><td>"+item.txt+"</td><td>"+item.created_at+'</td><td>'+path_html+'</td><td><button class="btn btn-info" onclick="xiafenok('+item.id+')">下分完成</button></td></tr>';
                             })
                            $('.xiafenorder').text('+'+num);
                            $('.xiafenorderappend').html(html);
