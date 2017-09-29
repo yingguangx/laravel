@@ -194,15 +194,15 @@ class OrderController extends Controller
     public function money_insert(Request $request)
     {
         $all = $request->all();
-        $user = Auth::user()->toArray();
-        $money_before_arr = DB::table('users')->where('key',$all['key'])->select('money')->first();
+        // $user = Auth::user()->toArray();
+        $money_before_arr = DB::table('users')->where('key',$all['key'])->select('money','id')->first();
         if ($money_before_arr != null) {
             $money_before =  $money_before_arr->money;
         } else {
             return response()->json(['result'=>false,'error'=>'交易码不存在']); 
         }
         $money_now = (int)$money_before+(int)$all['money'];
-        DB::table('money_insert')->insert(['money'=>$all['money'],'user_id'=>$user['id'],'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time())]);
+        DB::table('money_insert')->insert(['money'=>$all['money'],'user_id'=>$money_before_arr->id,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time())]);
         $bool = DB::table('users')->where('key',$all['key'])->update(['money'=> $money_now]);
         if ($bool) {
             return response()->json(['result'=>true]); 

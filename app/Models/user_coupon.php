@@ -38,8 +38,8 @@ class user_coupon extends Model
                 ->orderBy('create_time','desc')
                 ->join(Prize_detail::tableName().' as pd','pd.prize_detail_id','=',$table_name.'.prize_detail_id');
         ;
-        $un_used = (clone $query)->where('is_used','=',0)->where('expire_time','>=',time());
-        $used_query = (clone $query)->where('expire_time','<',time());
+        $un_used =(clone $query)->where('is_used','=',0)->where('expire_time','>=',time());
+        $used_query =(clone $query)->where('expire_time','<',time());
 
         return [
           'un_used'=>[

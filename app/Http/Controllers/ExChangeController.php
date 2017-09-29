@@ -96,7 +96,7 @@ class ExChangeController extends Controller
             die('连接失败');
         }
         // $mem->set("aa",'hehe',MEMCACHE_COMPRESSED,0);
-        dd($mem->get('shangfenkey93'));
+        dd($mem->get('shangfenkey'));
      
     }
 }
