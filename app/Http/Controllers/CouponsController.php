@@ -75,7 +75,7 @@ class CouponsController extends Controller
             $memArr['money'] = '卡券';
             $memArr['value'] = $prize;
             $memArr['account'] = $request->input('game_account');
-            $memArr['time'] = date('Y-m-d H:i:s');
+            $memArr['time'] = date('Y-m-d H:i:s',time());
             $memArr['id'] = $order->id;
             $memArr = serialize($memArr);
             get_memcache('shangfenkey',$order->id,$memArr);
