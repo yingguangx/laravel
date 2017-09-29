@@ -325,7 +325,7 @@
             });
 
             //游戏选项变化的事件
-            $('body').on('click','#selType',function(){
+            $('body').on('change','#selType',function(){
 
                 var game_id = $(this).find('option:selected').val();
                 var game_detail = game_list['game_id'];

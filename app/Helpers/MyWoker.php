@@ -44,6 +44,9 @@ class MyWoker
      */
     public static function format_time($time,$delimiter='-',$hms=false)
     {
+        if(empty($time)){
+            return '';
+        }
         if(empty($hms)){
             return date('Y'.$delimiter.'m'.$delimiter.'d',$time);
         }
