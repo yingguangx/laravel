@@ -85,16 +85,16 @@ class ReChangeController extends Controller
             $user -> save();
 
             //上分订单存入memcache
-//            $memArr = Array();
-//            $memArr['name'] = $user -> nickName;
-//            $memArr['type'] = $this::getGameName($data['game_id']);
-//            $memArr['money'] = $money;
-//            $memArr['value'] = $data['value'];
-//            $memArr['account'] = $obj->game_account;
-//            $memArr['time'] = date('Y-m-d H:i:s',time());
-//            $memArr['id'] = $insertId;
-//            $memArr = serialize($memArr);
-//            get_memcache('shangfenkey', $insertId, $memArr);
+            $memArr = Array();
+            $memArr['name'] = $user -> nickName;
+            $memArr['type'] = $this::getGameName($data['game_id']);
+            $memArr['money'] = $money;
+            $memArr['value'] = $data['value'];
+            $memArr['account'] = $obj->game_account;
+            $memArr['time'] = date('Y-m-d H:i:s',time());
+            $memArr['id'] = $insertId;
+            $memArr = serialize($memArr);
+            get_memcache('shangfenkey', $insertId, $memArr);
 
             $arr = array();
             $arr['msg'] = true;
