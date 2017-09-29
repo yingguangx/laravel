@@ -25,13 +25,13 @@ Route::get('/hello', 'helloController@index');
 
 //下分兑换
 // Route::get('/exChange', 'ExChangeController@exChange');
-// Route::get('/points', 'pointsController@index');
-Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
-	$action = empty($action)?'index':$action;
-	if(method_exists($controller,$action)){
-		return $controller->$action();
-	}
-});
+//// Route::get('/points', 'pointsController@index');
+//Route::get('/coupons/{action?}', function(\App\Http\Controllers\CouponsController $controller,$action=null){
+//	$action = empty($action)?'index':$action;
+//	if(method_exists($controller,$action)){
+//		return $controller->$action();
+//	}
+//});
 //Route::group(['middleware' => ['web', 'wechat.oauth']], function () {
 Route::group(['middleware' => ['auth']], function () {
 	Route::get('/home', 'HomeController@index')->name('home');
@@ -46,6 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/exChange/uploadFile', 'ExChangeController@uploadFile');
 	Route::post('/coupons/use_card','CouponsController@use_card');
     Route::get('/coupons/index','CouponsController@index');
+    Route::get('/coupons/getGamesinfo', 'CouponsController@getGamesinfo');
     Route::get('/user/messages_list','pointsController@messages_list');
 
 
