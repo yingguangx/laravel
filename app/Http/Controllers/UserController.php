@@ -144,7 +144,7 @@ class UserController extends Controller
                         $obj -> $k = $v;
                     }
                     $obj -> save();
-                    $insertId = $obj -> id;
+//                    $insertId = $obj -> id;
                   
                     $user = User::find($id);
                     $user -> integration = sprintf("%.2f", $user['integration']-$integration);
@@ -158,9 +158,9 @@ class UserController extends Controller
                     $memArr['value'] = $data['value'];
                     $memArr['account'] = $obj->game_account;
                     $memArr['time'] = date('Y-m-d H:i:s',time());
-                    $memArr['id'] = $insertId;
+                    $memArr['id'] = $obj -> id;
                     $memArr = serialize($memArr);
-                    get_memcache('shangfenkey', $insertId, $memArr);
+                    get_memcache('shangfenkey', $obj -> id, $memArr);
 
 
                     //返回数据类型
