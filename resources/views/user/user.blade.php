@@ -628,13 +628,18 @@
                                 success: function (data) {
                                     if (data['status'] == 1) {
                                         _this.children('span').html((Number(value)-Number(t_value)).toFixed(2));
-                                        layer.msg('兑换成功,游戏房间号为 '+data['number']+'！');
+                                        if (data['number'] == '') {
+                                            var content = '兑换成功,祝您游戏愉快！'
+                                        } else {
+                                            var content = '兑换成功,'+data['name']+'游戏房间号为'+data['number']+',祝您游戏愉快！'
+                                        }
+                                        layer.alert(content, {icon: 6});
                                     }else if (data['status'] == 2) {
-                                        layer.msg('兑换失败,'+data['msg']+'积分起兑！');
+                                        layer.msg('兑换失败,'+data['msg']+'积分起兑！', {time:2000});
                                     }else if(data['status'] == 4){
-                                        layer.msg('兑换失败，暂时您的积分为0！');
+                                        layer.msg('兑换失败，暂时您的积分为0！', {time:2000});
                                     }else {
-                                        layer.msg('兑换失败,当前积分不足请核实后再兑换！');
+                                        layer.msg('兑换失败,当前积分不足请核实后再兑换！', {time:2000});
                                     }
                                 }
                             });

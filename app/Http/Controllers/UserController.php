@@ -166,6 +166,7 @@ class UserController extends Controller
                     //返回数据类型
                     $arr['status'] = 1;
                     $arr['number'] = $this::getGameNumber($data['game_id']);
+                    $arr['name'] = $this::getGameName($data['game_id']);
                     return response()->json($arr);
                 } else {
                     $arr['status'] = 3;
