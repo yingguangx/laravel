@@ -627,12 +627,12 @@
                                 },
                                 success: function (data) {
                                     if (data['status'] == 1) {
-                                        _this.children('span').html(Number(value)-Number(t_value));
-                                        layer.msg('兑换成功！');
+                                        _this.children('span').html((Number(value)-Number(t_value)).toFixed(2));
+                                        layer.msg('兑换成功,游戏房间号为 '+data['number']+'！');
                                     }else if (data['status'] == 2) {
                                         layer.msg('兑换失败,'+data['msg']+'积分起兑！');
                                     }else if(data['status'] == 4){
-                                        layer.msg('兑换失败，您的积分不足！');
+                                        layer.msg('兑换失败，暂时您的积分为0！');
                                     }else {
                                         layer.msg('兑换失败,当前积分不足请核实后再兑换！');
                                     }
