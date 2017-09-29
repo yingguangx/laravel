@@ -18,7 +18,12 @@ class Wheel_setting extends Model
     {
         $ctime = time();
 
-        $data = self::first(['start_time','finish_time'])->toArray();
+        $data = self::first(['start_time','finish_time']);
+        if(empty($data)){
+            return false;
+        }else{
+            $data = $data ->toArray();
+        }
 
         //没有设置活动时间
         if(empty($data)){
