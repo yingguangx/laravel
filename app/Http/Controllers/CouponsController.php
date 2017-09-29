@@ -79,7 +79,8 @@ class CouponsController extends Controller
             $memArr['id'] = $order->id;
             $memArr = serialize($memArr);
             get_memcache('shangfenkey',$order->id,$memArr);
-            return MyWoker::jsonSuccess([],'','使用卡券成功！可在个人中心我的消息列表查看具体详情');
+
+            return MyWoker::jsonSuccess([],'','使用卡券成功！几分钟后前往个人中心消息列表查看进度');
         }
     }
 
