@@ -20,7 +20,7 @@ class Wheel_setting extends Model
 
         $data = self::first(['start_time','finish_time']);
         if(empty($data)){
-            return false;
+            return true;
         }else{
             $data = $data ->toArray();
         }
@@ -45,7 +45,12 @@ class Wheel_setting extends Model
      */
     public static function get_act_time()
     {
-        $data = self::first(['start_time','finish_time'])->toArray();
+        $data = self::first(['start_time','finish_time']);
+        if(empty($data)){
+            return '';
+        }else{
+            $data=  $data -> toArray();
+        }
         if(!empty($data)){
             return MyWoker::format_time($data['start_time'],'-',true).'至'.MyWoker::format_time($data['finish_time'],'-',true);
         }

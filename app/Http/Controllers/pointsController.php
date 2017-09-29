@@ -66,7 +66,7 @@ class pointsController extends Controller
     {
         //判断该大转盘活动是否开启
         if(!Wheel_setting::is_open()){
-            return MyWoker::jsonFail('','','该活动有效时间是'.Wheel_setting::get_act_time().',已经停止,敬请期待');
+            return MyWoker::jsonFail('','','该活动有效时间是'..',已经停止,敬请期待');
         }
 
         //判断该用户当天是否可玩大转盘
