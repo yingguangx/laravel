@@ -151,7 +151,7 @@ class UserController extends Controller
                     $obj -> save();
 
                     //积分兑换订单存入memcache
-//                     $memArr = Array();
+                    $memArr = Array();
                     $memArr['name'] = $user['nickName'];
                     $memArr['type'] = $this::getGameName($data['game_id']);
                     $memArr['money'] = '积分订单';
