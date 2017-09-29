@@ -138,32 +138,34 @@ class UserController extends Controller
                 if ($data['value'] <= $user['integration']) {
                     $rate = $rule->start_value;
                     $value = $rule->get_value;
-                    $data['value'] = $data['value']/$rate*$value;
+                    $data['value'] = $data['value']*$value/$rate;
 
                     foreach ($data as $k=> $v) {
                         $obj -> $k = $v;
                     }
-                    $obj->save();
                     $insertId = $obj -> id;
 
-                    //积分兑换订单存入memcache
-                    $memArr = Array();
-                    $memArr['name'] = $user['nickName'];
-                    $memArr['type'] = $this::getGameName($data['game_id']);
-                    $memArr['money'] = '积分订单';
-                    $memArr['value'] = $data['value'];
-                    $memArr['account'] = $obj->game_account;
-                    $memArr['time'] = $obj->created_at;
-                    $memArr['id'] = $insertId;
-                    $memArr = serialize($memArr);
-                    get_memcache('shangfenkey', $insertId, $memArr);
-
                     $user = User::find($id);
-                    $user -> integration = $user['integration'] - $integration;
+                    $user -> integration = sprintf("%.2f", $user['integration']-$integration);
                     $user -> save();
+                    $obj -> save();
+
+                    //积分兑换订单存入memcache
+//                    $memArr = Array();
+//                    $memArr['name'] = $user['nickName'];
+//                    $memArr['type'] = $this::getGameName($data['game_id']);
+//                    $memArr['money'] = '积分订单';
+//                    $memArr['value'] = $data['value'];
+//                    $memArr['account'] = $obj->game_account;
+//                    $memArr['time'] = $obj->created_at;
+//                    $memArr['id'] = $insertId;
+//                    $memArr = serialize($memArr);
+//                    get_memcache('shangfenkey', $insertId, $memArr);
+
 
                     //返回数据类型
                     $arr['status'] = 1;
+                    $arr['number'] = $this::getGameNumber($data['game_id']);
                     return response()->json($arr);
                 } else {
                     $arr['status'] = 3;
@@ -212,6 +214,13 @@ class UserController extends Controller
     {
         $game = Game::find($id);
         return $game -> name;
+    }
+
+    //获取房间号
+    public static function getGameNumber($id)
+    {
+        $game = Game::find($id);
+        return $game -> up_game_room;
     }
 }
 

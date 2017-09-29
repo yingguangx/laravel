@@ -68,9 +68,8 @@ class ReChangeController extends Controller
             return response()->json(false);
         } else {
             $rule = IntegrationRule::find(1);
-            if ($money >= $rule['limit_value']) {
-                $this::userAddIntegration($data['user_id'], $data['money'], $rule);
-            }
+
+            $this::userAddIntegration($data['user_id'], $data['money'], $rule);
 
             $obj = new Order();
             foreach ($data as $k => $v) {
@@ -101,8 +100,8 @@ class ReChangeController extends Controller
     //客户积分存储
     public static function userAddIntegration($user_id, $money, $obj)
     {
-        $multiple = (int)floor($money/$obj['limit_value']);
-        $integration = $multiple*$obj['integration'];
+        $each = $obj['integration']/$obj['limit_value'];
+        $integration = (float)$money*$each;
 
         $user = User::find($user_id);
         $user -> integration = $user['integration'] + $integration;

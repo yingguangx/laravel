@@ -99,13 +99,10 @@
 
         layer.open({
             type: 1,
-            title: '查看收款码',
-            closeBtn: 0,
-            area: ['480px', '350px'],
-            offset: '200px',
-            skin: 'layui-layer-nobg',
-            shadeClose: true,
-            content: '<img src="/staff/getPayPic/'+name+'"/>'
+            area: '30%',
+            offset: '100px',
+            title:'我的收款码',
+            content: '<img src="/staff/getPayPic/'+name+'"/ width="100%">'
         });
     }
 </script>
