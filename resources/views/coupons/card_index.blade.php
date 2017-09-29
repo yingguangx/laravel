@@ -317,7 +317,34 @@
                             '</div>'+
                             '<div class="clear"></div>'+
                             '</div>';
+
         $(function(){
+            var game_list;
+            $.get("<?= URL::to('/coupons/getGamesinfo')?>",{'aa':'bb'},function(data){
+                game_list = data.result1;
+            });
+
+            //游戏选项变化的事件
+            $('body').on('click','#selType',function(){
+
+                var game_id = $(this).find('option:selected').val();
+                var game_detail = game_list['game_id'];
+                if(game_list[game_id]){
+                    var length = $('.weui-dialog__bd').find('.sfdetail').length;
+
+                    if(!game_list[game_id]['up_game_room']){
+                        $('.weui-dialog__bd').find('.sfdetail').remove();
+                        return false;
+                    }
+                    var html =  '<div class="sel_type clearfix sfdetail"><div class="fl typeP"><p>上分详情:</p></div><div class="fl typeSel" style="padding-top:9px;color:blue;font-size:12px">上分请进'+game_list[game_id]['up_game_room']+'</div><div class="clear"></div></div>';
+                    if(length == 0){
+                        $('.weui-dialog__bd').append(html);
+                    }else{
+                        $('.weui-dialog__bd').find('.sfdetail').remove().append(html);
+                    }
+                }
+            })
+
             $('.coupons-div li.active img').attr('src',"<?php echo URL::asset('image/coupons/award_bg1.png')?>");
             $('.coupons-div li').click(function(){
                 var index = $('.coupons-div li').index($(this));

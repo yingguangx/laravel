@@ -83,6 +83,20 @@ class CouponsController extends Controller
         }
     }
 
+    public function getGamesinfo(Request $request)
+    {
+        $games = DB::table('game')->select('id','hhwx_rate','business_id','name','up_game_room','down_game_room')->get()->toArray();
+        // dd($games);
+        $arr1 = [];
+        foreach ($games as $key => $game) {
+            $arr1[$game->id]['hhwx_rate'] = $game->hhwx_rate;
+            $arr1[$game->id]['business_id'] = $game->business_id;
+            $arr1[$game->id]['name'] = $game->name;
+            $arr1[$game->id]['up_game_room'] = $game->up_game_room;
+        }
+        return response()->json(['result1'=>$arr1]);
+    }
+
 
 
 }
