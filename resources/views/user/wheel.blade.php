@@ -34,14 +34,17 @@
       display: block;
       margin: 0.045rem 0.25rem 0 0;
       float: left;
-      width: 0.15rem;
-      height: 0.24rem;
+      width: 20px;
+      height: 23px;
       background: url(../images/rt-bk.png) no-repeat;
-      background-size: 0.15rem 0.24rem;
+      background-size: 24px 23px;
     }
     .rt-bk a{
       float: left;
       margin-top: -5px;
+    }
+    header{
+      margin-bottom:5px;
     }
   </style>
 <script type="text/javascript" src="{{URL::asset('js/jquery-1.8.0.min.js')}}"></script>
@@ -83,16 +86,16 @@ $(function(){
     {{--<a href="javascript:window.history.go(-1)">--}}
       {{--返回--}}
     {{--</a>--}}
-    <a class="back">
+    <a class="back" style="font-size: 23px;">
       返回
     </a>
     <script>
        $('.back').click(function(){
-           location.href="<?php echo URL::to('/user')?>";
+           location.href="<?php use Illuminate\Support\Facades\URL;echo URL::to('/user')?>";
        })
     </script>
   </div>
-  <div class="top-name"><p>优惠抽奖</p></div>
+  <div class="top-name"><p style="font-size: 22px;margin-top: 8px;">优惠抽奖</p></div>
 </header>
 <div class="con_chouj">
   <div class="chou_box">
@@ -169,6 +172,24 @@ $(function(){
         bRotate:false				//false:停止;ture:旋转
     };
 
+    /**
+     * 自定义对话框显示
+     * @param msg
+     */
+    function custom_dialog(msg)
+    {
+        var coupons_url = '<?php echo URL::to('/coupons/index')?>';
+        $.modal({
+            title: "提示",
+            text: msg,
+            buttons: [
+                { text: "确认", onClick: function(){ $.closeModal()} },
+                { text: "继续抽奖",onClick: function(){$('.pointer').trigger('click') }},
+                { text: "查看卡劵", onClick: function(){location.href=coupons_url;} },
+            ]
+        });
+    }
+
     $(document).ready(function(){
         var new_luck_list ;
         $.get("<?= Route('wheel.award')?>",{},function(data){
@@ -180,8 +201,6 @@ $(function(){
             turnplate.colors = data.data.color;
             drawRouletteWheel();
         });
-
-
         var rotateTimeOut = function (){
             $('#wheelcanvas').rotate({
                 angle:0,
@@ -211,10 +230,11 @@ $(function(){
                         var list = new_luck_list;
                         var html = '<li><span class="txt"><font>'+list.name+'</font></span><strong class="num">'+list.nickName+'</strong></li>';
                         $('ul.mulitline').append(html);
-                        $.alert('恭喜你中了'+txt+'的卡券,可在个人中心我的卡券页面查看并使用');
+//                        $.alert('恭喜你中了'+txt+'的卡券,可在个人中心我的卡券页面查看并使用');
+                        custom_dialog('恭喜你中了'+txt+'的卡券,可在个人中心我的卡券页面查看并使用');
                         $('ul.mulitline').trigger('mouseleave');
                     }else{
-                        $.alert(txt);
+                        custom_dialog(txt);
                     }
                     turnplate.bRotate = !turnplate.bRotate;
                 }
