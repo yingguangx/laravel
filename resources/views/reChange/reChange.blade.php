@@ -8,11 +8,6 @@
     <script type="text/javascript" src="{{ asset('js/jquery-1.8.2.min.js') }}" ></script>
     <title>集结号上分充值</title>
 </head>
-<style>
-    .layui-layer-btn0 {
-        float: left;
-    }
-</style>
 <body>
 <!--头部  star-->
 <header>
@@ -149,7 +144,8 @@
                             +'</div>';
 
                     layer.confirm(content, {
-                        btn: ['取消','确定']
+                        btn: ['取消','确定'],
+                        title: '上分详情'
                     }, function(){
                         layer.closeAll('dialog');
                     }, function(){
@@ -164,10 +160,26 @@
                                 value:data['value'],
                             },
                             success:function(data){
-                                if (data) {
-                                    layer.msg('下单成功!!工作人员正在上分,请稍等大约一分钟后,即可进行游戏！！');
+                                if (data['msg']) {
+                                    if (data['number'] == '') {
+                                        var content = '上分成功,祝您游戏愉快！'
+                                    } else {
+                                        var content = '上分成功,'+data['name']+'游戏房间号为'+data['number']+',祝您游戏愉快！'
+                                    }
+
+                                    layer.confirm(content, {
+                                        btn: ['确定'],
+                                        icon: 6
+                                    }, function(){
+                                        window.location.reload();
+                                    });
                                 } else {
-                                    layer.msg('下单失败，请前往个人中心查看余额是否足够！！');
+                                    layer.confirm('上分失败,请核实账户余额！', {
+                                        btn: ['确定'],
+                                        icon: 5
+                                    }, function(index){
+                                        layer.close(index);
+                                    });
                                 }
                             }
                         })

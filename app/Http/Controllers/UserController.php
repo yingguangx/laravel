@@ -144,8 +144,7 @@ class UserController extends Controller
                         $obj -> $k = $v;
                     }
                     $obj -> save();
-//                    $insertId = $obj -> id;
-                  
+
                     $user = User::find($id);
                     $user -> integration = sprintf("%.2f", $user['integration']-$integration);
                     $user -> save();
