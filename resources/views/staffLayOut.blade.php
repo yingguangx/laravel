@@ -127,7 +127,7 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                },
                success: function (data) {
-                console.log(data);
+                // console.log(data);
                         $('.xiafenorder').text('');
                         $('.xiafenorderappend').html('');
                         $('.moneychangeorder').text('');
@@ -138,10 +138,11 @@ $('<audio id="chatAudio"><source src="{{URL::asset("audio/song.mp3")}}" type="au
                             var num2 = 0;
                             var num3 = 0;
                         if (data.shangfenorders.length != 0) {
+                            console.log(data.shangfenorders);
                             var html="";
                             $.each(data.shangfenorders, function (i, item) {
                                 num3++;
-                                html = html+"<tr><td>"+item.id+"</td><td>"+item.name+"</td><td>"+item.type+"</td><td>"+item.money+"</td><td>"+item.value+"</td><td>"+item.account+'</td><td>'+item.time.date+'</td><td><button class="btn btn-info" onclick="shangfenok('+item.id+')">上分完成</button></td></tr>';
+                                html = html+"<tr><td>"+item.id+"</td><td>"+item.name+"</td><td>"+item.type+"</td><td>"+item.money+"</td><td>"+item.value+"</td><td>"+item.account+'</td><td>'+item.time+'</td><td><button class="btn btn-info" onclick="shangfenok('+item.id+')">上分完成</button></td></tr>';
                             })
                            $('.shangfenorder').text('+'+num3);
                            $('.shangfenorderappend').html(html);
