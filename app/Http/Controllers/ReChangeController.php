@@ -65,7 +65,9 @@ class ReChangeController extends Controller
         //获取用余额
         $balance = $user['money'];
         if ($data['money'] > $balance) {
-            return response()->json(false);
+            $arr = array();
+            $arr['msg'] = false;
+            return response()->json($arr);
         } else {
             $rule = IntegrationRule::find(1);
 
@@ -83,17 +85,22 @@ class ReChangeController extends Controller
             $user -> save();
 
             //上分订单存入memcache
-            $memArr = Array();
-            $memArr['name'] = $user -> nickName;
-            $memArr['type'] = $this::getGameName($data['game_id']);
-            $memArr['money'] = $money;
-            $memArr['value'] = $data['value'];
-            $memArr['account'] = $obj->game_account;
-            $memArr['time'] = date('Y-m-d H:i:s',time());
-            $memArr['id'] = $insertId;
-            $memArr = serialize($memArr);
-            get_memcache('shangfenkey', $insertId, $memArr);
-            return response()->json(true);
+//            $memArr = Array();
+//            $memArr['name'] = $user -> nickName;
+//            $memArr['type'] = $this::getGameName($data['game_id']);
+//            $memArr['money'] = $money;
+//            $memArr['value'] = $data['value'];
+//            $memArr['account'] = $obj->game_account;
+//            $memArr['time'] = date('Y-m-d H:i:s',time());
+//            $memArr['id'] = $insertId;
+//            $memArr = serialize($memArr);
+//            get_memcache('shangfenkey', $insertId, $memArr);
+
+            $arr = array();
+            $arr['msg'] = true;
+            $arr['name'] = $this::getGameName($data['game_id']);
+            $arr['number'] = $this::getGameNumber($data['game_id']);
+            return response()->json($arr);
         }
     }
 
@@ -113,5 +120,12 @@ class ReChangeController extends Controller
     {
         $game = Game::find($id);
         return $game -> name;
+    }
+
+    //获取房间号
+    public static function getGameNumber($id)
+    {
+        $game = Game::find($id);
+        return $game -> up_game_room;
     }
 }
