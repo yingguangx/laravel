@@ -53,6 +53,12 @@ class MyWoker
 
     public static function get_deadline($start_time,$expire_day)
     {
+        //默认三天有效期
+        if(empty($expire_day)){
+            $expire_day = 3;
+        }else{
+            $expire_day = $expire_day -> valid_time;
+        }
         $ctime_begin = mktime(0,0,0,date('m',$start_time),date('d',$start_time),date('Y',$start_time));
         return $ctime_begin + ($expire_day)*3600*24+3600*24-1;
     }
