@@ -52,7 +52,7 @@ class ExChangeController extends Controller
 		    ['game_id' => $all['play_sort'], 'game_account' => $all['play_id'],'value'=>$all['txt'],'money'=>$money,'xiafen_picture'=>$all['file_path'],'user_id'=>$user['id'],'created_at'=>date('Y-m-d H:i:s',time()),'type'=>2]
 		);
         $game_name = DB::table('game')->where('id',$all['play_sort'])->pluck('name')->toArray()[0];
-        $user_name = DB::table('users')->where('id',1)->pluck('name')->toArray()[0];
+        $user_name = DB::table('users')->where('id',$user['id'])->pluck('name')->toArray()[0];
     	if ($mem->get('xiafenkey') == false){
     		$mem->set('xiafenkey', ["xiafenkey".$id],MEMCACHE_COMPRESSED,0);
     	} else {

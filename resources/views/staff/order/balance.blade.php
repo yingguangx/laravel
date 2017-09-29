@@ -39,7 +39,9 @@
                                     <td>{{ $v->payeeaccount }}</td>
                                     <td>{{ $v->payeename }}</td>
                                     <td>
+                                    @if ($v->payeecode != null)
                                         <button class="btn btn-success" picName="{{ $v->payeecode }}" onclick="showPic(this)">查看收款码</button>
+                                    @endif
                                     </td>
                                     <td>{{ $v->created_at }}</td>
                                     <td>
