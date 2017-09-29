@@ -112,7 +112,7 @@ Route::group(['prefix' => 'staff','namespace' => 'Staff','middleware' => 'auth.b
     $router->post('shangfenok', 'OrderController@shangfenok');
     $router->post('moneychangeok', 'OrderController@moneychangeok');
     $router->get('getPicPath/{name}', 'OrderController@getPicPath');
-    $router->post('getPayPic/{name}', 'OrderController@getPayPic');
+    $router->get('getPayPic/{name}', 'OrderController@getPayPic');
 
     //大转盘设置
     $router->get('wheel/index', 'WheelController@index');
