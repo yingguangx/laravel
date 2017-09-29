@@ -152,7 +152,7 @@
                     success:function(data){
                         if (data) {
                             layer.msg('修改成功！！', {time:1500});
-                            window.location.reload();
+//                            window.location.reload();
                         }
                     }
                 })
