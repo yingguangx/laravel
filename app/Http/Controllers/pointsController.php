@@ -40,7 +40,7 @@ class pointsController extends Controller
         }
         return view('user.wheel',[
                'award_list'=> Prize_detail::award_list(),
-               'rules'     => Wheel_setting::first(['rules'])->toArray()['rules'],
+               'rules'     => empty(Wheel_setting::first(['rules']))?'':Wheel_setting::first(['rules'])->toArray()['rules'],
                'luck_list' => user_coupon::luck_list(),
             ]
         );
