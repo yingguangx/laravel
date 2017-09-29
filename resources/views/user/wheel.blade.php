@@ -80,9 +80,17 @@ $(function(){
 <header>
   <div class="rt-bk clearfix">
     <i class="bk"></i>
-    <a href="javascript:window.history.go(-1)">
+    {{--<a href="javascript:window.history.go(-1)">--}}
+      {{--返回--}}
+    {{--</a>--}}
+    <a class="back">
       返回
     </a>
+    <script>
+       $('.back').click(function(){
+           location.href="<?php echo URL::to('/user')?>";
+       })
+    </script>
   </div>
   <div class="top-name"><p>优惠抽奖</p></div>
 </header>

@@ -86,23 +86,8 @@ class ExChangeController extends Controller
 
     public function test()
     {
-    	$mem = new Memcache;
-    	if (!$mem->connect('127.0.0.1',11211)){
-    		die('连接失败');
-    	}
-        //   $mem->set('a11','1',MEMCACHE_COMPRESSED,0);
-        // $mem->set('a22',['11','22','33'],MEMCACHE_COMPRESSED,0);
-         // dd($mem->get('moneyChangekey'));
-        // dd($mem->get('moneyChangekey')); 
-        // dd($mem->get('xiafenkey41')); 
-        // $mem = $mem->set('xiafenkey',['xiafenkey40','xiafenkey41']);
-        // dd($mem->get($mem->get('shangfenkey')));
-        // dd($mem->get('xiafenkey'));
-    	// dd($mem->get('aa1'));
-        // $mem->delete('xiafenkey13',0);
-        // $mem->delete('xiafenkey',0);
-        // $mem->delete('xiafenkey14',0); 
-        // $mem->delete('xiafenkey17',0); 
+    	 $imgUrl_arr = DB::table('user_pay_codes')->where('user_id',53)->pluck('imgUrl','type');
+         dd($imgUrl_arr);
     }
     public function test2()
     {
@@ -110,7 +95,8 @@ class ExChangeController extends Controller
         if (!$mem->connect('127.0.0.1',11211)){
             die('连接失败');
         }
-        serialize([11,22]);
+        $mem->set("aa",'hehe',MEMCACHE_COMPRESSED,0);
+        dd($mem->get('aa'));
      
     }
 }

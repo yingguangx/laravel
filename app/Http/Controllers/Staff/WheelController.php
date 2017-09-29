@@ -17,9 +17,17 @@ class WheelController extends Controller
 {
     public function index()
     {
-        $base_setting = Wheel_setting::first()->toArray();
-        $base_setting['start_time'] =  MyWoker::format_time($base_setting['start_time'],'-',true);
-        $base_setting['finish_time'] =  MyWoker::format_time($base_setting['finish_time'],'-',true);
+        $base_setting = Wheel_setting::first();
+        if(empty($base_setting)){
+            $base_setting = [];
+            $base_setting['play_num'] = 0;
+            $base_setting['rules'] = '';
+            $base_setting['start_time'] = '';
+            $base_setting['finish_time'] = '';
+        }else{
+            $base_setting['start_time'] =  MyWoker::format_time($base_setting['start_time'],'-',true);
+            $base_setting['finish_time'] =  MyWoker::format_time($base_setting['finish_time'],'-',true);
+        }
 
         $award_list = Prize_detail::award_list();
         return view('staff.wheel.index',[
@@ -33,7 +41,8 @@ class WheelController extends Controller
     {
         $wheel_model = Wheel_setting::first();
         if(empty($wheel_model)){
-            $res = (new Wheel_setting(self::format_time($request->all())))->save();
+            $insert = array_merge($request->all(),['valid_time'=>10]);
+            $res = (new Wheel_setting(self::format_time($insert)))->save();
         }else{
             $res = $wheel_model->update(self::format_time($request->all()));
         }
