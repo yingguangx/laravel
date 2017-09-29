@@ -182,7 +182,11 @@ class pointsController extends Controller
     public function messages_list()
     {
         $user = Auth::user()->toArray();
-        $messages = DB::table('messages')->where('user_id',$user['id'])->get();
+        $messages = DB::table('messages')->where([
+            ['user_id',$user['id']],
+            ['created_at','>=',date('Y-m-d H:i:s',strtotime(date('Y-m-d',time())))],
+            ['created_at','<=',date('Y-m-d H:i:s',strtotime(date('Y-m-d',time()))+3600*24)]
+            ])->get();
         $orders = DB::table('order as o')
         ->leftjoin('game as g','o.game_id','=','g.id')
         ->where([
