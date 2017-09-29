@@ -143,12 +143,12 @@ class UserController extends Controller
                     foreach ($data as $k=> $v) {
                         $obj -> $k = $v;
                     }
+                    $obj -> save();
                     $insertId = $obj -> id;
                   
                     $user = User::find($id);
                     $user -> integration = sprintf("%.2f", $user['integration']-$integration);
                     $user -> save();
-                    $obj -> save();
 
                     //积分兑换订单存入memcache
                     $memArr = Array();
