@@ -88,13 +88,21 @@
             </ul>
         </div>
         <section class="mt-3">
-            <div class="ps-lt">
+         <div class="ps-lt">
+                <div class="lt-dsb lt-order">
+                     <a href="/user/messages_list">
+                    <p>我的消息/订单</p>
+                  </a>
+                    <i class="arr-right"></i>
+                </div>
+            </div>
+             {{-- <div class="ps-lt">
                 <div class="lt-dsb lt-order">
                     <p>我的订单</p>
                     <i class="arr-right"></i>
                 </div>
             </div>
-            @foreach(\Illuminate\Support\Facades\Auth::user()->userOrder as $order)
+          @foreach(\Illuminate\Support\Facades\Auth::user()->userOrder as $order)
                 @break($loop->index == 3)
                 <div class="ps-lt ps-xl" style="display: none;">
                     <div class="lt-dsb">
@@ -114,7 +122,7 @@
 
                     </div>
                 </div>
-            </a>
+            </a>--}}
             <div class="ps-lt">
                 <div class="lt-dsb">
                     <a href="/wheel">
@@ -123,14 +131,14 @@
                     <i class="arr-right"></i>
                 </div>
             </div>
-            <div class="ps-lt">
+            {{--<div class="ps-lt">
                 <div class="lt-dsb">
                  <a href="/user/messages_list">
                     <p>我的消息</p>
                   </a>
                     <i class="arr-right"></i>
                 </div>
-            </div>
+            </div>--}}
             <div class="ps-lt">
                 <div class="lt-dsb">
                     <p>问题帮助</p>
@@ -139,7 +147,7 @@
             </div>
             <div class="ps-lt keyGen">
                 <div class="lt-dsb">
-                    <p>我的密钥</p>
+                    <p>交易码</p>
                     <i class="arr-right"></i>
                 </div>
             </div>
