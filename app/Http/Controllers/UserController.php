@@ -153,7 +153,7 @@ class UserController extends Controller
                     $memArr = Array();
                     $memArr['name'] = $user['nickName'];
                     $memArr['type'] = $this::getGameName($data['game_id']);
-                    $memArr['money'] = '积分订单';
+                    $memArr['money'] = '积分';
                     $memArr['value'] = $data['value'];
                     $memArr['account'] = $obj->game_account;
                     $memArr['time'] = date('Y-m-d H:i:s',time());

@@ -162,9 +162,9 @@
                             success:function(data){
                                 if (data['msg']) {
                                     if (data['number'] == null || data['number'] == '') {
-                                        var content = '上分成功,祝您游戏愉快！'
+                                        var content = '上分成功,请稍等大约两分钟后前往个人中心--我的消息查看进度，祝您游戏愉快！'
                                     } else {
-                                        var content = '上分成功,'+data['name']+'游戏房间号为'+data['number']+',祝您游戏愉快！'
+                                        var content = '上分成功,请稍等大约两分钟后前往个人中心--我的消息查看进度,'+data['name']+'游戏房间号为'+data['number']+',祝您游戏愉快！'
                                     }
 
                                     layer.confirm(content, {
