@@ -223,6 +223,15 @@ class pointsController extends Controller
             $messages_unfinish[$num]['type'] =2;
             $num++;
         }
+        for ($i=0; $i < count($messages_unfinish); $i++) { 
+            for ($j=$i+1; $j < count($messages_unfinish); $j++) { 
+                if ($messages_unfinish[$i]['order_time'] < $messages_unfinish[$j]['order_time']) {
+                    $change_val = $messages_unfinish[$i];
+                    $messages_unfinish[$i] = $messages_unfinish[$j];
+                    $messages_unfinish[$j] = $change_val;
+                }
+            }
+        }
         // dd($messages);
         return view('messages.messages_list',['messages'=>$messages,'messages_unfinish'=>$messages_unfinish]);
     }

@@ -135,8 +135,9 @@ class OrderController extends Controller
         }
         $order = DB::table('order')
         ->leftjoin('game','order.game_id','=','game.id')
+        ->leftJoin('users','order.user_id','=','users.id')
         ->where('order.id',$id)
-        ->select('order.created_at','game.name as gname','order.value','order.user_id','order.money')
+        ->select('order.created_at','game.name as gname','order.value','order.user_id','order.money','users.money as user_money')
         ->first();
         $bool = $mem->delete('xiafenkey'.$id,0);
         $xiafenkey = $mem->get('xiafenkey');
@@ -145,6 +146,8 @@ class OrderController extends Controller
         // unset($xiafenkey[]);
         $bool2 = DB::table('order')->where('id',$id)->update(['status'=>0]);
         DB::table('messages')->insert(['content'=>$order->gname.'下分'.$order->value.'万','user_id'=>$order->user_id,'created_at'=>date('Y-m-d H:i:s',time()),'updated_at'=>date('Y-m-d H:i:s',time()),'money'=>$order->money,'order_time'=>$order->created_at,'type'=>1]);
+        $all_money = (int)$order->money+(int)$order->user_money;
+        DB::table('users')->where('id',$order->user_id)->update(['money'=>$all_money]);
         return response()->json(['result'=>true]);
     }
      public function shangfenok(Request $request)
