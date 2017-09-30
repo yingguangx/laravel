@@ -79,7 +79,7 @@ class UserController extends Controller
             $file->move(app_path().'/../storage/fkm',$randFileName);
             $userPayCode = new UserPayCode;
             $userPayCode->user_id = Auth::user()->id;
-            $userPayCode->imgUrl = '/fkm/'.$randFileName;
+            $userPayCode->imgUrl = $randFileName;
             $userPayCode->type = 0;//付款码 未提交
             if($userPayCode->save())
                 return \GuzzleHttp\json_encode(array('success'=>true,'img_id'=>$userPayCode->id));
@@ -91,7 +91,7 @@ class UserController extends Controller
     public function getWechatCode()
     {
         $path = userPayCode::where('user_id',Auth::id())->where('type',1)->orderBy('created_at','desc')->first()->imgUrl;
-        $path = storage_path().$path;
+        $path = storage_path().'/fkm/'.$path;
         return response()->file($path);
     }
 
@@ -153,7 +153,7 @@ class UserController extends Controller
                     $memArr['money'] = '积分订单';
                     $memArr['value'] = $data['value'];
                     $memArr['account'] = $obj->game_account;
-                    $memArr['time'] = $obj->created_at;
+                    $memArr['time'] =date('Y-m-d H:i:s');
                     $memArr['id'] = $insertId;
                     $memArr = serialize($memArr);
                     get_memcache('shangfenkey', $insertId, $memArr);
@@ -183,7 +183,7 @@ class UserController extends Controller
     public function getZfbCode()
     {
         $path = userPayCode::where('user_id',Auth::id())->where('type',2)->orderBy('created_at','desc')->first()->imgUrl;
-        $path = storage_path().$path;
+        $path = storage_path().'/fkm/'.$path;
         return response()->file($path);
     }
 

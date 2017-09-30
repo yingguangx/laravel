@@ -36,7 +36,7 @@ class UserController extends Controller
     {
         $user_id = $request->input('user_id');
         $path = userPayCode::where('user_id',$user_id)->where('type',1)->orderBy('created_at','desc')->first()->imgUrl;
-        $path = storage_path().$path;
+        $path = storage_path().'/fkm/'.$path;
         return response()->file($path);
 
     }
@@ -44,7 +44,7 @@ class UserController extends Controller
     {
         $user_id = $request->input('user_id');
         $path = userPayCode::where('user_id',$user_id)->where('type',2)->orderBy('created_at','desc')->first()->imgUrl;
-        $path = storage_path().$path;
+        $path = storage_path().'/fkm/'.$path;
         return response()->file($path);
 
     }

@@ -95,7 +95,8 @@ class ExChangeController extends Controller
         if (!$mem->connect('127.0.0.1',11211)){
             die('连接失败');
         }
-        serialize([11,22]);
+        $mem->set("aa",'hehe',MEMCACHE_COMPRESSED,0);
+        dd($mem->get('aa'));
      
     }
 }
