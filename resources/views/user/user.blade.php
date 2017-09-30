@@ -64,7 +64,7 @@
                 <img src="images/head-img.png">
             </div>
             <div class="head-dsb">
-                <p class="dsb-name">{{ $user->nickName }}</p>
+                <p class="dsb-name">{{ $user->name }}</p>
             </div>
         </div>
 
