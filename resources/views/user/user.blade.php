@@ -512,6 +512,7 @@
               } else {
                 gather_account = $('input[name="yhk_number"]').val();
                 gather_name = $('input[name="yhk_name"]').val();
+                gather_sort = $('select[name="yhksort"]').val();
               }
             }
             // layer.msg('的确很重要', {icon: 1});
