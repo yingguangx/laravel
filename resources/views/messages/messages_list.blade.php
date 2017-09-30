@@ -29,8 +29,8 @@
 	    <!--头部-->
 	    <!--主题-->
 	    <div class="no">
-	    	<p>暂无数据，快去逛逛吧！</p>
-	    </div>
+            <span style="margin-left: 15px;">暂无数据哦,去逛逛吧！</span>
+        </div>
 	    <div class="con">	
 	    <div class="content">
 	    	<div class="list">
@@ -92,9 +92,7 @@
 		    	</li>
 		    	<?php }}}else{ ?>
 		    	 <li class="clearfix">
-		    			<label>
-			    			没有订单哦，去逛逛吧！
-			    		</label>
+                     <span style="margin-left: 15px;">暂无订单哦,去逛逛吧！</span>
 		    	</li>
 		    	<?php } ?>
 
@@ -160,10 +158,8 @@
 		    	</li>
 		    	<?php }}}else{ ?>
 		    	 <li class="clearfix">
-		    			<label>
-			    			没有订单哦！
-			    		</label>
-		    	</li>
+                     <span style="margin-left: 15px;">暂无订单哦！</span>
+                 </li>
 		    	<?php } ?>
 		   
 		    </ul>
