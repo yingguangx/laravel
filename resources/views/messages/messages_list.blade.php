@@ -3,16 +3,29 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-		<title>消息/订单页</title>
+        <link rel="shortcut icon" href="{{URL::asset('image/fish.jpg')}}">
+        <title>消息/订单页</title>
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/messages/reset.css') }}"/>
 		<link rel="stylesheet" type="text/css" href="{{ asset('css/messages/index.css') }}"/>
-	</head>
+    </head>
 	<body>
 	<div style="display: none;" class="public_path"><?php echo public_path() ?></div>
 		<!--头部-->
-	    <header>
-	    	交易有问题？<span class="fr"><a href="#" style="color:blue;">联系客服</a>&nbsp&nbsp<a style="color:blue;" onclick="reflesh() ">刷新试试</a>&nbsp&nbsp<a style="color:blue;"  href="/user">个人中心</a></span>
-	    </header>
+        <div style="width: 100%;margin-top: 15px;border-bottom: 1px solid gray;padding-bottom: 13px">
+            <div style="float:left;width: 30%;margin-left: 17px">
+                <span style="height: 10px;"><</span>
+                <a href="javascript:window.history.go(-1)">
+                    返回
+                </a>
+            </div>
+            <div style="float:right;width: 57%;text-align: left;">
+                <p>订单列表</p>
+            </div>
+            <div style="clear: both;"></div>
+            <div style="width:60%;float: right;text-align: right;margin-top: 30px;margin-right:5px;">
+                <a href="#" style="color:blue;">联系客服</a>&nbsp&nbsp<a style="color:blue;" onclick="reflesh() ">刷新试试</a>
+            </div>
+        </div>
 	    <!--头部-->
 	    <!--主题-->
 	    <div class="no">

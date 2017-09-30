@@ -5,6 +5,7 @@
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <link rel="shortcut icon" href="{{URL::asset('image/fish.jpg')}}">
     <title>后台登录</title>
     <link href="{{ URL::asset('css/staffLogin.css') }}" type="text/css" rel="stylesheet">
 </head>

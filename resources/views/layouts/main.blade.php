@@ -11,7 +11,8 @@
     <meta name="keywords" content="bootstrap,css,html">
     <meta name="description" content="fish">
     <meta name="csrf-token" content="{{csrf_token()}}">
-    <title>fish</title>
+    <link rel="shortcut icon" href="{{URL::asset('image/fish.jpg')}}">
+    <title>微信捕鱼平台</title>
     {{--<link rel="stylesheet" href="{{url(elixir("css/theme.src.css"))}}" type="text/css"/>--}}
 {{--    <link rel="stylesheet" href="{{url(elixir("css/app.src.css"))}}" type="text/css"/>--}}
     {{--<link rel="stylesheet" href="{{asset('fonts/icofont/iconfont.css')}}">--}}
