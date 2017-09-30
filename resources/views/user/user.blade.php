@@ -637,9 +637,9 @@
                                     if (data['status'] == 1) {
                                         _this.children('span').html((Number(value)-Number(t_value)).toFixed(2));
                                         if (data['number'] == null || data['number'] == '') {
-                                            var content = '兑换成功,祝您游戏愉快！'
+                                            var content = '兑换成功,请稍等大约两分钟后前往个人中心--我的消息查看进度,祝您游戏愉快！'
                                         } else {
-                                            var content = '兑换成功,'+data['name']+'游戏房间号为'+data['number']+',祝您游戏愉快！'
+                                            var content = '兑换成功,请稍等大约两分钟后前往个人中心--我的消息查看进度,'+data['name']+'游戏房间号为'+data['number']+',祝您游戏愉快！'
                                         }
                                         layer.alert(content, {icon: 6});
                                     }else if (data['status'] == 2) {

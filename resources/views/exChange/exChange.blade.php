@@ -239,7 +239,13 @@
 
 
 </script>
+<script type="text/javascript" src="{{asset('/js/layui/layui.js')}}"></script>
 <script>
+    //初始化layui
+    layui.use('layer',function(){
+        window.layer = layui.layer;
+    })
+
 window.onload = function(){ 
      obj1 = [];
 　  $.ajax({
@@ -315,7 +321,12 @@ window.onload = function(){
                 },
                 success: function (data) {
                         if(data.result1){
-                           window.location.reload();
+                            layer.confirm('上分成功,请稍等大约两分钟后前往个人中心--我的消息查看进度，祝您游戏愉快！', {
+                                btn: ['确定'],
+                                icon: 6
+                            }, function(){
+                                window.location.reload();
+                            });
                         }
                     }
             });
