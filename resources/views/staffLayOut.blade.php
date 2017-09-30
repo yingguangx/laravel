@@ -3,6 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="csrf-token" content="{{csrf_token()}}">
+    <link rel="shortcut icon" href="{{URL::asset('image/fish.jpg')}}">
     <title>集结号有限公司管理后台</title>
 
     <link rel="stylesheet" href="{{ URL::asset('css/index.css') }}" type="text/css" media="screen" />

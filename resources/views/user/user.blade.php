@@ -78,7 +78,7 @@
                 <li class="pt-line">
                     <i class="clt"></i>
                     <p>积分</p>
-                    <span>{{ Auth::user()->integration}}</span>
+                    <span>{{ floor(Auth::user()->integration)}}</span>
                 </li>
                 <li class="coupons">
                     <i class="rcm"></i>
