@@ -193,12 +193,12 @@
                       offset:'40%',
                       area:'70%',
                       title:'余额',
-                      content: '余额可以提现可以上分下分'
+                      content: '点击余额可进行提现'
                       ,btn: ['确定']
                       ,yes: function(index){
                           layer.open({
                               title:'积分',
-                              content: '积分可以提现可以上分下分'
+                              content: '点击积分可进行兑换'
                               ,btn: ['确定']
                               ,yes: function(index){
                                   layer.open({
